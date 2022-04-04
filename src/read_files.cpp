@@ -4,6 +4,7 @@ vector<Truck> read_trucks(const string &path) {
 
     vector<Truck> rows;
     fstream file(path, ios::in);
+
     Truck fileObj;
     string aux;
 
@@ -11,8 +12,10 @@ vector<Truck> read_trucks(const string &path) {
     while (getline(file, aux)) {
         stringstream ss(aux);
         ss >> fileObj;
+
         rows.push_back(fileObj);
     }
+    file.close();
 
     return rows;
 }
@@ -30,7 +33,7 @@ vector<Order> read_orders(const string &path) {
         ss >> fileObj;
         rows.push_back(fileObj);
     }
-
+    file.close();
     return rows;
 }
 
