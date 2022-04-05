@@ -10,12 +10,12 @@ using namespace std;
 
 
 struct Truck {
-    int volMax, pesoMax, cost;
+    int id, volMax, pesoMax, cost;
 };
 
 
 struct Order {
-    int volume, weight, reward, duration;
+    int id, volume, weight, reward, duration;
 };
 
 

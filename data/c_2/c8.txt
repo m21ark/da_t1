@@ -1,3 +1,0 @@
-volMax pesoMax custo
-258 289 14932
-310 387 14105

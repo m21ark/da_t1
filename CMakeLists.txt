@@ -15,7 +15,7 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
 
             src/read_files.cpp include/read_files.h
 
-            )
+            src/cen3.cpp include/cen3.h)
 
     target_link_libraries(da_t1 gtest gtest_main)
     message("Debug mode")
@@ -29,7 +29,7 @@ if (CMAKE_BUILD_TYPE MATCHES Release)
 
             src/read_files.cpp include/read_files.h
 
-            )
+            src/cen3.cpp include/cen3.h)
 
     message("Release mode")
 

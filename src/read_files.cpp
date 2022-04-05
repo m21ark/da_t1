@@ -5,6 +5,11 @@ vector<Truck> read_trucks(const string &path) {
     vector<Truck> rows;
     fstream file(path, ios::in);
 
+    if (!file) {
+        cerr << "file " << path << " not found!\n";
+        return {};
+    }
+
     Truck fileObj;
     string aux;
 
@@ -24,6 +29,10 @@ vector<Order> read_orders(const string &path) {
 
     vector<Order> rows;
     fstream file(path, ios::in);
+    if (!file) {
+        cerr << "file " << path << " not found!\n";
+        return {};
+    }
     Order fileObj;
     string aux;
 
@@ -38,22 +47,22 @@ vector<Order> read_orders(const string &path) {
 }
 
 ostream &operator<<(ostream &os, const Truck &l) {
-    os << l.volMax << " " << l.pesoMax << " " << l.cost;
+    os << l.id << " " << l.volMax << " " << l.pesoMax << " " << l.cost;
     return os;
 }
 
 ostream &operator<<(ostream &os, const Order &l) {
-    os << l.volume << " " << l.weight << " " << l.reward << " " << l.duration << " ";
+    os << l.id << " " << l.volume << " " << l.weight << " " << l.reward << " " << l.duration << " ";
     return os;
 }
 
 
 istream &operator>>(istream &is, Truck &l) {
-    is >> l.volMax >> l.pesoMax >> l.cost;
+    is >> l.id >> l.volMax >> l.pesoMax >> l.cost;
     return is;
 }
 
 istream &operator>>(istream &is, Order &l) {
-    is >> l.volume >> l.weight >> l.reward >> l.duration;
+    is >> l.id >> l.volume >> l.weight >> l.reward >> l.duration;
     return is;
 }
