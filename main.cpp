@@ -1,5 +1,6 @@
 #include <iostream>
 #include "include/read_files.h"
+#include "include/knapsack.h"
 
 void print_knapsack(const vector<vector<vector<size_t>> >& T,const size_t n,const size_t W, const size_t Vo, const vector<Order>& store) {
     size_t w = W;
@@ -60,29 +61,14 @@ size_t knapsack_2d(vector<Order>& store, const size_t WeightCapacity, const size
 
 
 int main() {
-   // maybe it's missing the duration variable --8 is best sol.
-    vector<Order> v;
+    // maybe it's missing the duration variable --8 is best sol.
+    vector<Order> v = read_orders("../data/e_10/e2.txt");
 
-    v.push_back({2,1,2,5});
-    v.push_back({1,2,3,4});
-    v.push_back({3,1,3,5});
-    v.push_back({2,3,4,4});
-    v.push_back({2,2,4,5});
-    v.push_back({3,3,5,4});
+    Knapsack knapsack(v);
 
-    cout << knapsack_2d(v,6,4) << endl; // see http://user.engineering.uiowa.edu/~dbricker/Stacks_pdf1/MultiDim_Knapsack.pdf
-    // slide 5
-    v.clear();
-    v.push_back({2,1,2,5});
-    v.push_back({1,2,3,4});
-    v.push_back({3,1,3,5});
-    v.push_back({2,3,4,4});
-    v.push_back({2,2,4,5});
-    v.push_back({3,3,5,4});
-    v.push_back({4,6,900,4});
+    knapsack.knapsack_2d(395,391); //c1/ c_1 391 395 13796
 
-    cout << knapsack_2d(v,700,600); // see http://user.engineering.uiowa.edu/~dbricker/Stacks_pdf1/MultiDim_Knapsack.pdf
-
+    knapsack.print_knapsack(395,391);
 
     return 0;
 }
