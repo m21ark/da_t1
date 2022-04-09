@@ -1,12 +1,9 @@
-#include <iostream>
-#include "include/cen3.h"
-
+#include "include/menu.h"
 
 using namespace std;
 
 int main() {
-    cen3();
-
-    getchar();getchar();
+    Menu menu;
+    menu.start();
     return 0;
 }
