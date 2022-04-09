@@ -10,7 +10,6 @@ size_t Knapsack::knapsack_2d(const size_t WeightCapacity, const size_t VolumeCap
     const size_t Vo = VolumeCapacity;
 
     T = vector<vector<vector<size_t>>>(n + 1, vector<vector<size_t>>(W +1, vector<size_t>(Vo +1)));
-
     // O(n*W*Vo)
     for (size_t i = 0; i <= n; ++i)
     {
@@ -57,4 +56,32 @@ void Knapsack::print_knapsack(const size_t W, const size_t Vo) {
             v = v - store[i - 1].volume;
         }
     }
+}
+
+size_t Knapsack::get_best_value(size_t WeightCapacity, size_t VolumeCapacity) {
+    return T[store.size()][WeightCapacity][VolumeCapacity];
+}
+
+vector<Order *> Knapsack::get_used_items(size_t W, size_t Vo) {
+    vector<Order *> used_item;
+    size_t w = W;
+    size_t v = Vo;
+    size_t n = store.size();
+
+    size_t res= T[n][W][Vo];
+
+    for (size_t i = n; i > 0 && res > 0; i--) {
+
+        if (res == T[i - 1][w][v])
+            continue;
+        else {
+            used_item.push_back(&store[i-1]);
+
+            res = res - store[i - 1].reward;
+            w = w - store[i - 1].weight;
+            v = v - store[i - 1].volume;
+        }
+    }
+
+    return used_item;
 }

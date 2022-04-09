@@ -59,16 +59,59 @@ size_t knapsack_2d(vector<Order>& store, const size_t WeightCapacity, const size
     return value;
 }
 
+#include "include/cen3.h"
+
+#include <chrono>
+using namespace std::chrono;
+
+using namespace std;
 
 int main() {
-    // maybe it's missing the duration variable --8 is best sol.
-    vector<Order> v = read_orders("../data/e_10/e2.txt");
+    // cen3();
+
+    vector<Order> v = read_orders("../data/encomendas.txt");
 
     Knapsack knapsack(v);
 
-    knapsack.knapsack_2d(395,391); //c1/ c_1 391 395 13796
+    vector<Truck> t = read_trucks("../data/carrinhas.txt");
+    auto start = high_resolution_clock::now();
+    vector<int> profit;
+    vector<Order *> used_items;
+    int i = v.size();
+    size_t p = 0;
+    do {
+        knapsack.knapsack_2d(400,400); // TODO:CHANGE
 
-    knapsack.print_knapsack(395,391);
+        int max_prof = INT_MIN;
 
+        for (auto &truck: t) {
+            int prof = ((int)knapsack.get_best_value(truck.pesoMax, truck.volMax) - truck.cost);
+            if (prof > max_prof) {
+                max_prof = prof;
+                used_items = knapsack.get_used_items(truck.pesoMax, truck.volMax);
+            }
+        }
+        p++;
+        profit.push_back(max_prof);
+
+
+        for (auto e : used_items) {
+            auto it = std::find(v.begin(), v.end(), *e);
+            if ( it != v.end())
+                v.erase(it);
+        }
+
+        i-=used_items.size();
+        cout << i << " " << p << " " <<  used_items.size() << " " << v.size() << " " << max_prof << endl;
+    } while (i > 0 && p != t.size());
+
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<seconds>(stop - start);
+    cout << duration.count() << endl;
+    int comul_prof = 0;
+    for (auto & pr: profit) {
+        comul_prof += pr;
+    }
+    cout << "PROF = " << comul_prof <<endl;
     return 0;
 }

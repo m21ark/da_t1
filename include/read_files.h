@@ -10,13 +10,21 @@ using namespace std;
 
 
 struct Truck {
-    int volMax, pesoMax, cost;
+    int id, volMax, pesoMax, cost;
 };
 
 
 struct Order {
-    int volume, weight, reward, duration;
+    int id, volume, weight, reward, duration;
 };
+
+inline bool operator==(const Order& l,const Order& r) {
+    return l.id == r.id;
+}
+
+inline bool operator<(const Order& l,const Order& r) {
+    return l.id < r.id;
+}
 
 
 vector<Truck> read_trucks(const string &path);

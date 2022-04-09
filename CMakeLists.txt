@@ -8,12 +8,12 @@ set(CREATE_EXE TRUE)
 
 
 
-
     add_executable(da_t1 main.cpp
 
             src/read_files.cpp include/read_files.h
+            src/knapsack.cpp include/knapsack.h
+            src/cen3.cpp include/cen3.h)
 
-            src/knapsack.cpp include/knapsack.h)
 
     message("Release mode")
 
