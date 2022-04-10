@@ -1,16 +1,22 @@
 #include "../include/read_files.h"
 
+
+bool file_exists(const string &path) {
+    fstream file(path, ios::in);
+    return !(!file);
+}
+
 vector<Truck> read_trucks(const string &path) {
 
     vector<Truck> rows;
     fstream file(path, ios::in);
 
     if (!file) {
-        cerr << "file " << path << " not found!\n";
+        cerr << "File error! File at: " << path << " was not found!\n";
         return {};
     }
 
-    Truck fileObj;
+    Truck fileObj = {};
     string aux;
 
     getline(file, aux);
@@ -33,7 +39,7 @@ vector<Order> read_orders(const string &path) {
         cerr << "file " << path << " not found!\n";
         return {};
     }
-    Order fileObj;
+    Order fileObj = {};
     string aux;
 
     getline(file, aux);

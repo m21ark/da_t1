@@ -27,6 +27,8 @@ inline bool operator<(const Order& l,const Order& r) {
 }
 
 
+bool file_exists(const string &path);
+
 vector<Truck> read_trucks(const string &path);
 
 vector<Order> read_orders(const string &path);

@@ -2,10 +2,10 @@
 // Created by ricar on 10/04/2022.
 //
 
-#include "../include/OptmizeProfit.h"
+#include "../include/OptimizeProfit.h"
 #include "../include/knapsack.h"
 
-void OptmizeProfit::greedyTrucksAndLinearKnapsack(const std::string &del, const std::string &trucks) {
+void OptimizeProfit::greedyTrucksAndLinearKnapsack(const std::string &del, const std::string &trucks) {
     vector<Order> v = read_orders(del);
 
     vector<Truck> t = read_trucks(trucks);
@@ -60,7 +60,7 @@ void OptmizeProfit::greedyTrucksAndLinearKnapsack(const std::string &del, const 
     cout << "PROF = " << comul_prof <<endl;
 }
 
-void OptmizeProfit::greedyTrucksAndFractionalKnapsack(const std::string &del, const std::string &trucks) {
+void OptimizeProfit::greedyTrucksAndFractionalKnapsack(const std::string &del, const std::string &trucks) {
     vector<Order> v = read_orders(del);
 
     vector<Truck> t = read_trucks(trucks);
