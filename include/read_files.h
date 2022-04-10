@@ -18,6 +18,14 @@ struct Order {
     int id, volume, weight, reward, duration;
 };
 
+inline bool operator==(const Order& l,const Order& r) {
+    return l.id == r.id;
+}
+
+inline bool operator<(const Order& l,const Order& r) {
+    return l.id < r.id;
+}
+
 
 bool file_exists(const string &path);
 
