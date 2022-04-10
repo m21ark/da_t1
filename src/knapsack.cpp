@@ -4,12 +4,9 @@
 
 #include "../include/knapsack.h"
 
-size_t Knapsack::knapsack_2d(const size_t WeightCapacity, const size_t VolumeCapacity) {
+size_t Knapsack::knapsack_2d() {
     const size_t n = store.size();
-    const size_t W = WeightCapacity ;
-    const size_t Vo = VolumeCapacity;
 
-    T = vector<vector<vector<size_t>>>(n + 1, vector<vector<size_t>>(W +1, vector<size_t>(Vo +1)));
     // O(n*W*Vo)
     for (size_t i = 0; i <= n; ++i)
     {
@@ -37,25 +34,42 @@ size_t Knapsack::knapsack_2d(const size_t WeightCapacity, const size_t VolumeCap
     return value;
 }
 
-void Knapsack::print_knapsack(const size_t W, const size_t Vo) {
+void Knapsack::print_knapsack() {
+
     size_t w = W;
     size_t v = Vo;
     size_t n = store.size();
 
-    size_t res= T[n][W][Vo];
+    int res= T[n][W][Vo];
 
     for (size_t i = n; i > 0 && res > 0; i--) {
 
         if (res == T[i - 1][w][v])
             continue;
         else {
-            cout <<store[i - 1].volume   << " " <<store[i - 1].weight << " " << store[i - 1].reward << endl;
-
+            //cout <<store[i - 1].volume   << " " <<store[i - 1].weight << " " << store[i - 1].reward << endl;
+            cout << store[i-1].id << endl;
             res = res - store[i - 1].reward;
             w = w - store[i - 1].weight;
             v = v - store[i - 1].volume;
         }
     }
+
+    /*cout    << "......................." << endl;
+    for (size_t i = 0; i <= n; ++i)
+    {
+        for (size_t j = 0; j <= W; ++j)
+        {
+            for (size_t k = 0; k <= Vo; ++k) {
+
+                cout << T[i][j][k] << " ";
+            }
+            cout   << endl;
+        }
+        cout << endl;
+    }
+    cout    << "......................." << endl;*/
+
 }
 
 size_t Knapsack::get_best_value(size_t WeightCapacity, size_t VolumeCapacity) {
@@ -85,3 +99,58 @@ vector<Order *> Knapsack::get_used_items(size_t W, size_t Vo) {
 
     return used_item;
 }
+
+double Knapsack::fractionalKnapsack(vector<Order *>& usedItems, size_t W, size_t Vo) {
+
+    sort(store.begin(), store.end(), [](const Order& l, const Order& r)
+    {return (double)l.reward/ (double)(l.weight+l.volume) > (double)r.reward/(double)(r.weight+r.volume);});
+
+    int cur_weight = 0;
+    int cur_volume = 0;
+
+    double final_val = 0.0;
+    n = store.size();
+    for(int i=0;i<n;i++)
+    {
+        if(cur_weight + store[i].weight <= W && cur_volume + store[i].volume <= Vo)
+        {
+            cur_weight += store[i].weight;
+            cur_volume += store[i].volume;
+            final_val += store[i].reward;
+            usedItems.push_back(&store[i]);
+        }
+        else
+        {
+            //int remainW = W - cur_weight;
+            //int remainV = Vo - cur_volume;
+
+            //final_val += store[i].reward * ((double)(remainV * remainW) / (store[i].weight + store[i].volume));
+            break;
+        }
+    }
+    return final_val;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

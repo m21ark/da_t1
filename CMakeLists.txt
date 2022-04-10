@@ -12,7 +12,7 @@ set(CREATE_EXE TRUE)
 
             src/read_files.cpp include/read_files.h
             src/knapsack.cpp include/knapsack.h
-            src/cen3.cpp include/cen3.h)
+            src/cen3.cpp include/cen3.h src/OptmizeProfit.cpp include/OptmizeProfit.h)
 
 
     message("Release mode")
