@@ -22,7 +22,7 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(const std::string &del, const
     do {
         knapsack.knapsack_2d();
 
-        int max_prof = INT_MIN;
+        int max_prof = INT32_MIN;
 
         // O(n * k) ... just an access to a vector that counts k iterations at maximum being k ~ size of orders
         for (auto &truck: t) {
@@ -72,7 +72,7 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(const std::string &del, c
     Knapsack knapsack1(v);
 
     do {
-        int max_prof = INT_MIN;
+        int max_prof = INT32_MIN;
         for (auto &truck: t) {
             vector<Order *> uI;
             int prof = ((int)knapsack1.fractionalKnapsack(uI, truck.pesoMax, truck.volMax) - truck.cost);

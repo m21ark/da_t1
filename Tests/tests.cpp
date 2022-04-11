@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "../include/read_files.h"
+#include "../include/OptimizeNumberOfDeliveries.h"
 
 using testing::Eq;
 
@@ -26,6 +27,12 @@ TEST(test_file, test_file_read) {
     //ASSERT_EQ(1,1);
 }
 
+TEST(test_OptimizeNumberDeliveries, knapsack) {
+    OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack("../data/e_5/e_1.txt", "../data/c_1/c_extra.txt");
 
+
+
+
+}
 
 

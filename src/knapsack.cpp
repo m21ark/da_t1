@@ -34,6 +34,27 @@ size_t Knapsack::knapsack_2d() {
     return value;
 }
 
+void Knapsack::knapsack_2d_number_deliveries() {
+    for (int i = 0; i <= store.size(); ++i) {
+        for (size_t j = 0; j <= W; ++j) {
+            for (size_t k = 0; k <= Vo; ++k) {
+
+                if (i == 0 || j == 0 || k == 0) {
+                    T[i][j][k] = 0;
+
+                } else if (j >= store[i-1].weight && k >= store[i-1].volume) {
+                    T[i][j][k] = max(T[i -1][j][k],
+                                     T[i - 1][j - store[i-1].weight][k - store[i-1].volume] + 1);
+
+                } else {
+                    T[i][j][k] = T[i - 1][j][k];
+                }
+            }
+        }
+    }
+
+}
+
 void Knapsack::print_knapsack() {
 
     size_t w = W;
