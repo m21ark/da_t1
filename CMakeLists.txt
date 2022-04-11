@@ -26,11 +26,11 @@ if (CMAKE_BUILD_TYPE MATCHES Release)
             src/read_files.cpp include/read_files.h
             src/knapsack.cpp include/knapsack.h
             src/cen3.cpp include/cen3.h src/OptimizeProfit.cpp include/OptimizeProfit.h
-
+            src/OptimizeProfit.cpp
           src/cen3.cpp include/cen3.h include/menu.h src/menu.cpp
             include/timer.h src/timer.cpp)
 
 
     message("Release mode")
-
+endif()
 

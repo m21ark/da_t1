@@ -19,9 +19,10 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(const std::string &del, const
 
     Knapsack knapsack(v,400,400);
 
+
     do {
         knapsack.knapsack_2d();
-
+        Truck * truck1 = nullptr;
         int max_prof = INT_MIN;
 
         // O(n * k) ... just an access to a vector that counts k iterations at maximum being k ~ size of orders
@@ -30,6 +31,7 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(const std::string &del, const
             if (prof > max_prof) {
                 max_prof = prof;
                 used_items = knapsack.get_used_items(truck.pesoMax, truck.volMax);
+                truck1 = &truck;
             }
         }
         p++;
@@ -41,6 +43,8 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(const std::string &del, const
          *  ATTENTION :::: PRINT MUST BE CALLED BEFORE ERASING
          *
          */
+        if (truck1 != nullptr)
+            t.erase(remove(t.begin(), t.end(), *truck1));
 
         for (auto e : used_items) {
             auto it = std::find(v.begin(), v.end(), *e);
@@ -49,7 +53,7 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(const std::string &del, const
         }
 
         i-=used_items.size();
-        cout << i << " " << p << " " <<  used_items.size() << " " << v.size() << " " << max_prof << endl;
+        cout << i << " " << p << " " <<  used_items.size() << " " << v.size() << " " << max_prof << " " << t.size()  << endl;
     } while (i > 0 && p != t.size());
 
 
@@ -73,16 +77,22 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(const std::string &del, c
 
     do {
         int max_prof = INT_MIN;
+        Truck * truck1 = nullptr;
+
         for (auto &truck: t) {
             vector<Order *> uI;
             int prof = ((int)knapsack1.fractionalKnapsack(uI, truck.pesoMax, truck.volMax) - truck.cost);
             if (prof > max_prof) {
                 max_prof = prof;
                 used_items = uI;
+                truck1 = &truck;
             }
         }
         p++;
         profit.push_back(max_prof);
+
+        if (truck1 != nullptr)
+          t.erase(remove(t.begin(), t.end(), *truck1));
 
         for (auto e : used_items) {
             auto it = std::find(v.begin(), v.end(), *e);
@@ -91,7 +101,7 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(const std::string &del, c
         }
 
         i-=used_items.size();
-        cout << i << " " << p << " " <<  used_items.size() << " " << v.size() << " " << max_prof << endl;
+        cout << i << " " << p << " " <<  used_items.size() << " " << v.size() << " " << max_prof << " " << t.size() <<endl ;
     } while (i > 0 && p != t.size());
 
     int comul_prof = 0;
