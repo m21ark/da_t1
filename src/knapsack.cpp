@@ -35,9 +35,9 @@ size_t Knapsack::knapsack_2d() {
 }
 
 void Knapsack::knapsack_2d_number_deliveries() {
-    for (int i = 0; i <= store.size(); ++i) {
-        for (size_t j = 0; j <= W; ++j) {
-            for (size_t k = 0; k <= Vo; ++k) {
+    for (size_t i = 0; i <= store.size(); i++) {
+        for (size_t j = 0; j <= W; j++) {
+            for (size_t k = 0; k <= Vo; k++) {
 
                 if (i == 0 || j == 0 || k == 0) {
                     T[i][j][k] = 0;
@@ -152,6 +152,32 @@ double Knapsack::fractionalKnapsack(vector<Order *>& usedItems, size_t W, size_t
     return final_val;
 }
 
+
+
+
+vector<Order *> Knapsack::get_used_items_number_deliveries(size_t W, size_t Vo) {
+    vector<Order *> used_item;
+    size_t w = W;
+    size_t v = Vo;
+    size_t n = store.size();
+
+    size_t numDel = T[n][W][Vo];
+
+    for (size_t i = n; i > 0 && numDel > 0; i--) {
+
+        if (numDel == T[i - 1][w][v])
+            continue;
+        else {
+            used_item.push_back(&store[i-1]);
+
+            numDel--;
+            w = w - store[i - 1].weight;
+            v = v - store[i - 1].volume;
+        }
+    }
+
+    return used_item;
+}
 
 
 

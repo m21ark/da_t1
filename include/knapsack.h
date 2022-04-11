@@ -37,6 +37,7 @@ public:
 
 
     void knapsack_2d_number_deliveries();
+    vector<Order*> get_used_items_number_deliveries(size_t W, size_t Vo);
     size_t getStoreSize() {return store.size();}
 };
 

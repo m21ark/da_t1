@@ -17,6 +17,10 @@ int OptimizeNumberOfDeliveries::getMaxWeightTrucks(vector<Truck> &trucks) {
     return maxWeight;
 }
 
+bool OptimizeNumberOfDeliveries::compareOrderByWeight(const Order& l, const Order& r) {
+    return l.weight < r.weight;
+}
+
 void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(const std::string & del, const std::string& trucks) {
     vector<Order> ordersV = read_orders(del);
     vector<Truck> trucksV = read_trucks(trucks);
@@ -34,13 +38,13 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(const std::string & del
         int maxDeliveries = 0;
         Truck truckChosen;
         knapsack.knapsack_2d_number_deliveries();
-
+        //knapsack.print_knapsack();
         for (Truck &t : trucksV) {
             int numDeliveries = knapsack.get_best_value(t.pesoMax, t.volMax);
             if (numDeliveries > maxDeliveries) {
                 maxDeliveries = numDeliveries;
                 truckChosen = t;
-                usedItems = knapsack.get_used_items(t.pesoMax, t.volMax);
+                usedItems = knapsack.get_used_items_number_deliveries(t.pesoMax, t.volMax);
             }
         }
 
