@@ -12,7 +12,7 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(const std::string &del, const
 
 
     vector<int> profit;
-    vector<Order *> used_items;
+    vector<Order> used_items;
     int i = v.size();
     size_t p = 0;
 
@@ -22,8 +22,10 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(const std::string &del, const
 
     do {
         knapsack.knapsack_2d();
-        Truck * truck1 = nullptr;
-        int max_prof = INT_MIN;
+        Truck truck1{-1,-1,-1,-1};
+
+        int max_prof = INT32_MIN;
+
 
         // O(n * k) ... just an access to a vector that counts k iterations at maximum being k ~ size of orders
         for (auto &truck: t) {
@@ -31,7 +33,9 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(const std::string &del, const
             if (prof > max_prof) {
                 max_prof = prof;
                 used_items = knapsack.get_used_items(truck.pesoMax, truck.volMax);
-                truck1 = &truck;
+
+                truck1 = truck;
+
             }
         }
         p++;
@@ -43,11 +47,12 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(const std::string &del, const
          *  ATTENTION :::: PRINT MUST BE CALLED BEFORE ERASING
          *
          */
-        if (truck1 != nullptr)
-            t.erase(remove(t.begin(), t.end(), *truck1));
+
+        if (truck1.id != -1)
+            t.erase(remove(t.begin(), t.end(), truck1));
 
         for (auto e : used_items) {
-            auto it = std::find(v.begin(), v.end(), *e);
+            auto it = std::find(v.begin(), v.end(), e);
             if ( it != v.end())
                 v.erase(it);
         }
@@ -69,33 +74,38 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(const std::string &del, c
 
     vector<Truck> t = read_trucks(trucks);
     vector<int> profit;
-    vector<Order *> used_items;
+    vector<Order> used_items;
     int i = v.size();
     size_t p = 0;
 
     Knapsack knapsack1(v);
 
     do {
-        int max_prof = INT_MIN;
-        Truck * truck1 = nullptr;
+
+
+        Truck truck1{-1,-1,-1,-1};
+
+        int max_prof = INT32_MIN;
 
         for (auto &truck: t) {
-            vector<Order *> uI;
+            vector<Order> uI;
             int prof = ((int)knapsack1.fractionalKnapsack(uI, truck.pesoMax, truck.volMax) - truck.cost);
             if (prof > max_prof) {
                 max_prof = prof;
                 used_items = uI;
-                truck1 = &truck;
+                truck1 = truck;
+
             }
         }
         p++;
         profit.push_back(max_prof);
 
-        if (truck1 != nullptr)
-          t.erase(remove(t.begin(), t.end(), *truck1));
+        if (truck1.id != -1)
+          t.erase(remove(t.begin(), t.end(), truck1));
+
 
         for (auto e : used_items) {
-            auto it = std::find(v.begin(), v.end(), *e);
+            auto it = std::find(v.begin(), v.end(), e);
             if ( it != v.end())
                 v.erase(it);
         }
