@@ -1,6 +1,7 @@
 #include "../include/menu.h"
 #include "../include/read_files.h"
 #include "../include/cen3.h"
+#include "../include/OptimizeNumberOfDeliveries.h"
 
 string trimStr(string str) {
     str.erase(0, str.find_first_not_of(' '));
@@ -121,7 +122,8 @@ void Menu::scenario1(const pair<string, string> &files) {
     vector<Truck> trucks = read_trucks(files.first);
     vector<Order> orders = read_orders(files.second);
 
-    cout << "\n...\n"; // TODO LINK MAIN SCENE FUNC
+    OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(files.second, files.first);
+
     getchar();
 }
 
@@ -130,7 +132,35 @@ void Menu::scenario2(const pair<string, string> &files) {
     vector<Truck> trucks = read_trucks(files.first);
     vector<Order> orders = read_orders(files.second);
 
-    cout << "\n...\n"; // TODO LINK SCENE FUNC
+    cout << "Trucks are chosen in a greedy way." << endl;
+    cout << "The best Trucks stay with the best deliveries in order to make them more rentable." << endl;
+    cout << endl << "A file for each Truck, responsible to deliver a order, will be created." << endl;
+    cout << "A file with deliveries that can't be deliver today will also be created." << endl;
+
+
+    cout << "Rapid (sub-optimal) or Slow (but optimal) algorithm, to chose the trucks fit?" << endl;
+    cout << "(R -> Rapid, S -> Slow) >> ";
+    char c;
+
+    cin >> c;
+
+    cin.clear();
+    cin.ignore(1000, '\n');
+
+
+    if (c == 'S')
+        OptimizeProfit::greedyTrucksAndLinearKnapsack(files.second, files.first);
+    else if (c == 'R')
+        OptimizeProfit::greedyTrucksAndFractionalKnapsack(files.second, files.first);
+    else {
+        cout << endl << "NUP!!! That is not a valid option" << endl;
+        getchar();
+
+        return;
+    }
+
+
+
     getchar();
 }
 

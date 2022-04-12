@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include "../include/OptimizeProfit.h"
 
 #ifdef _WIN32
 #define CLEAR "cls"
