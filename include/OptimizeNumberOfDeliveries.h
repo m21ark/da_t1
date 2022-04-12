@@ -11,10 +11,11 @@ using namespace std;
 class OptimizeNumberOfDeliveries {
     static int getMaxVolumeTrucks(vector<Truck>& trucks);
     static int getMaxWeightTrucks(vector<Truck>& trucks);
-    static bool compareOrderByWeight(const Order& l, const Order& r);
+    static int recursiveBruteForce(vector<Truck> trucks, vector<Order> orders);
 
 public:
-    static void greedyTrucksAndKnapsack(const std::string & del, const std::string& trucks);
+    static int greedyTrucksAndKnapsack(const std::string & del, const std::string& trucks);
+    static int bruteForce(const std::string & del, const std::string& trucks);
 };
 
 #endif //DA_T1_OPTIMIZENUMBEROFDELIVERIES_H

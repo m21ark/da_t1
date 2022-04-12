@@ -17,15 +17,11 @@ int OptimizeNumberOfDeliveries::getMaxWeightTrucks(vector<Truck> &trucks) {
     return maxWeight;
 }
 
-bool OptimizeNumberOfDeliveries::compareOrderByWeight(const Order& l, const Order& r) {
-    return l.weight < r.weight;
-}
-
-void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(const std::string & del, const std::string& trucks) {
+int OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(const std::string & del, const std::string& trucks) {
     vector<Order> ordersV = read_orders(del);
     vector<Truck> trucksV = read_trucks(trucks);
     vector<Order*> usedItems;
-    int numberOfTrucks = 0;
+    int totalDeliveries = 0, numberOfTrucks = 0;
 
     cout << "Trucks" << endl;
     for (Truck &t : trucksV) cout << "truck " << t.id << "    weight capacity: " << t.pesoMax << "    volume capacity: " << t.volMax << endl;
@@ -37,17 +33,26 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(const std::string & del
     do {
         int maxDeliveries = 0;
         Truck truckChosen;
+        auto itTruckChosen = trucksV.end();
+        bool truckFound = false;
         knapsack.knapsack_2d_number_deliveries();
-        //knapsack.print_knapsack();
-        for (Truck &t : trucksV) {
-            int numDeliveries = knapsack.get_best_value(t.pesoMax, t.volMax);
+
+        for (auto it = trucksV.begin(); it != trucksV.end(); it++) {
+            int numDeliveries = knapsack.get_best_value(it->pesoMax, it->volMax);
             if (numDeliveries > maxDeliveries) {
                 maxDeliveries = numDeliveries;
-                truckChosen = t;
-                usedItems = knapsack.get_used_items_number_deliveries(t.pesoMax, t.volMax);
+                truckChosen = *it;
+                itTruckChosen = it;
+                truckFound = true;
+                usedItems = knapsack.get_used_items_number_deliveries(it->pesoMax, it->volMax);
             }
         }
 
+        if (truckFound) {
+            trucksV.erase(itTruckChosen);
+        }
+
+        totalDeliveries += maxDeliveries;
         cout << "Truck " << truckChosen.id << ": " << maxDeliveries << " deliveries" << endl;
         for (auto order : usedItems) cout << "\tOrder " << order->id << "     weight: " << order->weight << "     volume: " << order->volume << endl;
 
@@ -62,6 +67,29 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(const std::string & del
 
     } while (knapsack.getStoreSize() > 0 && numberOfTrucks < trucksV.size());
 
+    cout << "Total deliveries: " << totalDeliveries << endl;
+    return totalDeliveries;
+}
+
+int OptimizeNumberOfDeliveries::bruteForce(const string &del, const string &trucks) {
+    vector<Order> ordersV = read_orders(del);
+    vector<Truck> trucksV = read_trucks(trucks);
+
+    //passar uma lista em vez de vectors visto fazer muitos inserts e erases
+    return recursiveBruteForce(trucksV, ordersV);
+}
+
+int OptimizeNumberOfDeliveries::recursiveBruteForce(vector<Truck> trucks, vector<Order> orders) {
+    /*
+    if (orders.empty() || trucks.empty()) return 0;
+
+    for (int i = 0; i < trucks.size(); ) {
+
+
+
+    }
+    */
+    return 0;
 }
 
 
