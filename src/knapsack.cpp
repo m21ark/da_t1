@@ -34,6 +34,27 @@ size_t Knapsack::knapsack_2d() {
     return value;
 }
 
+void Knapsack::knapsack_2d_number_deliveries() {
+    for (size_t i = 0; i <= store.size(); i++) {
+        for (size_t j = 0; j <= W; j++) {
+            for (size_t k = 0; k <= Vo; k++) {
+
+                if (i == 0 || j == 0 || k == 0) {
+                    T[i][j][k] = 0;
+
+                } else if (j >= store[i-1].weight && k >= store[i-1].volume) {
+                    T[i][j][k] = max(T[i -1][j][k],
+                                     T[i - 1][j - store[i-1].weight][k - store[i-1].volume] + 1);
+
+                } else {
+                    T[i][j][k] = T[i - 1][j][k];
+                }
+            }
+        }
+    }
+
+}
+
 void Knapsack::print_knapsack() {
 
     size_t w = W;
@@ -76,8 +97,8 @@ size_t Knapsack::get_best_value(size_t WeightCapacity, size_t VolumeCapacity) {
     return T[store.size()][WeightCapacity][VolumeCapacity];
 }
 
-vector<Order *> Knapsack::get_used_items(size_t W, size_t Vo) {
-    vector<Order *> used_item;
+vector<Order> Knapsack::get_used_items(size_t W, size_t Vo) {
+    vector<Order> used_item;
     size_t w = W;
     size_t v = Vo;
     size_t n = store.size();
@@ -89,7 +110,7 @@ vector<Order *> Knapsack::get_used_items(size_t W, size_t Vo) {
         if (res == T[i - 1][w][v])
             continue;
         else {
-            used_item.push_back(&store[i-1]);
+            used_item.push_back(store[i-1]);
 
             res = res - store[i - 1].reward;
             w = w - store[i - 1].weight;
@@ -100,7 +121,7 @@ vector<Order *> Knapsack::get_used_items(size_t W, size_t Vo) {
     return used_item;
 }
 
-double Knapsack::fractionalKnapsack(vector<Order *>& usedItems, size_t W, size_t Vo) {
+double Knapsack::fractionalKnapsack(vector<Order>& usedItems, size_t W, size_t Vo) {
 
     sort(store.begin(), store.end(), [](const Order& l, const Order& r)
     {return (double)l.reward/ (double)(l.weight+l.volume) > (double)r.reward/(double)(r.weight+r.volume);});
@@ -117,7 +138,7 @@ double Knapsack::fractionalKnapsack(vector<Order *>& usedItems, size_t W, size_t
             cur_weight += store[i].weight;
             cur_volume += store[i].volume;
             final_val += store[i].reward;
-            usedItems.push_back(&store[i]);
+            usedItems.push_back(store[i]);
         }
         else
         {
@@ -131,6 +152,32 @@ double Knapsack::fractionalKnapsack(vector<Order *>& usedItems, size_t W, size_t
     return final_val;
 }
 
+
+
+
+vector<Order *> Knapsack::get_used_items_number_deliveries(size_t W, size_t Vo) {
+    vector<Order *> used_item;
+    size_t w = W;
+    size_t v = Vo;
+    size_t n = store.size();
+
+    size_t numDel = T[n][W][Vo];
+
+    for (size_t i = n; i > 0 && numDel > 0; i--) {
+
+        if (numDel == T[i - 1][w][v])
+            continue;
+        else {
+            used_item.push_back(&store[i-1]);
+
+            numDel--;
+            w = w - store[i - 1].weight;
+            v = v - store[i - 1].volume;
+        }
+    }
+
+    return used_item;
+}
 
 
 
