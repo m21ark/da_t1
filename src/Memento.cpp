@@ -12,6 +12,7 @@ void Memento::save(State state) {
         for (auto e : state.orders) {
             fstream1 << e.id << " " << e.reward << " €" << endl;
         }
+        return;
     }
 
     std::filesystem::create_directory(dir_path);
