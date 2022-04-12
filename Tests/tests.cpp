@@ -28,9 +28,11 @@ TEST(test_file, test_file_read) {
 }
 
 TEST(test_OptimizeNumberDeliveries, knapsack) {
-    OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack("../data/e_5/e_1.txt", "../data/c_1/c_extra.txt");
+    //OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack("../data/e_5/e_1.txt", "../data/c_1/c_extra.txt");
+    //OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce("../data/e_5/e_1.txt", "../data/c_1/c_extra.txt");
 
-
+    OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack("../data/e_10/e_1.txt", "../data/c_2/cextra.txt");
+    OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce("../data/e_10/e_1.txt", "../data/c_2/cextra.txt");
 
 
 }
