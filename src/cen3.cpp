@@ -1,6 +1,6 @@
 #include "../include/cen3.h"
 
-int express_scheduling(vector<Order> orders) {
+void express_scheduling(vector<Order> orders) {
 
     auto sorter = [](const Order &a, const Order &b) {
         return a.duration < b.duration;
@@ -29,7 +29,10 @@ int express_scheduling(vector<Order> orders) {
             cout << orders[i] << endl;
         }
     }
+}
 
-    return total_profit;
+
+void express_scheduling_brute(vector<Order> orders) {
+
 }
 
