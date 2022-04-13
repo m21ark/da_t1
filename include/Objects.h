@@ -17,4 +17,12 @@ inline bool operator<(const Order& l,const Order& r) {
     return l.id < r.id;
 }
 
+inline bool operator==(const Truck& l,const Truck& r) {
+    return l.id == r.id;
+}
+
+inline bool operator<(const Truck& l,const Truck& r) {
+    return l.id < r.id;
+}
+
 #endif //DA_T1_OBJECTS_H

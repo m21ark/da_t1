@@ -195,11 +195,11 @@ void OptimizeNumberOfDeliveries::backtracking(const string &del, const string &t
     vector<Order> ordersV = read_orders(del);
     vector<Truck> trucksV = read_trucks(trucks);
     map<Truck, set<Order*>> deliveries;
-    set<Order*> orders;
+    vector<Order*> orders;
     int totalDeliveries = 0, numberOfTrucks = 0;
 
     for (Truck truck : trucksV) deliveries[truck] = {};
-    for (Order &order : ordersV) orders.insert(&order);
+    for (Order &order : ordersV) orders.push_back(&order);
 
     cout << "\nBacktracking Deliveries" << endl;
     numberOfTrucks = backtrackingRec(deliveries, orders, totalDeliveries);
@@ -223,32 +223,56 @@ int OptimizeNumberOfDeliveries::countTrucksUsedBackTracking(map<Truck, set<Order
     return counter;
 }
 
-int OptimizeNumberOfDeliveries::backtrackingRec(map<Truck, set<Order*>>& deliveries, set<Order*>& unselectedOrders, int& numberOfOrders) {
-    if (unselectedOrders.empty()) return countTrucksUsedBackTracking(deliveries);
-
-    Order* order = *unselectedOrders.begin(); unselectedOrders.erase(order);
-    map<Truck, set<Order*>> minDeliveries = deliveries;
-    int tempTrucksUsed, tempNumberOfOrders = numberOfOrders;
-    int minTrucksUsed = backtrackingRec(minDeliveries, unselectedOrders, tempNumberOfOrders);
-    numberOfOrders++;
-
-    for (auto &truckDeliveries : deliveries) {
-        // still need to check if I can insert order Vol and weight use an if
-        truckDeliveries.second.insert(order);
-
-        tempTrucksUsed = backtrackingRec(deliveries, unselectedOrders, tempNumberOfOrders);
-        if (tempNumberOfOrders > numberOfOrders) {
-            numberOfOrders = tempNumberOfOrders;
-            minTrucksUsed = tempTrucksUsed;
-            minDeliveries = deliveries;
-        }
-
-        truckDeliveries.second.erase(order);
-
+bool OptimizeNumberOfDeliveries::truckCanStillCarry(Truck truck, set<Order*>& orders, Order* newOrder) {
+    int ordersTotalWeight = 0, ordersTotalVolume = 0;
+    for (Order* order : orders) {
+        ordersTotalWeight += order->weight;
+        ordersTotalVolume += order->volume;
     }
 
-    //insert order again
-    return 0;
+    if ( (newOrder->weight + ordersTotalWeight > truck.pesoMax)  ||  (newOrder->volume + ordersTotalVolume > truck.volMax) ) {
+        return false;
+    }
+    return true;
+}
+
+int OptimizeNumberOfDeliveries::backtrackingRec(map<Truck, set<Order*>>& deliveries, vector<Order*> unselectedOrders, int& numberOfOrders) {
+    if (unselectedOrders.empty()) return countTrucksUsedBackTracking(deliveries);
+    Order* order = *unselectedOrders.rbegin(); unselectedOrders.pop_back();
+    //cout << "Depth1: " << depth << "      order " << order->id << endl;
+    map<Truck, set<Order*>> minDeliveries = deliveries;
+    map<Truck, set<Order*>> tempDeliveries = deliveries;
+    int tempNumberOfOrders = numberOfOrders, minNumberOfOrders = numberOfOrders;
+    int tempTrucksUsed, minTrucksUsed = backtrackingRec(minDeliveries, unselectedOrders, minNumberOfOrders);
+    tempNumberOfOrders++;
+
+    for (auto &truckDeliveries : deliveries) {
+        //cout << "Depth2: " << depth << "      order " << order->id << "     truck " << truckDeliveries.first.id << endl;
+
+        if (truckCanStillCarry(truckDeliveries.first, truckDeliveries.second, order)) {
+            tempDeliveries[truckDeliveries.first].insert(order);
+            tempTrucksUsed = backtrackingRec(tempDeliveries, unselectedOrders, tempNumberOfOrders);
+            if (tempNumberOfOrders > minNumberOfOrders) {
+                minNumberOfOrders = tempNumberOfOrders;
+                minTrucksUsed = tempTrucksUsed;
+                minDeliveries = tempDeliveries;
+
+            } else if (tempNumberOfOrders == minNumberOfOrders && tempTrucksUsed < minTrucksUsed) {
+                minNumberOfOrders = tempNumberOfOrders;
+                minTrucksUsed = tempTrucksUsed;
+                minDeliveries = tempDeliveries;
+            }
+
+            tempNumberOfOrders = numberOfOrders;
+            tempNumberOfOrders++;
+            tempDeliveries[truckDeliveries.first].erase(order);
+        }
+    }
+
+    unselectedOrders.push_back(order);
+    numberOfOrders = minNumberOfOrders;
+    deliveries = minDeliveries;
+    return minTrucksUsed;
 }
 
 

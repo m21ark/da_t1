@@ -16,7 +16,8 @@ class OptimizeNumberOfDeliveries {
     static int getNumberOfDeliveries(Truck truck, vector<Order*>& combination);
     static void getAllDeliveriesCombinations(unsigned int depth, vector<Order>& orders, vector<vector<Order*>>& combinations);
     static int countTrucksUsedBackTracking(map<Truck, set<Order*>>& deliveries);
-    static int backtrackingRec(map<Truck, set<Order*>>& deliveries, set<Order*>& unselectedOrders, int& numberOfOrders);
+    static bool truckCanStillCarry(Truck truck, set<Order*>& orders,  Order* newOrder);
+    static int backtrackingRec(map<Truck, set<Order*>>& deliveries, vector<Order*> unselectedOrders, int& numberOfOrders);
 
 
 public:
