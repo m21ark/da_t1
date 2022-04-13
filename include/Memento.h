@@ -9,6 +9,7 @@
 #include <filesystem>
 #include "Objects.h"
 #include <string>
+#include <vector>
 #include <ostream>
 #include "iostream"
 
