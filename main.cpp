@@ -20,7 +20,7 @@ int main() {
     OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce("../data/e_10/e_1.txt", "../data/c_2/cextra.txt");
     OptimizeNumberOfDeliveries::backtracking("../data/e_10/e_1.txt", "../data/c_2/cextra.txt");
      */
-    //OptimizeNumberOfDeliveries::backtracking("../data/e_10/e_1.txt", "../data/c_5/c_1.txt");
+    //OptimizeNumberOfDeliveries::backtracking("../data/e_20/e_1.txt", "../data/c_2/c_1.txt");
 
     Menu::start();
 
