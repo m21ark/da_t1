@@ -1,6 +1,5 @@
 #include "../include/OptimizeNumberOfDeliveries.h"
 
-
 // Auxiliary Functions
 int OptimizeNumberOfDeliveries::getMaxVolumeTrucks(vector<Truck> &trucks) {
     int maxVol = INT32_MIN;

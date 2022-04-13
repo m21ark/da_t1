@@ -157,8 +157,6 @@ void Menu::scenario2(const pair<string, string> &files) {
     cout << "The best Trucks stay with the best deliveries in order to make them more rentable." << endl;
     cout << endl << "A file for each Truck, responsible to deliver a order, will be created." << endl;
     cout << "A file with deliveries that can't be deliver today will also be created." << endl;
-
-
     cout << "Rapid (sub-optimal) or Slow (but optimal) algorithm, to chose the trucks fit?" << endl;
     cout << "(R -> Rapid, S -> Slow) >> ";
     char c;
@@ -167,7 +165,6 @@ void Menu::scenario2(const pair<string, string> &files) {
 
     cin.clear();
     cin.ignore(1000, '\n');
-
 
     if (c == 'S')
         OptimizeProfit::greedyTrucksAndLinearKnapsack(files.second, files.first);
