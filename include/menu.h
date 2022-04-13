@@ -3,7 +3,11 @@
 
 #include <iostream>
 #include <fstream>
+#include <chrono>
 #include "../include/OptimizeProfit.h"
+#include "../include/read_files.h"
+#include "../include/cen3.h"
+#include "../include/OptimizeNumberOfDeliveries.h"
 
 #ifdef _WIN32
 #define CLEAR "cls"
@@ -39,9 +43,9 @@ private:
 
     static pair<string, string> askFiles(bool scene3 = false);
 
-    static void scenario1(const pair<string,string> &files);
+    static void scenario1(const pair<string, string> &files);
 
-    static void scenario2(const pair<string,string> &files);
+    static void scenario2(const pair<string, string> &files);
 
     static void scenario3(const string &file);
 };

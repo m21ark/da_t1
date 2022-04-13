@@ -1,30 +1,26 @@
-//
-// Created by ricar on 12/04/2022.
-//
-
 #ifndef DA_T1_MEMENTO_H
 #define DA_T1_MEMENTO_H
 
 #include <fstream>
 #include <filesystem>
-#include "Objects.h"
 #include <string>
 #include <vector>
 #include <ostream>
-#include "iostream"
+#include <iostream>
+#include "Objects.h"
 
 #define NOT_PROVIDED NULL
 
-struct State{
-    const std::vector<Order>& orders;
+struct State {
+    const std::vector<Order> &orders;
     int truck = NOT_PROVIDED;
     int max_prof = NOT_PROVIDED;
 };
 
 class Memento {
-    int year ;
+    int year;
     int month;
-    int day  ;
+    int day;
     std::string dir_path;
 public:
     Memento() {
@@ -36,7 +32,7 @@ public:
         day = now.tm_mday;
 
         dir_path = "../report/" + std::to_string(year)
-                          + std::to_string(month) + std::to_string(day);
+                   + std::to_string(month) + std::to_string(day);
 
         std::error_code errorCode;
         if (!std::filesystem::remove_all(dir_path, errorCode)) {

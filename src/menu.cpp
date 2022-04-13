@@ -1,7 +1,5 @@
 #include "../include/menu.h"
-#include "../include/read_files.h"
-#include "../include/cen3.h"
-#include "../include/OptimizeNumberOfDeliveries.h"
+
 
 string trimStr(string str) {
     str.erase(0, str.find_first_not_of(' '));
@@ -158,7 +156,6 @@ void Menu::scenario2(const pair<string, string> &files) {
 
         return;
     }
-
 
 
     getchar();

@@ -2,7 +2,7 @@
 
 int express_scheduling(vector<Order> orders) {
 
-    auto sorter = [](const Order &a,const Order &b) {
+    auto sorter = [](const Order &a, const Order &b) {
         return a.duration < b.duration;
     };
 
