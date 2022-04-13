@@ -4,6 +4,7 @@ using namespace std::chrono;
 using namespace std;
 
 int main() {
+
     // cen3();
     //OptimizeProfit::greedyTrucksAndLinearKnapsack("../data/encomendas.txt", "../data/carrinhas.txt");
     //OptimizeProfit::greedyTrucksAndFractionalKnapsack("../data/encomendas.txt", "../data/carrinhas.txt");
