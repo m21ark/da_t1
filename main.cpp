@@ -6,10 +6,10 @@ using namespace std;
 int main() {
 
 
-    express_scheduling_brute(read_orders("../data/e_10/e_1.txt"));
+    //express_scheduling_brute(read_orders("../data/e_10/e_1.txt"));
 
-    getchar();
-    //Menu::start();
+    //getchar();
+    Menu::start();
 
     return 0;
 }

@@ -58,7 +58,7 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(const std::string &del, const
         cout << i << " " << used_items.size() << " " << v.size() << " " << max_prof << " " << t.size() << endl;
     } while (i > 0 && t.size() != 0);
 
-    memento.save({used_items});
+    memento.save({v});
 
     int comul_prof = 0;
     for (auto &pr: profit) {
@@ -75,10 +75,10 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(const std::string &del, c
     vector<Order> used_items;
     int i = v.size();
 
-    Knapsack knapsack1(v);
     Memento memento;
-
     addDayBefore(v,memento);
+
+    Knapsack knapsack1(v);
 
     do {
         auto itTruckChosen = t.end();
@@ -119,7 +119,7 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(const std::string &del, c
         cout << i << " " << used_items.size() << " " << v.size() << " " << max_prof << " " << t.size() << endl;
     } while (i > 0 && t.size() != 0);
 
-    memento.save({used_items});
+    memento.save({v});
 
     int comul_prof = 0;
     for (auto &pr: profit) {
