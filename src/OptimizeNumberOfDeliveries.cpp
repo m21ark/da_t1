@@ -3,20 +3,20 @@
 // Auxiliary Functions
 int OptimizeNumberOfDeliveries::getMaxVolumeTrucks(vector<Truck> &trucks) {
     int maxVol = INT32_MIN;
-    for (Truck &t: trucks) {
-        if (t.volMax > maxVol) maxVol = t.volMax;
-    }
+    for (Truck &t: trucks)
+        if (t.volMax > maxVol) maxVol = t.volMax; //TODO More efficient func?
     return maxVol;
 }
 
 int OptimizeNumberOfDeliveries::getMaxWeightTrucks(vector<Truck> &trucks) {
     int maxWeight = INT32_MIN;
     for (Truck &t: trucks) {
-        if (t.pesoMax > maxWeight) maxWeight = t.pesoMax;
+        if (t.pesoMax > maxWeight) maxWeight = t.pesoMax; //TODO More efficient func?
     }
     return maxWeight;
 }
 
+// NOLINTNEXTLINE
 void OptimizeNumberOfDeliveries::getAllDeliveriesCombinations(unsigned int depth, vector<Order> &orders,
                                                               vector<vector<Order *>> &combinations) {
     if (depth == 0) {
@@ -33,9 +33,9 @@ void OptimizeNumberOfDeliveries::getAllDeliveriesCombinations(unsigned int depth
             v.push_back(&(orders[depth]));
             combTemp.push_back(v);
         }
-        for (vector<Order *> v: combTemp) {
+        for (const vector<Order *> &v: combTemp)
             combinations.push_back(v);
-        }
+
         getAllDeliveriesCombinations(depth + 1, orders, combinations);
     }
 
@@ -55,9 +55,8 @@ int OptimizeNumberOfDeliveries::getNumberOfDeliveries(Truck truck, vector<Order 
 
 int OptimizeNumberOfDeliveries::countTrucksUsedBackTracking(map<Truck, set<Order *>> &deliveries) {
     int counter = 0;
-    for (auto it = deliveries.begin(); it != deliveries.end(); it++) {
-        if (!it->second.empty()) counter++;
-    }
+    for (auto &delivery: deliveries) //TODO More efficient func?
+        if (!delivery.second.empty()) counter++;
     return counter;
 }
 
@@ -68,50 +67,32 @@ bool OptimizeNumberOfDeliveries::truckCanStillCarry(Truck truck, set<Order *> &o
         ordersTotalVolume += order->volume;
     }
 
-    if ((newOrder->weight + ordersTotalWeight > truck.pesoMax) ||
-        (newOrder->volume + ordersTotalVolume > truck.volMax)) {
-        return false;
-    }
-    return true;
+    bool cond1 = newOrder->weight + ordersTotalWeight > truck.pesoMax;
+    bool cond2 = newOrder->volume + ordersTotalVolume > truck.volMax;
+
+    return !(cond1 || cond2);
 }
-
-
-
-
-
-
-
-
 
 
 // MAIN FUNCTIONS
 
-void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(const std::string &del, const std::string &trucks) {
-    vector<Order> ordersV = read_orders(del);
-    vector<Truck> trucksV = read_trucks(trucks);
-    vector<Order *> usedItems;
-    int totalDeliveries = 0, numberOfTrucks = 0;
+void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(vector<Truck> trucksV, vector<Order> ordersV) {
 
-
-    cout << "\nGreedy Trucks and Knapsack Orders" << endl;
-    /*
-    cout << "Trucks" << endl;
-    for (Truck &t : trucksV) cout << "truck " << t.id << "    weight capacity: " << t.pesoMax << "    volume capacity: " << t.volMax << endl;
-    cout << "\nOrders" << endl;
-    for (Order &o : ordersV) cout << "order " << o.id << "    weight: " << o.weight << "    volume: " << o.volume << endl;
-    */
+    Timer::start();
 
     Knapsack knapsack(ordersV, getMaxWeightTrucks(trucksV), getMaxVolumeTrucks(trucksV));
+    unsigned totalDeliveries = 0, numberOfTrucks = 0;
+    vector<Order *> usedItems;
 
     do {
-        int maxDeliveries = 0;
-        Truck truckChosen;
+        unsigned maxDeliveries = 0;
+        Truck truckChosen{};
         auto itTruckChosen = trucksV.end();
         bool truckFound = false;
         knapsack.knapsack_2d_number_deliveries();
 
         for (auto it = trucksV.begin(); it != trucksV.end(); it++) {
-            int numDeliveries = knapsack.get_best_value(it->pesoMax, it->volMax);
+            unsigned numDeliveries = knapsack.get_best_value(it->pesoMax, it->volMax);
             if (numDeliveries > maxDeliveries) {
                 maxDeliveries = numDeliveries;
                 truckChosen = *it;
@@ -121,9 +102,8 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(const std::string &del,
             }
         }
 
-        if (truckFound) {
+        if (truckFound)
             trucksV.erase(itTruckChosen);
-        }
 
         totalDeliveries += maxDeliveries;
         cout << "Truck " << truckChosen.id << ": " << maxDeliveries << " deliveries" << endl;
@@ -141,35 +121,27 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(const std::string &del,
         }
 
         numberOfTrucks++;
-        /*
-        cout << "Orders left: " << knapsack.getStoreSize() << endl;
-        cout << "trucksV size: " << trucksV.size() << endl;
-         */
+
     } while (knapsack.getStoreSize() > 0 && !trucksV.empty());
 
-    cout << "Total deliveries: " << totalDeliveries << endl;
+    Timer::stop();
+
+    cout << "\nTotal deliveries: " << totalDeliveries << endl;
     cout << "Number of Trucks: " << numberOfTrucks << endl;
+    cout << "Time taken: " << Timer::getTime() << "s\n";
 }
 
 
-void OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(const std::string &del, const std::string &trucks) {
-    vector<Order> ordersV = read_orders(del);
-    vector<Truck> trucksV = read_trucks(trucks);
+void OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(vector<Truck> trucksV, vector<Order> ordersV) {
+
+    Timer::start();
+
     vector<Order *> usedItems;
     int totalDeliveries = 0, numberOfTrucks = 0;
 
-
-    cout << "\nGreedy Trucks and Brute Force Orders" << endl;
-    /*
-    cout << "Trucks" << endl;
-    for (Truck &t : trucksV) cout << "truck " << t.id << "    weight capacity: " << t.pesoMax << "    volume capacity: " << t.volMax << endl;
-    cout << "\nOrders" << endl;
-    for (Order &o : ordersV) cout << "order " << o.id << "    weight: " << o.weight << "    volume: " << o.volume << endl;
-    */
-
     do {
         int maxDeliveries = 0;
-        Truck truckChosen;
+        Truck truckChosen{};
         auto itTruckChosen = trucksV.end();
         bool truckFound = false;
 
@@ -209,30 +181,33 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(const std::string &de
         }
 
         numberOfTrucks++;
-        /*
-        cout << "Orders left: " << knapsack.getStoreSize() << endl;
-        cout << "trucksV size: " << trucksV.size() << endl;
-         */
+
     } while (!ordersV.empty() && !trucksV.empty());
 
-    cout << "Total deliveries: " << totalDeliveries << endl;
+    Timer::stop();
+
+    cout << "\nTotal deliveries: " << totalDeliveries << endl;
     cout << "Number of Trucks: " << numberOfTrucks << endl;
+    cout << "Time taken: " << Timer::getTime() << "s\n";
+
 }
 
-void OptimizeNumberOfDeliveries::backtracking(const string &del, const string &trucks) {
-    vector<Order> ordersV = read_orders(del);
-    vector<Truck> trucksV = read_trucks(trucks);
+void OptimizeNumberOfDeliveries::backtracking(const vector<Truck> &trucksV, vector<Order> ordersV) {
+
+    Timer::start();
+
     map<Truck, set<Order *>> deliveries;
     vector<Order *> orders;
-    int totalDeliveries = 0, numberOfTrucks = 0;
+    int totalDeliveries = 0, numberOfTrucks;
 
     for (Truck truck: trucksV) deliveries[truck] = {};
+    orders.reserve(ordersV.size());
     for (Order &order: ordersV) orders.push_back(&order);
 
-    cout << "\nBacktracking Deliveries" << endl;
+    cout << "\nBacktracking Deliveries..." << endl;
     numberOfTrucks = backtrackingRec(deliveries, orders, totalDeliveries);
 
-    for (auto truckDel: deliveries) {
+    for (const auto &truckDel: deliveries) {
         cout << "Truck " << truckDel.first.id << ": " << truckDel.second.size() << " deliveries" << endl;
         for (Order *order: truckDel.second) {
             cout << "\tOrder " << order->id << "     weight: " << order->weight << "     volume: " << order->volume
@@ -240,34 +215,37 @@ void OptimizeNumberOfDeliveries::backtracking(const string &del, const string &t
         }
     }
 
-    cout << "Total deliveries: " << totalDeliveries << endl;
+    Timer::stop();
+
+    cout << "\nTotal deliveries: " << totalDeliveries << endl;
     cout << "Number of Trucks: " << numberOfTrucks << endl;
+    cout << "Time taken: " << Timer::getTime() << "s\n";
 }
 
+// NOLINTNEXTLINE
 int OptimizeNumberOfDeliveries::backtrackingRec(map<Truck, set<Order *>> &deliveries, vector<Order *> unselectedOrders,
                                                 int &numberOfOrders) {
+
     if (unselectedOrders.empty()) return countTrucksUsedBackTracking(deliveries);
     Order *order = *unselectedOrders.rbegin();
     unselectedOrders.pop_back();
-    //cout << "Depth1: " << depth << "      order " << order->id << endl;
-    map<Truck, set<Order *>> minDeliveries = deliveries;
-    map<Truck, set<Order *>> tempDeliveries = deliveries;
+
+    map<Truck, set<Order *>> minDeliveries = deliveries, tempDeliveries = deliveries;
     int tempNumberOfOrders = numberOfOrders, minNumberOfOrders = numberOfOrders;
+
     int tempTrucksUsed, minTrucksUsed = backtrackingRec(minDeliveries, unselectedOrders, minNumberOfOrders);
     tempNumberOfOrders++;
 
     for (auto &truckDeliveries: deliveries) {
-        //cout << "Depth2: " << depth << "      order " << order->id << "     truck " << truckDeliveries.first.id << endl;
 
         if (truckCanStillCarry(truckDeliveries.first, truckDeliveries.second, order)) {
             tempDeliveries[truckDeliveries.first].insert(order);
             tempTrucksUsed = backtrackingRec(tempDeliveries, unselectedOrders, tempNumberOfOrders);
-            if (tempNumberOfOrders > minNumberOfOrders) {
-                minNumberOfOrders = tempNumberOfOrders;
-                minTrucksUsed = tempTrucksUsed;
-                minDeliveries = tempDeliveries;
 
-            } else if (tempNumberOfOrders == minNumberOfOrders && tempTrucksUsed < minTrucksUsed) {
+            bool cond1 = tempNumberOfOrders > minNumberOfOrders;
+            bool cond2 = tempNumberOfOrders == minNumberOfOrders && tempTrucksUsed < minTrucksUsed;
+
+            if (cond1 || cond2) {
                 minNumberOfOrders = tempNumberOfOrders;
                 minTrucksUsed = tempTrucksUsed;
                 minDeliveries = tempDeliveries;

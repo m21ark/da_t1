@@ -33,8 +33,6 @@ string trimStr(string str);
 bool emptyStream(istream &ios);
 
 
-bool file_exists(const string &path);
-
 class Menu {
 public:
     static void start();

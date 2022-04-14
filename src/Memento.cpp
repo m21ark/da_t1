@@ -1,52 +1,51 @@
 #include "../include/Memento.h"
 
-void Memento::save(State state) {
+void Memento::save(const State &state) {
     using namespace std;
 
     if (state.truck == NOT_PROVIDED && state.max_prof == NOT_PROVIDED) {
-        ofstream fstream1(dir_path + "/TomorrowOrders.txt", ios::out | ios::trunc);
-        for (auto e: state.orders) {
-            fstream1 << e << endl;
-        }
+        ofstream fs(dir_path + "/TomorrowOrders.txt", ios::out | ios::trunc);
+        for (auto e: state.orders)
+            fs << e << endl;
         return;
     }
 
-    std::filesystem::create_directory(dir_path);
-    ofstream fstream1(dir_path + "/t_" + to_string(state.truck) + ".txt", ios::out | ios::trunc);
-    fstream1 << "Truck: " << state.truck << " Total Reward: " << state.max_prof << endl;
-    fstream1 << "OrderId reward" << endl;
-    for (auto e: state.orders) {
-        fstream1 << e.id << " " << e.reward << " €" << endl;
-    }
+    filesystem::create_directory(dir_path);
+    ofstream fs(dir_path + "/t_" + to_string(state.truck) + ".txt", ios::out | ios::trunc);
 
-    fstream1.close();
+    fs << "Truck: " << state.truck << " Total Reward: " << state.max_prof << endl;
+    fs << "OrderId reward" << endl;
+    for (auto e: state.orders)
+        fs << e.id << " " << e.reward << " €" << endl;
+
+    fs.close();
 }
 
 State Memento::loadDayBefore() {
 
     State state{};
 
-    struct std::tm dayBefore = now;
+    struct tm dayBefore = now;
 
-    datePlusDays(&dayBefore ,-1);
+    datePlusDays(&dayBefore, -1);
 
-    std::string last_day_dir_path = "../report/" + std::to_string(dayBefore.tm_year + 1900)
-                      + std::to_string(dayBefore.tm_mon + 1) + std::to_string(dayBefore.tm_mday);
+    string last_day_dir_path = "../report/" + to_string(dayBefore.tm_year + 1900)
+                               + to_string(dayBefore.tm_mon + 1) + to_string(dayBefore.tm_mday);
 
 
-    std::ifstream ifstream(last_day_dir_path + "/TomorrowOrders.txt");
+    ifstream ifs(last_day_dir_path + "/TomorrowOrders.txt");
 
-    if (!ifstream.is_open())
+    if (!ifs.is_open())
         return state;
 
     Order order{};
     string aux;
-    while (getline(ifstream, aux)) {
+    while (getline(ifs, aux)) {
         stringstream ss(aux);
         ss >> order;
         state.orders.push_back(order);
     }
-    ifstream.close();
+    ifs.close();
 
     return state;
 }

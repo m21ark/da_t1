@@ -1,5 +1,5 @@
-#ifndef DA_T1_OPTIMIZENUMBEROFDELIVERIES_H
-#define DA_T1_OPTIMIZENUMBEROFDELIVERIES_H
+#ifndef DA_T1_OPTIMIZE_NUMBER_OF_DELIVERIES_H
+#define DA_T1_OPTIMIZE_NUMBER_OF_DELIVERIES_H
 
 #include <vector>
 #include <string>
@@ -7,6 +7,7 @@
 #include <set>
 #include "Objects.h"
 #include "knapsack.h"
+#include "timer.h"
 
 using namespace std;
 
@@ -29,12 +30,12 @@ class OptimizeNumberOfDeliveries {
 
 
 public:
-    static void greedyTrucksAndKnapsack(const std::string &del, const std::string &trucks);
+    static void greedyTrucksAndKnapsack(vector<Truck> trucksV, vector<Order> ordersV);
 
-    static void greedyTrucksAndBruteForce(const std::string &del, const std::string &trucks);
+    static void greedyTrucksAndBruteForce(vector<Truck> trucksV, vector<Order> ordersV);
 
-    static void backtracking(const std::string &del, const std::string &trucks);
+    static void backtracking(const vector<Truck>& trucksV, vector<Order> ordersV);
 
 };
 
-#endif //DA_T1_OPTIMIZENUMBEROFDELIVERIES_H
+#endif //DA_T1_OPTIMIZE_NUMBER_OF_DELIVERIES_H

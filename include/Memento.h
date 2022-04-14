@@ -10,10 +10,12 @@
 #include "Objects.h"
 #include "read_files.h"
 
-#define NOT_PROVIDED NULL
+#define NOT_PROVIDED -1
+
+using namespace std;
 
 struct State {
-    std::vector<Order> orders;
+    vector<Order> orders;
     int truck = NOT_PROVIDED;
     int max_prof = NOT_PROVIDED;
 };
@@ -22,36 +24,37 @@ class Memento {
     int year;
     int month;
     int day;
-    struct std::tm now;
-    std::string dir_path;
+    struct tm now = {};
+    string dir_path;
 
-    void datePlusDays( struct tm* date, int days ) {
+    static void datePlusDays(struct tm *date, int days) {
         const time_t ONE_DAY = 24 * 60 * 60;
 
-        time_t date_seconds = mktime( date ) + (days * ONE_DAY);
+        time_t date_seconds = mktime(date) + (days * ONE_DAY);
 
-        *date = *localtime( &date_seconds );
+        *date = *localtime(&date_seconds);
     }
 
 public:
     Memento() {
-        std::time_t time = std::time(nullptr);   // get time now
+        time_t time = std::time(nullptr);   // get time now
         now = *localtime(&time);
 
         year = now.tm_year + 1900;
         month = now.tm_mon + 1;
         day = now.tm_mday;
 
-        dir_path = "../report/" + std::to_string(year)
-                   + std::to_string(month) + std::to_string(day);
+        dir_path = "../report/" + to_string(year)
+                   + to_string(month) + to_string(day);
 
-        std::error_code errorCode;
-        if (!std::filesystem::remove_all(dir_path, errorCode)) {
-            std::cout << errorCode.message() << std::endl;
+        error_code errorCode;
+        if (!filesystem::remove_all(dir_path, errorCode)) {
+            cout << errorCode.message() << endl;
         }
     }
 
-    void save(State state);
+    void save(const State& state);
+
     State loadDayBefore();
 };
 

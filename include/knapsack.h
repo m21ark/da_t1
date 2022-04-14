@@ -31,15 +31,15 @@ public:
 
     size_t get_best_value(size_t WeightCapacity, size_t VolumeCapacity);
 
-    vector<Order> get_used_items(size_t W, size_t Vo);
+    vector<Order> get_used_items(size_t weight, size_t volume);
 
-    double fractionalKnapsack(vector<Order> &usedItems, size_t W, size_t Vo);
+    double fractionalKnapsack(vector<Order> &usedItems, size_t wight, size_t weight);
 
     void print_knapsack();
 
     void knapsack_2d_number_deliveries();
 
-    vector<Order *> get_used_items_number_deliveries(size_t W, size_t Vo);
+    vector<Order *> get_used_items_number_deliveries(size_t weight, size_t volume);
 
     size_t getStoreSize() { return store.size(); }
 };

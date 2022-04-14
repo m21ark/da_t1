@@ -120,27 +120,26 @@ void Menu::scenario1(const pair<string, string> &files) {
     vector<Truck> trucks = read_trucks(files.first);
     vector<Order> orders = read_orders(files.second);
 
-    cout << "Optimizing number of trucks used." << endl;
-    cout << "1) Rapid Knapsack:    Calculates the best combination of orders for each truck using knapsack." << endl;
-    cout << "                      The best truck is selected and the process is repeated (Greedy choice of Trucks)" << endl;
-    cout << "2) Slow Brute Force:  Also Greedy choice of trucks but it calculates the best combination of orders for " << endl;
-    cout << "                      each truck using brute force" << endl;
-    cout << "3) Slow Backtracking: Calculates the best scenario possible using backtracking, but it's very slow \n" << endl;
+    cout << "\nOptimizing number of trucks used:\n" << endl;
+    cout << "1) Rapid Knapsack:\tGreedy choice of best Trucks and Knapsack for order's combinations per truck\n";
+    cout << "2) Slow Brute Force:\tGreedy choice of best Trucks and brute force order's combinations per truck\n";
+    cout << "3) Slow Backtracking:\tCalculates the best scenario possible using backtracking (very slow)\n";
 
-    cout << "Enter option: ";
-    char c; cin >> c;
+    cout << ">> ";
+    char c;
+    cin >> c;
 
     cin.clear();
     cin.ignore(1000, '\n');
 
     if (c == '1')
-        OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(files.second, files.first);
+        OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(trucks, orders);
     else if (c == '2')
-        OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(files.second, files.first);
+        OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(trucks, orders);
     else if (c == '3')
-        OptimizeNumberOfDeliveries::backtracking(files.second, files.first);
+        OptimizeNumberOfDeliveries::backtracking(trucks, orders);
     else {
-        cout << endl << "NUP!!! That is not a valid option" << endl;
+        cout << endl << "That is not a valid option!" << endl;
         getchar();
         return;
     }
@@ -153,30 +152,27 @@ void Menu::scenario2(const pair<string, string> &files) {
     vector<Truck> trucks = read_trucks(files.first);
     vector<Order> orders = read_orders(files.second);
 
-    cout << "Trucks are chosen in a greedy way." << endl;
-    cout << "The best Trucks stay with the best deliveries in order to make them more rentable." << endl;
-    cout << endl << "A file for each Truck, responsible to deliver a order, will be created." << endl;
-    cout << "A file with deliveries that can't be deliver today will also be created." << endl;
-    cout << "Rapid (sub-optimal) or Slow (but optimal) algorithm, to chose the trucks fit?" << endl;
-    cout << "(R -> Rapid, S -> Slow) >> ";
-    char c;
+    cout << "\nTrucks are chosen in a greedy way." << endl;
+    cout << "File reports will be created\n" << endl;
+    cout << "1) Rapid & Sub-Optimal:\tGreedy Trucks Fractional Knapsack\n" << endl;
+    cout << "2) Slow & Optimal:\tGreedy Trucks Linear Knapsack\n" << endl;
 
+    cout << ">> ";
+    char c;
     cin >> c;
 
     cin.clear();
     cin.ignore(1000, '\n');
 
-    if (c == 'S')
-        OptimizeProfit::greedyTrucksAndLinearKnapsack(files.second, files.first);
-    else if (c == 'R')
-        OptimizeProfit::greedyTrucksAndFractionalKnapsack(files.second, files.first);
+    if (c == '1')
+        OptimizeProfit::greedyTrucksAndFractionalKnapsack(trucks, orders);
+    else if (c == '2')
+        OptimizeProfit::greedyTrucksAndLinearKnapsack(trucks, orders);
     else {
-        cout << endl << "NUP!!! That is not a valid option" << endl;
+        cout << endl << "That is not a valid option!" << endl;
         getchar();
-
         return;
     }
-
 
     getchar();
 }

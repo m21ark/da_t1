@@ -4,6 +4,7 @@
 #include <iostream>
 #include <algorithm>
 #include "read_files.h"
+#include "../include/timer.h"
 
 using namespace std;
 
