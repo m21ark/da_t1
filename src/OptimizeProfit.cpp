@@ -53,7 +53,7 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(vector<Truck> trucks, vector<
                 orders.erase(it);
         }
         i -= used_items.size();
-        cout << i << " " << used_items.size() << " " << orders.size() << " " << max_prof << " " << trucks.size()
+        cout << (int) i << " " << used_items.size() << " " << orders.size() << " " << max_prof << " " << trucks.size()
              << endl;
     } while (i > 0 && !trucks.empty());
 
@@ -113,7 +113,7 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vec
         }
 
         i -= used_items.size();
-        cout << i << " " << used_items.size() << " " << orders.size() << " " << max_prof << " " << trucks.size()
+        cout << (int) i << " " << used_items.size() << " " << orders.size() << " " << max_prof << " " << trucks.size()
              << endl;
     } while (i > 0 && !trucks.empty());
 
