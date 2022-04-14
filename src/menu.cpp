@@ -120,7 +120,30 @@ void Menu::scenario1(const pair<string, string> &files) {
     vector<Truck> trucks = read_trucks(files.first);
     vector<Order> orders = read_orders(files.second);
 
-    OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(files.second, files.first);
+    cout << "Optimizing number of trucks used." << endl;
+    cout << "1) Rapid Knapsack:    Calculates the best combination of orders for each truck using knapsack." << endl;
+    cout << "                      The best truck is selected and the process is repeated (Greedy choice of Trucks)" << endl;
+    cout << "2) Slow Brute Force:  Also Greedy choice of trucks but it calculates the best combination of orders for " << endl;
+    cout << "                      each truck using brute force" << endl;
+    cout << "3) Slow Backtracking: Calculates the best scenario possible using backtracking, but it's very slow \n" << endl;
+
+    cout << "Enter option: ";
+    char c; cin >> c;
+
+    cin.clear();
+    cin.ignore(1000, '\n');
+
+    if (c == '1')
+        OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(files.second, files.first);
+    else if (c == '2')
+        OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(files.second, files.first);
+    else if (c == '3')
+        OptimizeNumberOfDeliveries::backtracking(files.second, files.first);
+    else {
+        cout << endl << "NUP!!! That is not a valid option" << endl;
+        getchar();
+        return;
+    }
 
     getchar();
 }

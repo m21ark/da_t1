@@ -7,6 +7,9 @@
 
 using namespace std;
 
-int express_scheduling(vector<Order> orders);
+void express_scheduling(vector<Order> orders);
+
+void express_scheduling_brute(vector<Order> orders);
+
 
 #endif //DA_T1_CEN3_H

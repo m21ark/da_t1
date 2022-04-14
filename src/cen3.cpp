@@ -1,6 +1,6 @@
 #include "../include/cen3.h"
 
-int express_scheduling(vector<Order> orders) {
+void express_scheduling(vector<Order> orders) {
 
     auto sorter = [](const Order &a, const Order &b) {
         return a.duration < b.duration;
@@ -29,7 +29,64 @@ int express_scheduling(vector<Order> orders) {
             cout << orders[i] << endl;
         }
     }
+}
 
-    return total_profit;
+
+#include "../include/timer.h"
+
+void express_scheduling_brute(vector<Order> orders) {
+
+    Timer::start();
+    auto meanTime = [](const vector<Order> &v, int maxTime, int &number_of_deliveries) {
+        int ret = 0;
+        number_of_deliveries = 0;
+
+        for (const Order &i: v) {
+
+            if (ret + i.duration > maxTime)
+                break;
+
+            ret += i.duration;
+
+            number_of_deliveries++;
+        }
+
+        if (ret * number_of_deliveries == 0) return INT32_MAX;
+        return ret / number_of_deliveries;
+    };
+
+    vector<Order> best = {};
+    int bestTime = INT32_MAX;
+    int number_of_deliveries, best_num_deliveries = 0;
+
+    sort(orders.begin(), orders.end());
+
+    do {
+        for (auto i: orders) {
+            cout << i.id << " ";
+        }
+
+        int aux = meanTime(orders, 28800, number_of_deliveries);
+
+
+        if (aux <= bestTime)
+            if (number_of_deliveries > best_num_deliveries) {
+                bestTime = aux;
+                best = orders;
+                best_num_deliveries = number_of_deliveries;
+            }
+        cout << "\nAvg Time: " << aux << "s\tNum_ords: " << number_of_deliveries << "\n\n";
+
+
+    } while (std::next_permutation(orders.begin(), orders.end()));
+
+    Timer::stop();
+    cout << "\n\nThe best one is:\n";
+    for (auto i: best)
+        cout << i.id << "(" << i.duration << "s)  ";
+    cout << "\nAvg Time: " << bestTime << "s\tNum_ords: " << best_num_deliveries << "\n";
+
+    cout << "The calculation took: " << Timer::getTime() << "s";
+
 }
 
