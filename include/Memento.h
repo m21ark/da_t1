@@ -7,6 +7,7 @@
 #include <vector>
 #include <ostream>
 #include <iostream>
+#include <iomanip>
 #include "Objects.h"
 #include "read_files.h"
 
@@ -21,9 +22,7 @@ struct State {
 };
 
 class Memento {
-    int year;
-    int month;
-    int day;
+    int year, month, day;
     struct tm now = {};
     string dir_path;
 

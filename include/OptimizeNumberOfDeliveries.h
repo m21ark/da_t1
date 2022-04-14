@@ -12,16 +12,16 @@
 using namespace std;
 
 class OptimizeNumberOfDeliveries {
-    static int getMaxVolumeTrucks(vector<Truck> &trucks);
+    static int getMaxVolumeTrucks(const vector<Truck> &trucks);
 
-    static int getMaxWeightTrucks(vector<Truck> &trucks);
+    static int getMaxWeightTrucks(const vector<Truck> &trucks);
 
     static int getNumberOfDeliveries(Truck truck, vector<Order *> &combination);
 
     static void
     getAllDeliveriesCombinations(unsigned int depth, vector<Order> &orders, vector<vector<Order *>> &combinations);
 
-    static int countTrucksUsedBackTracking(map<Truck, set<Order *>> &deliveries);
+    static int countTrucksUsedBackTracking(const map<Truck, set<Order *>> &deliveries);
 
     static bool truckCanStillCarry(Truck truck, set<Order *> &orders, Order *newOrder);
 

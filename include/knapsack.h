@@ -29,7 +29,9 @@ public:
 
     size_t knapsack_2d();
 
-    size_t get_best_value(size_t WeightCapacity, size_t VolumeCapacity);
+    void knapsack_calc(size_t i, size_t j, size_t k, int increment);
+
+    size_t get_best_value(const size_t &WeightCapacity, const size_t &VolumeCapacity);
 
     vector<Order> get_used_items(size_t weight, size_t volume);
 

@@ -42,7 +42,7 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(vector<Truck> trucks, vector<
         //knapsack.print_knapsack(); // PRINT MUST BE CALLED BEFORE ERASING
 
         memento.save({used_items, itTruckChosen->id, max_prof});
-        cout << itTruckChosen->id << endl;
+        cout << "Truck_id: " << itTruckChosen->id << endl;
 
         if (itTruckChosen != trucks.end())
             trucks.erase(itTruckChosen);
@@ -65,7 +65,7 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(vector<Truck> trucks, vector<
 
     Timer::stop();
     cout << "Total Profit = " << total_profit << endl;
-    cout << "Time Taken: " << Timer::getTime() << endl;
+    cout << "Time Taken: " << Timer::getTime() << "s\n";
 }
 
 void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vector<Order> orders) {
@@ -101,7 +101,7 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vec
         profit.push_back(max_prof);
 
         memento.save({used_items, itTruckChosen->id, max_prof});
-        cout << itTruckChosen->id << endl;
+        cout << "Truck_id: " << itTruckChosen->id << endl;
 
         if (itTruckChosen != trucks.end())
             trucks.erase(itTruckChosen);
@@ -125,7 +125,7 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vec
 
     Timer::stop();
     cout << "Total Profit = " << total_profit << endl;
-    cout << "Time Taken: " << Timer::getTime() << endl;
+    cout << "Time Taken: " << Timer::getTime() << "s\n";
 }
 
 

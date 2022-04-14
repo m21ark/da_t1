@@ -6,7 +6,7 @@
 #include <chrono>
 #include "../include/OptimizeProfit.h"
 #include "../include/read_files.h"
-#include "../include/cen3.h"
+#include "../include/express_deliveries.h"
 #include "../include/OptimizeNumberOfDeliveries.h"
 
 #ifdef _WIN32
@@ -31,6 +31,8 @@ string trimStr(string str);
  * @return boolean if buffer is empty
  */
 bool emptyStream(istream &ios);
+
+char askChar();
 
 
 class Menu {

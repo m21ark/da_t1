@@ -17,6 +17,15 @@ bool emptyStream(istream &ios) {
     return false;
 }
 
+char askChar() {
+    char c;
+    cout << ">> ";
+    cin >> c;
+    cin.clear();
+    cin.ignore(1000, '\n');
+    return c;
+}
+
 
 void Menu::start() {
     char userInput;
@@ -125,12 +134,8 @@ void Menu::scenario1(const pair<string, string> &files) {
     cout << "2) Slow Brute Force:\tGreedy choice of best Trucks and brute force order's combinations per truck\n";
     cout << "3) Slow Backtracking:\tCalculates the best scenario possible using backtracking (very slow)\n";
 
-    cout << ">> ";
-    char c;
-    cin >> c;
 
-    cin.clear();
-    cin.ignore(1000, '\n');
+    char c = askChar();
 
     if (c == '1')
         OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(trucks, orders);
@@ -157,12 +162,7 @@ void Menu::scenario2(const pair<string, string> &files) {
     cout << "1) Rapid & Sub-Optimal:\tGreedy Trucks Fractional Knapsack\n" << endl;
     cout << "2) Slow & Optimal:\tGreedy Trucks Linear Knapsack\n" << endl;
 
-    cout << ">> ";
-    char c;
-    cin >> c;
-
-    cin.clear();
-    cin.ignore(1000, '\n');
+    char c = askChar();
 
     if (c == '1')
         OptimizeProfit::greedyTrucksAndFractionalKnapsack(trucks, orders);
@@ -180,8 +180,22 @@ void Menu::scenario2(const pair<string, string> &files) {
 void Menu::scenario3(const string &file) {
 
     vector<Order> orders = read_orders(file);
-    express_scheduling(orders);
-    //TODO store to file results...
+
+    cout << "\n1) Rapid: Optimal Task Sorting" << endl;
+    cout << "2) Slow:  Task Brute Force\n" << endl;
+
+    char c = askChar();
+
+    if (c == '1')
+        express_scheduling(orders);
+    else if (c == '2')
+        express_scheduling_brute(orders);
+    else {
+        cout << endl << "That is not a valid option!" << endl;
+        getchar();
+        return;
+    }
+
     getchar();
 }
 
