@@ -15,7 +15,7 @@ size_t Knapsack::knapsack_2d() {
     for (size_t i = 0; i <= size; ++i)  // O(size*W*Vo)
         for (size_t j = 0; j <= W; ++j)
             for (size_t k = 0; k <= Vo; ++k)
-                knapsack_calc(i, j, k, store[i - 1].reward);
+                knapsack_calc(i, j, k, i == 0 ? 0:store[i - 1].reward);
 
     return T[size][W][Vo];
 }
