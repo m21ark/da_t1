@@ -7,6 +7,8 @@
 #include "../include/Memento.h"
 
 class OptimizeProfit {
+private:
+    static void addDayBefore(vector<Order>& v, Memento& memento);
 public:
     static void greedyTrucksAndLinearKnapsack(const std::string &del, const std::string &trucks);
 

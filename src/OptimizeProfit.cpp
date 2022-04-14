@@ -11,25 +11,29 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(const std::string &del, const
     vector<Order> used_items;
     int i = v.size();
 
-    Knapsack knapsack(v, 400, 400);
     Memento memento;
+    addDayBefore(v,memento);
+
+    Knapsack knapsack(v, 400, 400);
 
     do {
         knapsack.knapsack_2d();
-        Truck truck1{-1, -1, -1, -1};
+        auto itTruckChosen = t.end();
 
         int max_prof = INT32_MIN;
 
 
         // O(n * k) ... just an access to a vector that counts k iterations at maximum being k ~ size of orders
-        for (auto &truck: t) {
-            int prof = ((int) knapsack.get_best_value(truck.pesoMax, truck.volMax) - truck.cost);
+        for (auto truck = t.begin(); truck != t.end(); truck++) {
+            int prof = ((int) knapsack.get_best_value(truck->pesoMax, truck->volMax) - truck->cost);
             if (prof > max_prof) {
                 max_prof = prof;
-                used_items = knapsack.get_used_items(truck.pesoMax, truck.volMax);
-                truck1 = truck;
+                used_items = knapsack.get_used_items(truck->pesoMax, truck->volMax);
+                itTruckChosen = truck;
             }
         }
+        if (max_prof <= 0)
+            break;
         profit.push_back(max_prof);
 
         //knapsack.print_knapsack();*/
@@ -39,10 +43,12 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(const std::string &del, const
          *
          */
 
-        if (truck1.id != -1)
-            t.erase(remove(t.begin(), t.end(), truck1));
+        memento.save({used_items, itTruckChosen->id, max_prof});
+        cout << itTruckChosen->id << endl;
 
-        memento.save({used_items, truck1.id, max_prof});
+        if (itTruckChosen != t.end())
+            t.erase(itTruckChosen);
+
         for (auto e: used_items) {
             auto it = std::find(v.begin(), v.end(), e);
             if (it != v.end())
@@ -72,29 +78,37 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(const std::string &del, c
     Knapsack knapsack1(v);
     Memento memento;
 
+    addDayBefore(v,memento);
+
     do {
+        auto itTruckChosen = t.end();
 
-
-        Truck truck1{-1, -1, -1, -1};
 
         int max_prof = INT32_MIN;
 
-        for (auto &truck: t) {
+        for (auto truck = t.begin(); truck != t.end(); truck++)  {
             vector<Order> uI;
-            int prof = ((int) knapsack1.fractionalKnapsack(uI, truck.pesoMax, truck.volMax) - truck.cost);
+            int prof = ((int) knapsack1.fractionalKnapsack(uI, truck->pesoMax, truck->volMax) - truck->cost);
             if (prof > max_prof) {
                 max_prof = prof;
                 used_items = uI;
-                truck1 = truck;
+                itTruckChosen = truck;
 
             }
         }
+
+        if (max_prof <= 0)
+            break;
+
         profit.push_back(max_prof);
 
-        if (truck1.id != -1)
-            t.erase(remove(t.begin(), t.end(), truck1));
+        memento.save({used_items, itTruckChosen->id, max_prof});
+        cout << itTruckChosen->id << endl;
 
-        memento.save({used_items, truck1.id, max_prof});
+
+        if (itTruckChosen != t.end())
+            t.erase(itTruckChosen);
+
         for (auto e: used_items) {
             auto it = std::find(v.begin(), v.end(), e);
             if (it != v.end())
@@ -113,4 +127,11 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(const std::string &del, c
     }
     cout << "PROF = " << comul_prof << endl;
 
+}
+
+void OptimizeProfit::addDayBefore(vector<Order> &v, Memento &memento) {
+    State state = memento.loadDayBefore();
+    for (auto & order : state.orders) {
+        v.push_back(order);
+    }
 }

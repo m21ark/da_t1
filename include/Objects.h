@@ -1,6 +1,8 @@
 #ifndef DA_T1_OBJECTS_H
 #define DA_T1_OBJECTS_H
 
+#include <ostream>
+
 struct Truck {
     int id, volMax, pesoMax, cost;
 };
@@ -25,6 +27,5 @@ inline bool operator<(const Order &l, const Order &r) {
 inline bool operator<(const Truck &l, const Truck &r) {
     return l.id < r.id;
 }
-
 
 #endif //DA_T1_OBJECTS_H
