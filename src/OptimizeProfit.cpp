@@ -1,5 +1,23 @@
 #include "../include/OptimizeProfit.h"
 
+#define HEADER     Timer::start(); \
+vector<int> profit; \
+vector<Order> used_items; \
+Memento memento; \
+unsigned i = orders.size(); \
+addDayBefore(orders, memento);     \
+
+#define FOOTER if (!chooseTruckProfit(max_prof, profit, orders, memento, trucks, itTruckChosen, used_items, i)) \
+break; \
+} while (i > 0 && !trucks.empty()); \
+memento.save({orders}); \
+printProfits(profit);                  \
+
+#define DO_HEADER     do { \
+auto itTruckChosen = trucks.end(); \
+int max_prof = INT32_MIN; \
+
+
 void OptimizeProfit::addDayBefore(vector<Order> &v, Memento &memento) {
     State state = memento.loadDayBefore();
     for (auto &order: state.orders)
@@ -15,7 +33,6 @@ void OptimizeProfit::printProfits(const vector<int> &profits) {
     cout << "Total Profit = " << total_profit << endl;
     cout << "Time Taken: " << Timer::getTime() << "s\n";
 }
-
 
 int OptimizeProfit::chooseTruckProfit(int &max_prof, vector<int> &profit, vector<Order> &orders, Memento &memento,
                                       vector<Truck> &trucks, vector<Truck>::iterator &itTruckChosen,
@@ -47,137 +64,73 @@ int OptimizeProfit::chooseTruckProfit(int &max_prof, vector<int> &profit, vector
 
 void OptimizeProfit::greedyTrucksAndLinearKnapsack(vector<Truck> trucks, vector<Order> orders) {
 
-    Timer::start();
-
-    vector<int> profit;
-    vector<Order> used_items;
-    unsigned i = orders.size();
-
-    Memento memento;
-    addDayBefore(orders, memento);
-
+    HEADER
     Knapsack knapsack(orders, 400, 400); //TODO why fixed value? ... Ricardo: It's not suppose to be
+    DO_HEADER
 
-    do {
         knapsack.knapsack_2d();
-        auto itTruckChosen = trucks.end();
-
-        int max_prof = INT32_MIN;
-
 
         // O(n * k) ... just an access to a vector that counts k iterations at maximum being k ~ size of orders
         for (auto truck = trucks.begin(); truck != trucks.end(); truck++) {
             int prof = ((int) knapsack.get_best_value(truck->pesoMax, truck->volMax) - truck->cost);
             if (prof > max_prof) {
                 max_prof = prof;
-                used_items = knapsack.get_used_items(truck->pesoMax, truck->volMax);
                 itTruckChosen = truck;
+                used_items = knapsack.get_used_items(truck->pesoMax, truck->volMax);
             }
         }
 
-
-        if (!chooseTruckProfit(max_prof, profit, orders, memento, trucks, itTruckChosen, used_items, i))
-            break;
-
-
-    } while (i > 0 && !trucks.empty());
-
-    memento.save({orders});
-
-    printProfits(profit);
+    FOOTER
 }
 
 void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vector<Order> orders) {
 
-    Timer::start();
-
-    vector<int> profit;
-    vector<Order> used_items;
-    Memento memento;
+    HEADER
     Knapsack knapsack1(orders);
-    addDayBefore(orders, memento);
-    unsigned i = orders.size();
-
-    do {
-        auto itTruckChosen = trucks.end();
-
-        int max_prof = INT32_MIN;
+    DO_HEADER
 
         for (auto truck = trucks.begin(); truck != trucks.end(); truck++) {
             vector<Order> uI;
             int prof = ((int) knapsack1.fractionalKnapsack(uI, truck->pesoMax, truck->volMax) - truck->cost);
             if (prof > max_prof) {
                 max_prof = prof;
-                used_items = uI;
                 itTruckChosen = truck;
-
+                used_items = uI;
             }
         }
 
-        if (!chooseTruckProfit(max_prof, profit, orders, memento, trucks, itTruckChosen, used_items, i))
-            break;
-
-    } while (i > 0 && !trucks.empty());
-
-    memento.save({orders});
-
-    printProfits(profit);
+    FOOTER
 }
 
 void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vector<Order> orders) {
 
-    Timer::start();
-
-    vector<int> profit;
-    vector<Order> used_items;
-    unsigned i = orders.size();
-
-    // sort(trucks.begin(), trucks.end(), [](const Truck& l, const Truck& r){
-    //     return (double) l.cost / (double) (l.pesoMax + l.volMax) < (double) r.cost / (double) (r.pesoMax + r.volMax);
-    // });
-
-    Memento memento;
-    addDayBefore(orders, memento);
-
+    HEADER
     Knapsack knapsack(orders, 400, 400, false); //TODO why fixed value? ... Ricardo: It's not suppose to be
-
-    do {
-        auto itTruckChosen = trucks.end();
-
-        int max_prof = INT32_MIN;
+    DO_HEADER
 
         auto f = Knapsack::getMax(trucks);
         Timer::start();
         auto d = knapsack.optimal_cost(orders, f.first, f.second);
 
         for (auto truck = trucks.begin(); truck != trucks.end(); truck++) {
-            int prof = 0;
 
-            prof = d[truck->pesoMax][truck->volMax].first - truck->cost;
+            int prof = d[truck->pesoMax][truck->volMax].first - truck->cost;
 
             if (prof > max_prof) {
                 max_prof = prof;
+                itTruckChosen = truck;
 
                 auto items = knapsack.knapsack_hirschberg(orders, f.first, f.second);
                 vector<Order> truckOrder;
-                for (auto c: items) {
+                truckOrder.reserve(items.size());
+                for (auto c: items)
                     truckOrder.push_back(orders[c]);
-                }
+
                 used_items = truckOrder;
-                itTruckChosen = truck;
             }
         }
 
-
-        if (!chooseTruckProfit(max_prof, profit, orders, memento, trucks, itTruckChosen, used_items, i))
-            break;
-
-
-    } while (i > 0 && !trucks.empty());
-
-    memento.save({orders});
-
-    printProfits(profit);
+    FOOTER
 }
 
 
