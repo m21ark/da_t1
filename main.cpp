@@ -45,15 +45,18 @@ vector<int> knapsack_hirschberg(const vector<Order> & v,  int wCap, int vCap, in
             best = max(best, { subSol1[i][j].first + subSol2[wCap - i][vCap - j].first, {i,j} });
         }
     }
+    /*
+     * MAYBE WE CAN BUILD A BETTER SOLUTION BASED ON THE ABOVE, separating this part of the code for another one
+     */
 
     vector<int> solution;
-    if (subSol1[best.second.first][best.second.second].second != -1) { // se não for melhoravel
+    if (subSol1[best.second.first][best.second.second].second != -1) {
         int iChosen = subSol1[best.second.first][best.second.second].second;
         solution = knapsack_hirschberg(vector<Order>(begin(v), begin(v) + iChosen),
                 best.second.first - v[iChosen].weight, best.second.second - v[iChosen].volume,offset);
         solution.push_back(subSol1[best.second.first][best.second.second].second + offset);
     }
-    if (subSol2[wCap - best.second.first][vCap - best.second.second].second != -1) { // se não for melhoravel
+    if (subSol2[wCap - best.second.first][vCap - best.second.second].second != -1) {
         int iChosen = mid + subSol2[wCap - best.second.first][vCap - best.second.second].second;
         auto subSolution = knapsack_hirschberg(vector<Order>(begin(v) + mid, begin(v) + iChosen),
                 wCap - best.second.first - v[iChosen].weight, vCap - best.second.second - v[iChosen].volume,offset + mid);
