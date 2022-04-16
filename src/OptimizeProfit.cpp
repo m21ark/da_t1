@@ -109,7 +109,6 @@ void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vec
     DO_HEADER
 
         auto f = Knapsack::getMax(trucks);
-        Timer::start();
         auto d = knapsack.optimal_cost(orders, f.first, f.second);
 
         for (auto truck = trucks.begin(); truck != trucks.end(); truck++) {
