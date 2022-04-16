@@ -69,18 +69,12 @@ void express_scheduling_print(const vector<Order> &orders, unsigned qnt) {
         if (total_time + dur > 28800) break;
         total_time += dur;
         total_profit += orders[i].reward;
-        cout << orders[i] << endl;
+        cout << orders[i].id <<" ";
     }
 
     int success_per = (int) (((float) i / (float) orders.size()) * 100);
     printf("\nTotal time: %ds\nAvg Time:%ds\nProfit: %d€\nDeliveries: %d / %d (%d%%)\n",
            total_time, total_time / i, total_profit, i, (int) orders.size(), success_per);
 
-    if (success_per != 100) {
-        cout << "\nOrders not delivered:\n";
-        for (; i < orders.size(); i++) {
-            cout << orders[i] << endl;
-        }
-    }
 }
 

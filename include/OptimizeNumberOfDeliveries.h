@@ -30,6 +30,8 @@ class OptimizeNumberOfDeliveries {
 
     static void printResults(const unsigned &totalDeliveries, const unsigned &numberOfTrucks);
 
+    static void eraseSavedOrders(const vector<Order *> &usedItems, vector<Order> &ordersV);
+
 
 public:
     static void greedyTrucksAndKnapsack(vector<Truck> trucksV, vector<Order> ordersV);
@@ -39,7 +41,6 @@ public:
     static void backtracking(const vector<Truck> &trucksV, vector<Order> ordersV);
 
 };
-
 
 
 #endif //DA_T1_OPTIMIZE_NUMBER_OF_DELIVERIES_H

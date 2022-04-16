@@ -135,9 +135,8 @@ vector<vector<pair<int, int>>> Knapsack::optimal_cost(const vector<Order> &v, in
 
 //adaptado de https://stackoverflow.com/questions/36834028/reconstructing-the-list-of-items-from-a-space-optimized-0-1-knapsack-implementat
 vector<int> Knapsack::knapsack_hirschberg(const vector<Order> &v, int wCap, int vCap, int offset) {
-    if (empty(v)) {
+    if (empty(v))
         return {};
-    }
 
     int mid = size(v) / 2;
     auto subSol1 = optimal_cost(vector<Order>(begin(v), begin(v) + mid), wCap, vCap);
@@ -149,9 +148,8 @@ vector<int> Knapsack::knapsack_hirschberg(const vector<Order> &v, int wCap, int 
             best = max(best, {subSol1[i][j].first + subSol2[wCap - i][vCap - j].first, {i, j}});
         }
     }
-    /*
-     * MAYBE WE CAN BUILD A BETTER SOLUTION BASED ON THE ABOVE, separating this part of the code for another one
-     */
+
+    // MAYBE WE CAN BUILD A BETTER SOLUTION BASED ON THE ABOVE, separating this part of the code for another one
 
     vector<int> solution;
     if (subSol1[best.second.first][best.second.second].second != -1) {
@@ -174,8 +172,7 @@ vector<int> Knapsack::knapsack_hirschberg(const vector<Order> &v, int wCap, int 
 }
 
 bool Knapsack::fitsInTruck(const Truck &t, const vector<int> &v, const vector<Order> &o) {
-    int wCap = t.pesoMax;
-    int vCap = t.volMax;
+    int wCap = t.pesoMax, vCap = t.volMax;
 
     for (auto i: v) {
         wCap -= o[i].weight;

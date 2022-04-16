@@ -70,8 +70,8 @@ void OptimizeNumberOfDeliveries::getAllDeliveriesCombinations(const unsigned &de
             v.push_back(&(orders[depth]));
             combTemp.push_back(v);
         }
-        for (const vector<Order *> &v: combTemp)
-            combinations.push_back(v);
+
+        combinations << combTemp; // append combTemp to combinations
 
         getAllDeliveriesCombinations(depth + 1, orders, combinations);
     }
@@ -112,18 +112,8 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(vector<Truck> trucksV, 
 
         totalDeliveries += maxDeliveries;
         cout << "Truck " << truckChosen.id << ": " << maxDeliveries << " deliveries" << endl;
-        vector<Order> saveUsedItems;
-        for (auto order: usedItems) {
-            cout << "\tOrder " << order->id << "     weight: " << order->weight << "     volume: " << order->volume
-                 << endl;
-            saveUsedItems.push_back(*order);
-        }
 
-        for (auto order: saveUsedItems) {
-            auto it = std::find(ordersV.begin(), ordersV.end(), order);
-            if (it != ordersV.end())
-                ordersV.erase(it);
-        }
+        eraseSavedOrders(usedItems, ordersV);
 
         numberOfTrucks++;
 
@@ -164,18 +154,8 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(vector<Truck> trucksV
 
         totalDeliveries += maxDeliveries;
         cout << "Truck " << truckChosen.id << ": " << maxDeliveries << " deliveries" << endl;
-        vector<Order> saveUsedItems;
-        for (auto order: usedItems) {
-            cout << "\tOrder " << order->id << "     weight: " << order->weight << "     volume: " << order->volume
-                 << endl;
-            saveUsedItems.push_back(*order);
-        }
 
-        for (auto order: saveUsedItems) {
-            auto it = std::find(ordersV.begin(), ordersV.end(), order);
-            if (it != ordersV.end())
-                ordersV.erase(it);
-        }
+        eraseSavedOrders(usedItems, ordersV);
 
         numberOfTrucks++;
 
@@ -190,10 +170,11 @@ void OptimizeNumberOfDeliveries::backtracking(const vector<Truck> &trucksV, vect
     int totalDeliveries = 0, numberOfTrucks;
     map<Truck, set<Order *>> deliveries;
 
-    for (Truck truck: trucksV)
+    for (const Truck &truck: trucksV)
         deliveries[truck] = {};
 
     orders.reserve(ordersV.size());
+
     for (Order &order: ordersV)
         orders.push_back(&order);
 
@@ -251,6 +232,22 @@ int OptimizeNumberOfDeliveries::backtrackingRec(map<Truck, set<Order *>> &delive
     return minTrucksUsed;
 }
 
+
+void OptimizeNumberOfDeliveries::eraseSavedOrders(const vector<Order *> &usedItems, vector<Order> &ordersV) {
+
+    vector<Order> saveUsedItems;
+    for (const Order *order: usedItems) {
+        cout << "\tOrder " << order->id << "     weight: " << order->weight << "     volume: " << order->volume
+             << endl;
+        saveUsedItems.push_back(*order);
+    }
+    for (const Order &order: saveUsedItems) {
+        auto it = find(ordersV.begin(), ordersV.end(), order);
+        if (it != ordersV.end())
+            ordersV.erase(it);
+    }
+
+}
 
 
 
