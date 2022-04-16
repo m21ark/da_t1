@@ -17,7 +17,7 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(vector<Truck> trucks, vector<
     Memento memento;
     addDayBefore(orders, memento);
 
-    Knapsack knapsack(orders, 400, 400); //TODO why fixed value?
+    Knapsack knapsack(orders, 400, 400); //TODO why fixed value? ... Ricardo: It's not suppose to be
 
     do {
         knapsack.knapsack_2d();
