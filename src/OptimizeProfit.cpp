@@ -120,7 +120,7 @@ void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vec
                 max_prof = prof;
                 itTruckChosen = truck;
 
-                auto items = knapsack.knapsack_hirschberg(orders, f.first, f.second);
+                auto items = knapsack.knapsack_hirschberg(orders, truck->pesoMax, truck->volMax);
                 vector<Order> truckOrder;
                 truckOrder.reserve(items.size());
                 for (auto c: items)
