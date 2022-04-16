@@ -108,7 +108,17 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vec
 void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vector<Order> orders) {
 
     HEADER
-    Knapsack knapsack(orders, 400, 400, false); //TODO why fixed value? ... Ricardo: It's not suppose to be
+    sort(trucks.begin(), trucks.end(), [](const Truck& l, const Truck& r){
+        return (double) l.cost / (double) (l.pesoMax + l.volMax) < (double) r.cost / (double) (r.pesoMax + r.volMax);
+    });
+
+    auto sorter = [](const Order &l, const Order &r) {
+        return (double) l.reward / (double) (l.weight + l.volume)  < (double) r.reward / (double) (l.weight + r.volume);
+    };
+
+    sort(orders.begin(), orders.end(), sorter);
+
+    Knapsack knapsack(orders, 400, 400, false); //TODO why fixed value? ... Ricardo: It's not suppose to
     DO_HEADER
 
         auto f = Knapsack::getMax(trucks);
