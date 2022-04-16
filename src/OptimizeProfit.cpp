@@ -16,6 +16,35 @@ void OptimizeProfit::printProfits(const vector<int> &profits) {
     cout << "Time Taken: " << Timer::getTime() << "s\n";
 }
 
+
+int OptimizeProfit::chooseTruckProfit(int &max_prof, vector<int> &profit, vector<Order> &orders, Memento &memento,
+                                      vector<Truck> &trucks, vector<Truck>::iterator &itTruckChosen,
+                                      vector<Order> &used_items, unsigned &i) {
+    if (max_prof <= 0)
+        return 0;
+    profit.push_back(max_prof);
+
+    memento.save({used_items, itTruckChosen->id, max_prof});
+    cout << "Truck_id: " << itTruckChosen->id << endl;
+
+    if (itTruckChosen != trucks.end())
+        trucks.erase(itTruckChosen);
+
+    for (auto e: used_items) {
+        auto it = std::find(orders.begin(), orders.end(), e);
+        if (it != orders.end())
+            orders.erase(it);
+    }
+
+    i -= used_items.size();
+
+    cout << (int) i << " " << used_items.size() << " " << orders.size() << " " << max_prof << " " << trucks.size()
+         << endl;
+
+    return 1;
+}
+
+
 void OptimizeProfit::greedyTrucksAndLinearKnapsack(vector<Truck> trucks, vector<Order> orders) {
 
     Timer::start();
@@ -45,26 +74,12 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(vector<Truck> trucks, vector<
                 itTruckChosen = truck;
             }
         }
-        if (max_prof <= 0)
+
+
+        if (!chooseTruckProfit(max_prof, profit, orders, memento, trucks, itTruckChosen, used_items, i))
             break;
-        profit.push_back(max_prof);
 
-        //knapsack.print_knapsack(); // PRINT MUST BE CALLED BEFORE ERASING
 
-        memento.save({used_items, itTruckChosen->id, max_prof});
-        cout << "Truck_id: " << itTruckChosen->id << endl;
-
-        if (itTruckChosen != trucks.end())
-            trucks.erase(itTruckChosen);
-
-        for (auto e: used_items) {
-            auto it = std::find(orders.begin(), orders.end(), e);
-            if (it != orders.end())
-                orders.erase(it);
-        }
-        i -= used_items.size();
-        cout << (int) i << " " << used_items.size() << " " << orders.size() << " " << max_prof << " " << trucks.size()
-             << endl;
     } while (i > 0 && !trucks.empty());
 
     memento.save({orders});
@@ -99,26 +114,9 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vec
             }
         }
 
-        if (max_prof <= 0)
+        if (!chooseTruckProfit(max_prof, profit, orders, memento, trucks, itTruckChosen, used_items, i))
             break;
 
-        profit.push_back(max_prof);
-
-        memento.save({used_items, itTruckChosen->id, max_prof});
-        cout << "Truck_id: " << itTruckChosen->id << endl;
-
-        if (itTruckChosen != trucks.end())
-            trucks.erase(itTruckChosen);
-
-        for (auto e: used_items) {
-            auto it = std::find(orders.begin(), orders.end(), e);
-            if (it != orders.end())
-                orders.erase(it);
-        }
-
-        i -= used_items.size();
-        cout << (int) i << " " << used_items.size() << " " << orders.size() << " " << max_prof << " " << trucks.size()
-             << endl;
     } while (i > 0 && !trucks.empty());
 
     memento.save({orders});
@@ -169,30 +167,19 @@ void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vec
                 itTruckChosen = truck;
             }
         }
-        if (max_prof <= 0)
+
+
+        if (!chooseTruckProfit(max_prof, profit, orders, memento, trucks, itTruckChosen, used_items, i))
             break;
-        profit.push_back(max_prof);
 
-        memento.save({used_items, itTruckChosen->id, max_prof});
-        cout << "Truck_id: " << itTruckChosen->id << endl;
 
-        if (itTruckChosen != trucks.end())
-            trucks.erase(itTruckChosen);
-
-        for (auto e: used_items) {
-            auto it = std::find(orders.begin(), orders.end(), e);
-            if (it != orders.end())
-                orders.erase(it);
-        }
-        i -= used_items.size();
-        cout << (int) i << " " << used_items.size() << " " << orders.size() << " " << max_prof << " " << trucks.size()
-             << endl;
     } while (i > 0 && !trucks.empty());
 
     memento.save({orders});
 
     printProfits(profit);
 }
+
 
 
 
