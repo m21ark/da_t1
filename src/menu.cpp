@@ -161,15 +161,19 @@ void Menu::scenario2(const pair<string, string> &files) {
     cout << "File reports will be created\n" << endl;
     cout << "1) Rapid & Sub-Optimal:\tGreedy Trucks Fractional Knapsack\n" << endl;
     cout << "2) Slow & Optimal (more space):\tGreedy Trucks Linear Knapsack\n" << endl;
-    cout << "3) Slower & Optimal (less space):\tGreedy Trucks Linear Knapsack\n" << endl;
+    cout << "3) Slower & Optimal (less space):\tGreedy Trucks Linear Knapsack (with dived and conquer)\n" << endl;
 
 
     char c = askChar();
 
     if (c == '1')
         OptimizeProfit::greedyTrucksAndFractionalKnapsack(trucks, orders);
-    else if (c == '2')
+    else if (c == '2') {
+        if (orders.size() >= 4500 || trucks.size() >= 1200) {
+            cout << "to a large number of orders/Trucks try option 3" << endl;
+        }
         OptimizeProfit::greedyTrucksAndLinearKnapsack(trucks, orders);
+    }
     else if (c == '3')
         OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(trucks, orders);
     else {
