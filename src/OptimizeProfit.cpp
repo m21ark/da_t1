@@ -1,5 +1,6 @@
 #include "../include/OptimizeProfit.h"
 
+
 #define HEADER     Timer::start(); \
 vector<int> profit; \
 vector<Order> used_items; \
@@ -7,11 +8,13 @@ Memento memento; \
 unsigned i = orders.size(); \
 addDayBefore(orders, memento);     \
 
+
 #define FOOTER if (!chooseTruckProfit(max_prof, profit, orders, memento, trucks, itTruckChosen, used_items, i)) \
 break; \
 } while (i > 0 && !trucks.empty()); \
 memento.save({orders}); \
 printProfits(profit);                  \
+
 
 #define DO_HEADER     do { \
 auto itTruckChosen = trucks.end(); \
@@ -113,9 +116,7 @@ void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vec
         auto d = knapsack.optimal_cost(orders, f.first, f.second);
 
         for (auto truck = trucks.begin(); truck != trucks.end(); truck++) {
-
             int prof = d[truck->pesoMax][truck->volMax].first - truck->cost;
-
             if (prof > max_prof) {
                 max_prof = prof;
                 itTruckChosen = truck;

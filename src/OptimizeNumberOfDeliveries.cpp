@@ -22,7 +22,7 @@ int OptimizeNumberOfDeliveries::countTrucksUsedBackTracking(const map<Truck, set
     return (int) count_if(deliveries.begin(), deliveries.end(), counter);
 }
 
-bool OptimizeNumberOfDeliveries::truckCanStillCarry(const Truck &truck, set<Order *> &orders,const Order *newOrder) {
+bool OptimizeNumberOfDeliveries::truckCanStillCarry(const Truck &truck, set<Order *> &orders, const Order *newOrder) {
     int ordersTotalWeight = 0, ordersTotalVolume = 0;
     for (const Order *order: orders) {
         ordersTotalWeight += order->weight;
@@ -45,6 +45,13 @@ int OptimizeNumberOfDeliveries::getNumberOfDeliveries(const Truck &truck, vector
 
     if (truck.pesoMax >= totalWeightOrders && truck.volMax >= totalVolumeOrders) return count;
     return -1;
+}
+
+void OptimizeNumberOfDeliveries::printResults(const unsigned &totalDeliveries, const unsigned &numberOfTrucks) {
+    Timer::stop();
+    cout << "\nTotal deliveries: " << totalDeliveries << endl;
+    cout << "Number of Trucks: " << numberOfTrucks << endl;
+    cout << "Time taken: " << Timer::getTime() << "s\n";
 }
 
 // NOLINTNEXTLINE
@@ -77,10 +84,10 @@ void OptimizeNumberOfDeliveries::getAllDeliveriesCombinations(const unsigned &de
 void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(vector<Truck> trucksV, vector<Order> ordersV) {
 
     Timer::start();
+    vector<Order *> usedItems;
+    unsigned totalDeliveries = 0, numberOfTrucks = 0;
 
     Knapsack knapsack(ordersV, getMaxWeightTrucks(trucksV), getMaxVolumeTrucks(trucksV));
-    unsigned totalDeliveries = 0, numberOfTrucks = 0;
-    vector<Order *> usedItems;
 
     do {
         unsigned maxDeliveries = 0;
@@ -121,19 +128,13 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(vector<Truck> trucksV, 
         numberOfTrucks++;
 
     } while (knapsack.getStoreSize() > 0 && !trucksV.empty());
-
-    Timer::stop();
-
-    cout << "\nTotal deliveries: " << totalDeliveries << endl;
-    cout << "Number of Trucks: " << numberOfTrucks << endl;
-    cout << "Time taken: " << Timer::getTime() << "s\n";
+    printResults(totalDeliveries, numberOfTrucks);
 }
 
 
 void OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(vector<Truck> trucksV, vector<Order> ordersV) {
 
     Timer::start();
-
     vector<Order *> usedItems;
     int totalDeliveries = 0, numberOfTrucks = 0;
 
@@ -179,26 +180,22 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(vector<Truck> trucksV
         numberOfTrucks++;
 
     } while (!ordersV.empty() && !trucksV.empty());
-
-    Timer::stop();
-
-    cout << "\nTotal deliveries: " << totalDeliveries << endl;
-    cout << "Number of Trucks: " << numberOfTrucks << endl;
-    cout << "Time taken: " << Timer::getTime() << "s\n";
-
+    printResults(totalDeliveries, numberOfTrucks);
 }
 
 void OptimizeNumberOfDeliveries::backtracking(const vector<Truck> &trucksV, vector<Order> ordersV) {
 
     Timer::start();
-
-    map<Truck, set<Order *>> deliveries;
     vector<Order *> orders;
     int totalDeliveries = 0, numberOfTrucks;
+    map<Truck, set<Order *>> deliveries;
 
-    for (Truck truck: trucksV) deliveries[truck] = {};
+    for (Truck truck: trucksV)
+        deliveries[truck] = {};
+
     orders.reserve(ordersV.size());
-    for (Order &order: ordersV) orders.push_back(&order);
+    for (Order &order: ordersV)
+        orders.push_back(&order);
 
     cout << "\nBacktracking Deliveries..." << endl;
     numberOfTrucks = backtrackingRec(deliveries, orders, totalDeliveries);
@@ -210,12 +207,7 @@ void OptimizeNumberOfDeliveries::backtracking(const vector<Truck> &trucksV, vect
                  << endl;
         }
     }
-
-    Timer::stop();
-
-    cout << "\nTotal deliveries: " << totalDeliveries << endl;
-    cout << "Number of Trucks: " << numberOfTrucks << endl;
-    cout << "Time taken: " << Timer::getTime() << "s\n";
+    printResults(totalDeliveries, numberOfTrucks);
 }
 
 // NOLINTNEXTLINE

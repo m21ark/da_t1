@@ -23,10 +23,12 @@ class OptimizeNumberOfDeliveries {
 
     static int countTrucksUsedBackTracking(const map<Truck, set<Order *>> &deliveries);
 
-    static bool truckCanStillCarry(const Truck &truck, set<Order *> &orders,const Order *newOrder);
+    static bool truckCanStillCarry(const Truck &truck, set<Order *> &orders, const Order *newOrder);
 
     static int
     backtrackingRec(map<Truck, set<Order *>> &deliveries, vector<Order *> unselectedOrders, int &numberOfOrders);
+
+    static void printResults(const unsigned &totalDeliveries, const unsigned &numberOfTrucks);
 
 
 public:
@@ -37,5 +39,7 @@ public:
     static void backtracking(const vector<Truck> &trucksV, vector<Order> ordersV);
 
 };
+
+
 
 #endif //DA_T1_OPTIMIZE_NUMBER_OF_DELIVERIES_H
