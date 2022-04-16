@@ -160,7 +160,9 @@ void Menu::scenario2(const pair<string, string> &files) {
     cout << "\nTrucks are chosen in a greedy way." << endl;
     cout << "File reports will be created\n" << endl;
     cout << "1) Rapid & Sub-Optimal:\tGreedy Trucks Fractional Knapsack\n" << endl;
-    cout << "2) Slow & Optimal:\tGreedy Trucks Linear Knapsack\n" << endl;
+    cout << "2) Slow & Optimal (more space):\tGreedy Trucks Linear Knapsack\n" << endl;
+    cout << "3) Slower & Optimal (less space):\tGreedy Trucks Linear Knapsack\n" << endl;
+
 
     char c = askChar();
 
@@ -168,6 +170,8 @@ void Menu::scenario2(const pair<string, string> &files) {
         OptimizeProfit::greedyTrucksAndFractionalKnapsack(trucks, orders);
     else if (c == '2')
         OptimizeProfit::greedyTrucksAndLinearKnapsack(trucks, orders);
+    else if (c == '3')
+        OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(trucks, orders);
     else {
         cout << endl << "That is not a valid option!" << endl;
         getchar();
