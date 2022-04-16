@@ -33,7 +33,7 @@ void OptimizeProfit::printProfits(const vector<int> &profits) {
         total_profit += pr;
 
     Timer::stop();
-    cout << "Total Profit = " << total_profit << endl;
+    cout << "Total Profit = " << total_profit << "€\n";
     cout << "Time Taken: " << Timer::getTime() << "s\n";
 }
 
@@ -108,12 +108,12 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vec
 void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vector<Order> orders) {
 
     HEADER
-    sort(trucks.begin(), trucks.end(), [](const Truck& l, const Truck& r){
+    sort(trucks.begin(), trucks.end(), [](const Truck &l, const Truck &r) {
         return (double) l.cost / (double) (l.pesoMax + l.volMax) < (double) r.cost / (double) (r.pesoMax + r.volMax);
     });
 
     auto sorter = [](const Order &l, const Order &r) {
-        return (double) l.reward / (double) (l.weight + l.volume)  < (double) r.reward / (double) (l.weight + r.volume);
+        return (double) l.reward / (double) (l.weight + l.volume) < (double) r.reward / (double) (l.weight + r.volume);
     };
 
     sort(orders.begin(), orders.end(), sorter);
@@ -125,6 +125,7 @@ void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vec
         auto d = knapsack.optimal_cost(orders, f.first, f.second);
 
         for (auto truck = trucks.begin(); truck != trucks.end(); truck++) {
+
             int prof = d[truck->pesoMax][truck->volMax].first - truck->cost;
             if (prof > max_prof) {
                 max_prof = prof;
