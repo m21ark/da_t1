@@ -15,7 +15,7 @@ size_t Knapsack::knapsack_2d() {
     for (size_t i = 0; i <= size; ++i)  // O(size*W*Vo)
         for (size_t j = 0; j <= W; ++j)
             for (size_t k = 0; k <= Vo; ++k)
-                knapsack_calc(i, j, k, i == 0 ? 0:store[i - 1].reward);
+                knapsack_calc(i, j, k, i == 0 ? 0 : store[i - 1].reward);
 
     return T[size][W][Vo];
 }
@@ -116,15 +116,15 @@ vector<Order *> Knapsack::get_used_items_number_deliveries(size_t weight, size_t
 }
 
 vector<vector<pair<int, int>>> Knapsack::optimal_cost(const vector<Order> &v, int wCap, int vCap) {
-    vector<vector<pair<int, int>>> dp(wCap + 1, vector<pair<int,int>>(vCap + 1,{ 0, -1 }));
+    vector<vector<pair<int, int>>> dp(wCap + 1, vector<pair<int, int>>(vCap + 1, {0, -1}));
 
     for (int i = 0; i < size(v); ++i) {
         for (int j = wCap; j >= 0; --j) {
-            for (int k = vCap; k >= 0 ; --k) {
+            for (int k = vCap; k >= 0; --k) {
                 if (v[i].weight <= j && v[i].volume <= k
                     && dp[j][k].first < dp[j - v[i].weight][k - v[i].volume].first + v[i].reward
                         ) {
-                    dp[j][k] = { dp[j - v[i].weight][k - v[i].volume].first + v[i].reward, i };
+                    dp[j][k] = {dp[j - v[i].weight][k - v[i].volume].first + v[i].reward, i};
                 }
             }
         }
@@ -143,10 +143,10 @@ vector<int> Knapsack::knapsack_hirschberg(const vector<Order> &v, int wCap, int 
     auto subSol1 = optimal_cost(vector<Order>(begin(v), begin(v) + mid), wCap, vCap);
     auto subSol2 = optimal_cost(vector<Order>(begin(v) + mid, end(v)), wCap, vCap);
 
-    pair<int, pair<int,int>> best = { -1, {-1,-1} };
+    pair<int, pair<int, int>> best = {-1, {-1, -1}};
     for (int i = 0; i <= wCap; ++i) {
         for (int j = 0; j <= vCap; ++j) {
-            best = max(best, { subSol1[i][j].first + subSol2[wCap - i][vCap - j].first, {i,j} });
+            best = max(best, {subSol1[i][j].first + subSol2[wCap - i][vCap - j].first, {i, j}});
         }
     }
     /*
@@ -157,13 +157,15 @@ vector<int> Knapsack::knapsack_hirschberg(const vector<Order> &v, int wCap, int 
     if (subSol1[best.second.first][best.second.second].second != -1) {
         int iChosen = subSol1[best.second.first][best.second.second].second;
         solution = knapsack_hirschberg(vector<Order>(begin(v), begin(v) + iChosen),
-                                       best.second.first - v[iChosen].weight, best.second.second - v[iChosen].volume,offset);
+                                       best.second.first - v[iChosen].weight, best.second.second - v[iChosen].volume,
+                                       offset);
         solution.push_back(subSol1[best.second.first][best.second.second].second + offset);
     }
     if (subSol2[wCap - best.second.first][vCap - best.second.second].second != -1) {
         int iChosen = mid + subSol2[wCap - best.second.first][vCap - best.second.second].second;
         auto subSolution = knapsack_hirschberg(vector<Order>(begin(v) + mid, begin(v) + iChosen),
-                                               wCap - best.second.first - v[iChosen].weight, vCap - best.second.second - v[iChosen].volume,offset + mid);
+                                               wCap - best.second.first - v[iChosen].weight,
+                                               vCap - best.second.second - v[iChosen].volume, offset + mid);
         copy(begin(subSolution), end(subSolution), back_inserter(solution));
         solution.push_back(iChosen + offset);
     }
@@ -187,7 +189,7 @@ bool Knapsack::fitsInTruck(const Truck &t, const vector<int> &v, const vector<Or
 pair<int, int> Knapsack::getMax(const vector<Truck> &trucks) {
     int mW = INT32_MIN, mV = INT32_MIN;
 
-    for (auto& f : trucks) {
+    for (auto &f: trucks) {
         if (f.volMax > mV)
             mV = f.volMax;
         if (f.pesoMax > mW)

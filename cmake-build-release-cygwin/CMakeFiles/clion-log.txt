@@ -1,4 +1,0 @@
-C:\cygwin64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Release "-DCMAKE_MAKE_PROGRAM=/cygdrive/c/Program Files/JetBrains/CLion 2021.1.1/bin/ninja/cygwin/ninja.exe" -G Ninja "/cygdrive/c/Users/ricar/OneDrive/Ambiente de Trabalho/MIEIC/DA/da_t1"
--- Configuring done
--- Generating done
--- Build files have been written to: /cygdrive/c/Users/ricar/OneDrive/Ambiente de Trabalho/MIEIC/DA/da_t1/cmake-build-release-cygwin

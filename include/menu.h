@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <chrono>
+#include <vector>
+#include <algorithm>
 #include "../include/OptimizeProfit.h"
 #include "../include/read_files.h"
 #include "../include/express_deliveries.h"

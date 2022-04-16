@@ -6,6 +6,16 @@ void OptimizeProfit::addDayBefore(vector<Order> &v, Memento &memento) {
         v.push_back(order);
 }
 
+void OptimizeProfit::printProfits(const vector<int> &profits) {
+    int total_profit = 0;
+    for (const int &pr: profits)
+        total_profit += pr;
+
+    Timer::stop();
+    cout << "Total Profit = " << total_profit << endl;
+    cout << "Time Taken: " << Timer::getTime() << "s\n";
+}
+
 void OptimizeProfit::greedyTrucksAndLinearKnapsack(vector<Truck> trucks, vector<Order> orders) {
 
     Timer::start();
@@ -59,13 +69,7 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(vector<Truck> trucks, vector<
 
     memento.save({orders});
 
-    int total_profit = 0;
-    for (auto &pr: profit)
-        total_profit += pr;
-
-    Timer::stop();
-    cout << "Total Profit = " << total_profit << endl;
-    cout << "Time Taken: " << Timer::getTime() << "s\n";
+    printProfits(profit);
 }
 
 void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vector<Order> orders) {
@@ -119,13 +123,7 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vec
 
     memento.save({orders});
 
-    int total_profit = 0;
-    for (auto &pr: profit)
-        total_profit += pr;
-
-    Timer::stop();
-    cout << "Total Profit = " << total_profit << endl;
-    cout << "Time Taken: " << Timer::getTime() << "s\n";
+    printProfits(profit);
 }
 
 void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vector<Order> orders) {
@@ -143,7 +141,6 @@ void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vec
     Memento memento;
     addDayBefore(orders, memento);
 
-
     Knapsack knapsack(orders, 400, 400, false); //TODO why fixed value? ... Ricardo: It's not suppose to be
 
     do {
@@ -151,23 +148,21 @@ void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vec
 
         int max_prof = INT32_MIN;
 
-
         auto f = Knapsack::getMax(trucks);
         Timer::start();
-        auto d  = knapsack.optimal_cost(orders,f.first, f.second);
+        auto d = knapsack.optimal_cost(orders, f.first, f.second);
 
         for (auto truck = trucks.begin(); truck != trucks.end(); truck++) {
             int prof = 0;
-
 
             prof = d[truck->pesoMax][truck->volMax].first - truck->cost;
 
             if (prof > max_prof) {
                 max_prof = prof;
 
-                auto items = knapsack.knapsack_hirschberg(orders,f.first,f.second);
+                auto items = knapsack.knapsack_hirschberg(orders, f.first, f.second);
                 vector<Order> truckOrder;
-                for (auto c : items) {
+                for (auto c: items) {
                     truckOrder.push_back(orders[c]);
                 }
                 used_items = truckOrder;
@@ -196,14 +191,9 @@ void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vec
 
     memento.save({orders});
 
-    int total_profit = 0;
-    for (auto &pr: profit)
-        total_profit += pr;
-
-    Timer::stop();
-    cout << "Total Profit = " << total_profit << endl;
-    cout << "Time Taken: " << Timer::getTime() << "s\n";
-
+    printProfits(profit);
 }
+
+
 
 

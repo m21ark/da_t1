@@ -9,7 +9,8 @@
 
 class OptimizeProfit {
 private:
-    static void addDayBefore(vector<Order>& v, Memento& memento);
+    static void addDayBefore(vector<Order> &v, Memento &memento);
+
 public:
     /**
      * TODO: PASS BY REFERENCE
@@ -19,6 +20,8 @@ public:
     static void greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vector<Order> orders);
 
     static void greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vector<Order> order);
+
+    static void printProfits(const vector<int> &profits);
 };
 
 

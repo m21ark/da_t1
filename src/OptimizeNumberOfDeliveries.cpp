@@ -22,9 +22,9 @@ int OptimizeNumberOfDeliveries::countTrucksUsedBackTracking(const map<Truck, set
     return (int) count_if(deliveries.begin(), deliveries.end(), counter);
 }
 
-bool OptimizeNumberOfDeliveries::truckCanStillCarry(Truck truck, set<Order *> &orders, Order *newOrder) {
+bool OptimizeNumberOfDeliveries::truckCanStillCarry(const Truck &truck, set<Order *> &orders,const Order *newOrder) {
     int ordersTotalWeight = 0, ordersTotalVolume = 0;
-    for (Order *order: orders) {
+    for (const Order *order: orders) {
         ordersTotalWeight += order->weight;
         ordersTotalVolume += order->volume;
     }
@@ -35,7 +35,7 @@ bool OptimizeNumberOfDeliveries::truckCanStillCarry(Truck truck, set<Order *> &o
     return !(cond1 || cond2);
 }
 
-int OptimizeNumberOfDeliveries::getNumberOfDeliveries(Truck truck, vector<Order *> &combination) {
+int OptimizeNumberOfDeliveries::getNumberOfDeliveries(const Truck &truck, vector<Order *> &combination) {
     int totalWeightOrders = 0, totalVolumeOrders = 0, count = 0;
     for (Order *it: combination) {
         totalWeightOrders += it->weight;
@@ -48,7 +48,7 @@ int OptimizeNumberOfDeliveries::getNumberOfDeliveries(Truck truck, vector<Order 
 }
 
 // NOLINTNEXTLINE
-void OptimizeNumberOfDeliveries::getAllDeliveriesCombinations(unsigned int depth, vector<Order> &orders,
+void OptimizeNumberOfDeliveries::getAllDeliveriesCombinations(const unsigned &depth, vector<Order> &orders,
                                                               vector<vector<Order *>> &combinations) {
     if (depth == 0) {
         combinations = {{},

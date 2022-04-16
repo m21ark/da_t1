@@ -52,7 +52,7 @@ public:
         }
     }
 
-    void save(const State& state);
+    void save(const State &state);
 
     State loadDayBefore();
 };
