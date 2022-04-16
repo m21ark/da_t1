@@ -9,3 +9,4 @@ cmake-build-release-visual-studio/
 cmake-build-default-visual-studio/
 cmake-build-default/
 or-tools_VisualStudio2019-64bit_v9.3.10497/
+cmake-build-release-cygwin/
