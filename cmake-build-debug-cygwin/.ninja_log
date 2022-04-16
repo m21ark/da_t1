@@ -1,0 +1,15 @@
+# ninja log v5
+477	2349	1650120510937340000	CMakeFiles/da_t1.dir/src/timer.cpp.o	c24bf952bf73590b
+50	2824	1650120511434340900	CMakeFiles/da_t1.dir/src/read_files.cpp.o	bb8c22e41c99b99b
+93	4275	1650120512915328200	CMakeFiles/da_t1.dir/src/knapsack.cpp.o	c2db7fb953c77a34
+5	4735	1650120513351338900	CMakeFiles/da_t1.dir/main.cpp.o	ecd392779d344040
+146	4908	1650120513546334100	CMakeFiles/da_t1.dir/src/express_deliveries.cpp.o	9f38cac9f0c5b163
+1314	5294	1650120513938337100	CMakeFiles/da_t1.dir/src/Memento.cpp.o	9c8c06e5e2ee5c41
+337	5886	1650120514530879200	CMakeFiles/da_t1.dir/src/menu.cpp.o	d8944a0f29830424
+1128	6630	1650120515279933700	CMakeFiles/da_t1.dir/src/OptimizeNumberOfDeliveries.cpp.o	a888e1328d00d275
+32	4116	1650120888846043200	CMakeFiles/da_t1.dir/src/OptimizeProfit.cpp.o	8acfa7521959a24e
+4118	5167	1650120889896564500	da_t1.exe	14ac5a464f8e619e
+35	4108	1650122042526095800	CMakeFiles/da_t1.dir/src/OptimizeProfit.cpp.o	8acfa7521959a24e
+4110	5210	1650122043629039500	da_t1.exe	14ac5a464f8e619e
+26	3496	1650123552388203100	CMakeFiles/da_t1.dir/src/OptimizeProfit.cpp.o	8acfa7521959a24e
+3498	4516	1650123553409230800	da_t1.exe	14ac5a464f8e619e

@@ -15,11 +15,12 @@ private:
     size_t Vo{};
     size_t n;
 public:
-    explicit Knapsack(vector<Order> &store, const size_t WeightCapacity, const size_t VolumeCapacity) : store(store) {
+    explicit Knapsack(vector<Order> &store, const size_t WeightCapacity, const size_t VolumeCapacity, bool reseveSpace = true) : store(store) {
         this->W = WeightCapacity;
         this->Vo = VolumeCapacity;
         n = store.size();
-        T = vector<vector<vector<size_t>>>(n + 1, vector<vector<size_t>>(W + 1, vector<size_t>(Vo + 1)));
+        if (reseveSpace)
+            T = vector<vector<vector<size_t>>>(n + 1, vector<vector<size_t>>(W + 1, vector<size_t>(Vo + 1)));
 
     }
 
@@ -44,6 +45,14 @@ public:
     vector<Order *> get_used_items_number_deliveries(size_t weight, size_t volume);
 
     size_t getStoreSize() { return store.size(); }
+
+    vector<vector<pair<int, int>>> optimal_cost(vector<Order> const& v, int wCap, int vCap);
+
+    vector<int> knapsack_hirschberg(const vector<Order> & v,  int wCap, int vCap, int offset = 0);
+
+    static bool fitsInTruck(const Truck& t,const vector<int>& v, const vector<Order>& o);
+
+    static pair<int,int> getMax(const vector<Truck> & trucks);
 };
 
 
