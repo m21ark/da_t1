@@ -129,7 +129,7 @@ void Menu::scenario1(const pair<string, string> &files) {
     vector<Truck> trucks = read_trucks(files.first);
     vector<Order> orders = read_orders(files.second);
 
-    cout << "\nOptimizing number of trucks used:\n" << endl;
+    cout << "\nOptimizing number of trucks used:\n\n";
     cout << "1) Rapid Knapsack:\tGreedy choice of best Trucks and Knapsack for order's combinations per truck\n";
     cout << "2) Slow Brute Force:\tGreedy choice of best Trucks and brute force order's combinations per truck\n";
     cout << "3) Slow Backtracking:\tCalculates the best scenario possible using backtracking (very slow)\n";
@@ -155,11 +155,11 @@ void Menu::scenario2(const pair<string, string> &files) {
     vector<Truck> trucks = read_trucks(files.first);
     vector<Order> orders = read_orders(files.second);
 
-    cout << "\nTrucks are chosen in a greedy way." << endl;
-    cout << "File reports will be created\n" << endl;
-    cout << "1) Rapid & Sub-Optimal: Greedy Trucks Fractional Knapsack\n" << endl;
-    cout << "2) Slow & Optimal (more space): Greedy Trucks Linear Knapsack\n" << endl;
-    cout << "3) Slower & Optimal (less space): Greedy Trucks Linear Knapsack (with dived and conquer)\n" << endl;
+    cout << "\nTrucks are chosen in a greedy way\n";
+    cout << "File reports will be created\n\n";
+    cout << "1) Rapid & Sub-Optimal: Greedy Trucks Fractional Knapsack\n\n";
+    cout << "2) Slow & Optimal (more space): Greedy Trucks Linear Knapsack\n\n";
+    cout << "3) Slower & Optimal (less space): Greedy Trucks Linear Knapsack (with dived and conquer)\n\n";
 
     char c = askChar();
 
@@ -184,8 +184,8 @@ void Menu::scenario3(const string &file) {
 
     vector<Order> orders = read_orders(file);
 
-    cout << "\n1) Rapid: Optimal Task Sorting" << endl;
-    cout << "2) Slow:  Task Brute Force\n" << endl;
+    cout << "\n1) Rapid: Optimal Task Sorting\n";
+    cout << "2) Slow:  Task Brute Force\n\n";
 
     char c = askChar();
 
@@ -194,12 +194,9 @@ void Menu::scenario3(const string &file) {
     else if (c == '2')
         express_scheduling_brute(orders);
     else {
-        cout << endl << "That is not a valid option!" << endl;
+        cout << "\nThat is not a valid option!\n";
         getchar();
         return;
     }
     getchar();
 }
-
-
-
