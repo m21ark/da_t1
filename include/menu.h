@@ -6,10 +6,10 @@
 #include <chrono>
 #include <vector>
 #include <algorithm>
-#include "../include/OptimizeProfit.h"
-#include "../include/read_files.h"
-#include "../include/express_deliveries.h"
-#include "../include/OptimizeNumberOfDeliveries.h"
+#include "OptimizeProfit.h"
+#include "read_files.h"
+#include "express_deliveries.h"
+#include "OptimizeNumberOfDeliveries.h"
 
 #ifdef _WIN32
 #define CLEAR "cls"

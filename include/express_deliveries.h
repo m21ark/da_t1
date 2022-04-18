@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <cmath>
 #include "read_files.h"
-#include "../include/timer.h"
+#include "timer.h"
 
 using namespace std;
 

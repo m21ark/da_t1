@@ -6,11 +6,7 @@
 using namespace std::chrono;
 using namespace std;
 
-#define time_start high_resolution_clock::time_point Timer::start_time;
-#define time_end high_resolution_clock::time_point Timer::stop_time;
-
 typedef high_resolution_clock::time_point time_point_t;
-
 
 /**
  * Timer class that stores current time at command.
