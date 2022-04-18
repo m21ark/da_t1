@@ -118,24 +118,18 @@ void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vec
 
     do {
         int max_prof = 0;
-        Knapsack knapsack(orders, 400, 400, false); //TODO why fixed value? ... Ricardo: It's not suppose to
-        Timer::start();
+        Knapsack knapsack(orders);
         vector<Truck>::iterator itTruckChosen;
         auto f = Knapsack::getMax(trucks);
         auto items = knapsack.knapsack_hirschberg(orders, f.first, f.second, max_prof,trucks);
 
         vector<Order> g;
-        max_prof = 0;
         for (auto item : items) {
            g.push_back(orders[item]);
-           max_prof += orders[item].reward;
         }
-        max_prof -= knapsack.itTruck->cost;
         used_items = g;
-        Timer::stop();
 
         itTruckChosen = knapsack.itTruck;
-        cout<< Timer::getTime() << endl;
 
         if (max_prof <= 0)
             break;

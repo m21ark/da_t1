@@ -151,11 +151,10 @@ vector<int> Knapsack::knapsack_hirschberg(const vector<Order> &v, int wCap, int 
         pair<int, pair<int, int>> max = {-1, {-1, -1}};
         int a=0,b=0;
         for (auto truck = trucks.begin(); truck != trucks.end(); truck++) {
-            int prof = sol[truck->pesoMax][truck->volMax].first;
+            int prof = sol[truck->pesoMax][truck->volMax].first - truck->cost;
             if (prof > max.first ) {
-                best = {prof, {truck->pesoMax,truck->volMax}};
                 max = {prof, {truck->pesoMax,truck->volMax}};
-                mProf = prof - truck->cost;
+                mProf = prof;
                 a = truck->pesoMax;
                 b = truck->volMax;
                 itTruck = truck;
@@ -166,7 +165,7 @@ vector<int> Knapsack::knapsack_hirschberg(const vector<Order> &v, int wCap, int 
             vCap = b;
         }
 
-        knapsack_hirschberg(v, wCap, vCap, mProf, trucks, 0, false);
+        return knapsack_hirschberg(v, wCap, vCap, mProf, trucks, 0, false);
     }
 
     int mid = size(v) / 2;
