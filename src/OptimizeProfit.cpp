@@ -1,6 +1,5 @@
 #include "../include/OptimizeProfit.h"
 
-
 #define HEADER     Timer::start(); \
 vector<int> profit; \
 vector<Order> used_items; \
@@ -23,18 +22,14 @@ int max_prof = INT32_MIN; \
 
 void OptimizeProfit::addDayBefore(vector<Order> &v, Memento &memento) {
     State state = memento.loadDayBefore();
-    for (auto &order: state.orders)
-        v.push_back(order);
+    v << state.orders;
 }
 
 void OptimizeProfit::printProfits(const vector<int> &profits) {
-    int total_profit = 0;
-    for (const int &pr: profits)
-        total_profit += pr;
 
-    Timer::stop();
-    cout << "Total Profit = " << total_profit << endl;
-    cout << "Time Taken: " << Timer::getTime() << "s\n";
+    int total_profit = accumulate(profits.begin(), profits.end(), 0);
+    cout << "\nTotal Profit = " << total_profit << "€\n";
+    cout << "Time Taken: " << Timer::getCurrentTime() << "s\n";
 }
 
 int OptimizeProfit::chooseTruckProfit(int &max_prof, vector<int> &profit, vector<Order> &orders, Memento &memento,
@@ -45,26 +40,31 @@ int OptimizeProfit::chooseTruckProfit(int &max_prof, vector<int> &profit, vector
     profit.push_back(max_prof);
 
     memento.save({used_items, itTruckChosen->id, max_prof});
+
     cout << "Truck_id: " << itTruckChosen->id << endl;
 
     if (itTruckChosen != trucks.end())
         trucks.erase(itTruckChosen);
 
     for (auto e: used_items) {
-        auto it = std::find(orders.begin(), orders.end(), e);
+        auto it = find(orders.begin(), orders.end(), e);
         if (it != orders.end())
             orders.erase(it);
     }
 
     i -= used_items.size();
 
-    cout << (int) i << " " << used_items.size() << " " << orders.size() << " " << max_prof << " " << trucks.size()
-         << endl;
+    cout << "Items left: " << setw(6) << (int) i << "\tItems used: " << setw(6) << used_items.size()
+         << "\tOrders size: " << setw(6) << orders.size()
+         << "\tMax profit: " << setw(6) << max_prof << "\tTrucks size: " << setw(6) << trucks.size() << endl;
 
-    return 1;
+
+    return 1; // TODO why return 1, 0? shouldn't be returned boolean instead?
 }
 
 
+// TODO BUG: The 3 functions do not print anything useful for the smaller cases (5, 10 trucks and orders)
+// TODO FEATURE: Add the % of orders delivered and that were postponed (in the 3 funcs)
 void OptimizeProfit::greedyTrucksAndLinearKnapsack(vector<Truck> trucks, vector<Order> orders) {
 
     HEADER

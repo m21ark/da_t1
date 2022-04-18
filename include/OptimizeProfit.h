@@ -3,8 +3,9 @@
 
 #include <string>
 #include <fstream>
-#include "../include/knapsack.h"
-#include "../include/Memento.h"
+#include <numeric>
+#include "knapsack.h"
+#include "Memento.h"
 #include "timer.h"
 
 class OptimizeProfit {
@@ -26,7 +27,6 @@ public:
     static int chooseTruckProfit(int &max_prof, vector<int> &profit, vector<Order> &orders, Memento &memento,
                                  vector<Truck> &trucks, vector<Truck>::iterator &itTruckChosen,
                                  vector<Order> &used_items, unsigned &i);
-
 
 };
 

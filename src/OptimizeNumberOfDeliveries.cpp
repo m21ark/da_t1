@@ -1,6 +1,5 @@
 #include "../include/OptimizeNumberOfDeliveries.h"
 
-// Auxiliary Functions
 int OptimizeNumberOfDeliveries::getMaxVolumeTrucks(const vector<Truck> &trucks) {
     auto func = [](const Truck &left, const Truck &right) {
         return left.volMax < right.volMax;
@@ -22,36 +21,43 @@ int OptimizeNumberOfDeliveries::countTrucksUsedBackTracking(const map<Truck, set
     return (int) count_if(deliveries.begin(), deliveries.end(), counter);
 }
 
-bool OptimizeNumberOfDeliveries::truckCanStillCarry(const Truck &truck, set<Order *> &orders, const Order *newOrder) {
+bool
+OptimizeNumberOfDeliveries::truckCanStillCarry(const Truck &truck, const set<Order *> &orders, const Order *newOrder) {
     int ordersTotalWeight = 0, ordersTotalVolume = 0;
     for (const Order *order: orders) {
         ordersTotalWeight += order->weight;
         ordersTotalVolume += order->volume;
     }
-
     bool cond1 = newOrder->weight + ordersTotalWeight > truck.pesoMax;
     bool cond2 = newOrder->volume + ordersTotalVolume > truck.volMax;
-
     return !(cond1 || cond2);
 }
 
 int OptimizeNumberOfDeliveries::getNumberOfDeliveries(const Truck &truck, vector<Order *> &combination) {
     int totalWeightOrders = 0, totalVolumeOrders = 0, count = 0;
-    for (Order *it: combination) {
+    for (const Order *it: combination) {
         totalWeightOrders += it->weight;
         totalVolumeOrders += it->volume;
         count++;
     }
-
     if (truck.pesoMax >= totalWeightOrders && truck.volMax >= totalVolumeOrders) return count;
     return -1;
 }
 
+void OptimizeNumberOfDeliveries::eraseSavedOrders(const vector<Order *> &usedItems, vector<Order> &ordersV) {
+    for (const Order *order: usedItems) {
+        cout << "\tOrder: " << order->id << "\t\tweight: " << order->weight << "\t\tvolume: " << order->volume
+             << endl;
+        auto it = find(ordersV.begin(), ordersV.end(), *order);
+        if (it != ordersV.end())
+            ordersV.erase(it);
+    }
+}
+
 void OptimizeNumberOfDeliveries::printResults(const unsigned &totalDeliveries, const unsigned &numberOfTrucks) {
-    Timer::stop();
     cout << "\nTotal deliveries: " << totalDeliveries << endl;
     cout << "Number of Trucks: " << numberOfTrucks << endl;
-    cout << "Time taken: " << Timer::getTime() << "s\n";
+    cout << "Time taken: " << Timer::getCurrentTime() << "s\n";
 }
 
 // NOLINTNEXTLINE
@@ -70,12 +76,9 @@ void OptimizeNumberOfDeliveries::getAllDeliveriesCombinations(const unsigned &de
             v.push_back(&(orders[depth]));
             combTemp.push_back(v);
         }
-
         combinations << combTemp; // append combTemp to combinations
-
         getAllDeliveriesCombinations(depth + 1, orders, combinations);
     }
-
 }
 
 
@@ -174,16 +177,15 @@ void OptimizeNumberOfDeliveries::backtracking(const vector<Truck> &trucksV, vect
         deliveries[truck] = {};
 
     orders.reserve(ordersV.size());
-
     for (Order &order: ordersV)
         orders.push_back(&order);
 
-    cout << "\nBacktracking Deliveries..." << endl;
+    cout << "\nBacktracking Deliveries...\n";
     numberOfTrucks = backtrackingRec(deliveries, orders, totalDeliveries);
 
     for (const auto &truckDel: deliveries) {
         cout << "Truck " << truckDel.first.id << ": " << truckDel.second.size() << " deliveries" << endl;
-        for (Order *order: truckDel.second) {
+        for (const Order *order: truckDel.second) {
             cout << "\tOrder " << order->id << "     weight: " << order->weight << "     volume: " << order->volume
                  << endl;
         }
@@ -196,23 +198,22 @@ int OptimizeNumberOfDeliveries::backtrackingRec(map<Truck, set<Order *>> &delive
                                                 int &numberOfOrders) {
 
     if (unselectedOrders.empty()) return countTrucksUsedBackTracking(deliveries);
+
     Order *order = *unselectedOrders.rbegin();
     unselectedOrders.pop_back();
-
     map<Truck, set<Order *>> minDeliveries = deliveries, tempDeliveries = deliveries;
-    int tempNumberOfOrders = numberOfOrders, minNumberOfOrders = numberOfOrders;
+    int tempNumberOfOrders = numberOfOrders + 1, minNumberOfOrders = numberOfOrders;
 
     int tempTrucksUsed, minTrucksUsed = backtrackingRec(minDeliveries, unselectedOrders, minNumberOfOrders);
-    tempNumberOfOrders++;
 
-    for (auto &truckDeliveries: deliveries) {
-
+    for (const auto &truckDeliveries: deliveries)
         if (truckCanStillCarry(truckDeliveries.first, truckDeliveries.second, order)) {
+
             tempDeliveries[truckDeliveries.first].insert(order);
             tempTrucksUsed = backtrackingRec(tempDeliveries, unselectedOrders, tempNumberOfOrders);
 
             bool cond1 = tempNumberOfOrders > minNumberOfOrders;
-            bool cond2 = tempNumberOfOrders == minNumberOfOrders && tempTrucksUsed < minTrucksUsed;
+            bool cond2 = (tempNumberOfOrders == minNumberOfOrders) && (tempTrucksUsed < minTrucksUsed);
 
             if (cond1 || cond2) {
                 minNumberOfOrders = tempNumberOfOrders;
@@ -224,31 +225,10 @@ int OptimizeNumberOfDeliveries::backtrackingRec(map<Truck, set<Order *>> &delive
             tempNumberOfOrders++;
             tempDeliveries[truckDeliveries.first].erase(order);
         }
-    }
 
     unselectedOrders.push_back(order);
     numberOfOrders = minNumberOfOrders;
     deliveries = minDeliveries;
     return minTrucksUsed;
 }
-
-
-void OptimizeNumberOfDeliveries::eraseSavedOrders(const vector<Order *> &usedItems, vector<Order> &ordersV) {
-
-    vector<Order> saveUsedItems;
-    for (const Order *order: usedItems) {
-        cout << "\tOrder " << order->id << "     weight: " << order->weight << "     volume: " << order->volume
-             << endl;
-        saveUsedItems.push_back(*order);
-    }
-    for (const Order &order: saveUsedItems) {
-        auto it = find(ordersV.begin(), ordersV.end(), order);
-        if (it != ordersV.end())
-            ordersV.erase(it);
-    }
-
-}
-
-
-
 

@@ -1,10 +1,8 @@
 #ifndef DA_T1_KNAPSACK_H
 #define DA_T1_KNAPSACK_H
 
-
+#include <algorithm>
 #include "read_files.h"
-#include "algorithm"
-
 
 class Knapsack {
 
