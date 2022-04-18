@@ -1,6 +1,5 @@
 #include "../include/OptimizeProfit.h"
 
-
 #define HEADER     Timer::start(); \
 vector<int> profit; \
 vector<Order> used_items; \
@@ -64,7 +63,7 @@ int OptimizeProfit::chooseTruckProfit(int &max_prof, vector<int> &profit, vector
     return 1;
 }
 
-
+// TODO BUG: The 3 functions do not print anything useful for the smaller cases (5, 10 trucks and orders)
 void OptimizeProfit::greedyTrucksAndLinearKnapsack(vector<Truck> trucks, vector<Order> orders) {
 
     HEADER
