@@ -1,0 +1,11 @@
+# ninja log v5
+516	2407	1650315451028119900	CMakeFiles/da_t1.dir/src/timer.cpp.o	c24bf952bf73590b
+130	3949	1650315452609116300	CMakeFiles/da_t1.dir/src/read_files.cpp.o	bb8c22e41c99b99b
+364	5259	1650315453864114300	CMakeFiles/da_t1.dir/src/express_deliveries.cpp.o	9f38cac9f0c5b163
+4	5262	1650315453914115200	CMakeFiles/da_t1.dir/main.cpp.o	ecd392779d344040
+939	5886	1650315454562111200	CMakeFiles/da_t1.dir/src/Memento.cpp.o	9c8c06e5e2ee5c41
+471	5997	1650315454652109300	CMakeFiles/da_t1.dir/src/menu.cpp.o	d8944a0f29830424
+184	6058	1650315454721106700	CMakeFiles/da_t1.dir/src/knapsack.cpp.o	c2db7fb953c77a34
+418	6602	1650315455271120000	CMakeFiles/da_t1.dir/src/OptimizeProfit.cpp.o	8acfa7521959a24e
+619	8088	1650315456764836800	CMakeFiles/da_t1.dir/src/OptimizeNumberOfDeliveries.cpp.o	a888e1328d00d275
+8088	9342	1650315458017823900	da_t1.exe	14ac5a464f8e619e

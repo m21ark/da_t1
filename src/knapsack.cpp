@@ -133,37 +133,70 @@ vector<vector<pair<int, int>>> Knapsack::optimal_cost(const vector<Order> &v, in
     return dp;
 }
 
+int closest(std::vector<int> const& vec, int value) {
+    auto const it = std::lower_bound(vec.begin(), vec.end(), value);
+    if (it == vec.end()) { return -1; }
+
+    return *it;
+}
+
 //adaptado de https://stackoverflow.com/questions/36834028/reconstructing-the-list-of-items-from-a-space-optimized-0-1-knapsack-implementat
-vector<int> Knapsack::knapsack_hirschberg(const vector<Order> &v, int wCap, int vCap, int offset) {
+vector<int> Knapsack::knapsack_hirschberg(const vector<Order> &v, int wCap, int vCap, int& mProf, vector<Truck>& trucks, int offset, bool firs) {
     if (empty(v))
         return {};
+
+    pair<int, pair<int, int>> best = {-1, {-1, -1}};
+    if (firs) {
+        auto sol = optimal_cost(v, wCap, vCap);
+        pair<int, pair<int, int>> max = {-1, {-1, -1}};
+        int a=0,b=0;
+        for (auto truck = trucks.begin(); truck != trucks.end(); truck++) {
+            int prof = sol[truck->pesoMax][truck->volMax].first;
+            if (prof > max.first ) {
+                best = {prof, {truck->pesoMax,truck->volMax}};
+                max = {prof, {truck->pesoMax,truck->volMax}};
+                mProf = prof - truck->cost;
+                a = truck->pesoMax;
+                b = truck->volMax;
+                itTruck = truck;
+            }
+        }
+        if (a != 0) {
+            wCap = a;
+            vCap = b;
+        }
+
+        knapsack_hirschberg(v, wCap, vCap, mProf, trucks, 0, false);
+    }
 
     int mid = size(v) / 2;
     auto subSol1 = optimal_cost(vector<Order>(begin(v), begin(v) + mid), wCap, vCap);
     auto subSol2 = optimal_cost(vector<Order>(begin(v) + mid, end(v)), wCap, vCap);
 
-    pair<int, pair<int, int>> best = {-1, {-1, -1}};
-    for (int i = 0; i <= wCap; ++i) {
-        for (int j = 0; j <= vCap; ++j) {
-            best = max(best, {subSol1[i][j].first + subSol2[wCap - i][vCap - j].first, {i, j}});
+    {
+        for (int i = 0; i <= wCap; ++i) {
+            for (int j = 0; j <= vCap; ++j) {
+                best = max(best, {subSol1[i][j].first + subSol2[wCap - i][vCap - j].first, {i, j}});
+            }
         }
     }
 
-    // MAYBE WE CAN BUILD A BETTER SOLUTION BASED ON THE ABOVE, separating this part of the code for another one
+
 
     vector<int> solution;
     if (subSol1[best.second.first][best.second.second].second != -1) {
         int iChosen = subSol1[best.second.first][best.second.second].second;
         solution = knapsack_hirschberg(vector<Order>(begin(v), begin(v) + iChosen),
-                                       best.second.first - v[iChosen].weight, best.second.second - v[iChosen].volume,
-                                       offset);
+                                       best.second.first - v[iChosen].weight, best.second.second - v[iChosen].volume, mProf,
+                                       trucks,offset, false);
         solution.push_back(subSol1[best.second.first][best.second.second].second + offset);
     }
     if (subSol2[wCap - best.second.first][vCap - best.second.second].second != -1) {
         int iChosen = mid + subSol2[wCap - best.second.first][vCap - best.second.second].second;
         auto subSolution = knapsack_hirschberg(vector<Order>(begin(v) + mid, begin(v) + iChosen),
                                                wCap - best.second.first - v[iChosen].weight,
-                                               vCap - best.second.second - v[iChosen].volume, offset + mid);
+                                               vCap - best.second.second - v[iChosen].volume, mProf, trucks,offset + mid,
+                                               false);
         copy(begin(subSolution), end(subSolution), back_inserter(solution));
         solution.push_back(iChosen + offset);
     }

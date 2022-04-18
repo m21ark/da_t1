@@ -107,40 +107,67 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vec
 
 void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vector<Order> orders) {
 
-    HEADER
-    sort(trucks.begin(), trucks.end(), [](const Truck& l, const Truck& r){
-        return (double) l.cost / (double) (l.pesoMax + l.volMax) < (double) r.cost / (double) (r.pesoMax + r.volMax);
-    });
+    Timer::start();
 
-    auto sorter = [](const Order &l, const Order &r) {
-        return (double) l.reward / (double) (l.weight + l.volume)  < (double) r.reward / (double) (l.weight + r.volume);
-    };
+    vector<int> profit;
+    vector<Order> used_items;
+    Memento memento;
+    Knapsack knapsack1(orders);
+    addDayBefore(orders, memento);
+    unsigned i = orders.size();
 
-    sort(orders.begin(), orders.end(), sorter);
-
-    Knapsack knapsack(orders, 400, 400, false); //TODO why fixed value? ... Ricardo: It's not suppose to
-    DO_HEADER
-
+    do {
+        int max_prof = 0;
+        Knapsack knapsack(orders, 400, 400, false); //TODO why fixed value? ... Ricardo: It's not suppose to
+        Timer::start();
+        vector<Truck>::iterator itTruckChosen;
         auto f = Knapsack::getMax(trucks);
-        auto d = knapsack.optimal_cost(orders, f.first, f.second);
+        auto items = knapsack.knapsack_hirschberg(orders, f.first, f.second, max_prof,trucks);
 
-        for (auto truck = trucks.begin(); truck != trucks.end(); truck++) {
-            int prof = d[truck->pesoMax][truck->volMax].first - truck->cost;
-            if (prof > max_prof) {
-                max_prof = prof;
-                itTruckChosen = truck;
+        vector<Order> g;
+        max_prof = 0;
+        for (auto item : items) {
+           g.push_back(orders[item]);
+           max_prof += orders[item].reward;
+        }
+        max_prof -= knapsack.itTruck->cost;
+        used_items = g;
+        Timer::stop();
 
-                auto items = knapsack.knapsack_hirschberg(orders, truck->pesoMax, truck->volMax);
-                vector<Order> truckOrder;
-                truckOrder.reserve(items.size());
-                for (auto c: items)
-                    truckOrder.push_back(orders[c]);
+        itTruckChosen = knapsack.itTruck;
+        cout<< Timer::getTime() << endl;
 
-                used_items = truckOrder;
-            }
+        if (max_prof <= 0)
+            break;
+
+        profit.push_back(max_prof);
+
+        memento.save({used_items, itTruckChosen->id, max_prof});
+        cout << "Truck_id: " << itTruckChosen->id << endl;
+
+        if (itTruckChosen != trucks.end())
+            trucks.erase(itTruckChosen);
+
+        for (auto e: used_items) {
+            auto it = std::find(orders.begin(), orders.end(), e);
+            if (it != orders.end())
+                orders.erase(it);
         }
 
-    FOOTER
+        i -= used_items.size();
+        cout << (int) i << " " << used_items.size() << " " << orders.size() << " " << max_prof << " " << trucks.size()
+             << endl;
+    } while (i > 0 && !trucks.empty());
+
+        memento.save({orders});
+
+        int total_profit = 0;
+        for (auto &pr: profit)
+            total_profit += pr;
+
+        Timer::stop();
+        cout << "Total Profit = " << total_profit << endl;
+        cout << "Time Taken: " << Timer::getTime() << "s\n";
 }
 
 
