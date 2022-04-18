@@ -108,38 +108,19 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vec
 void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vector<Order> orders) {
 
     HEADER
-    sort(trucks.begin(), trucks.end(), [](const Truck &l, const Truck &r) {
-        return (double) l.cost / (double) (l.pesoMax + l.volMax) < (double) r.cost / (double) (r.pesoMax + r.volMax);
-    });
-
-    auto sorter = [](const Order &l, const Order &r) {
-        return (double) l.reward / (double) (l.weight + l.volume) < (double) r.reward / (double) (l.weight + r.volume);
-    };
-
-    sort(orders.begin(), orders.end(), sorter);
-
-    Knapsack knapsack(orders, 400, 400, false); //TODO why fixed value? ... Ricardo: It's not suppose to
+    Knapsack knapsack1(orders);
     DO_HEADER
-
+        Knapsack knapsack(orders);
         auto f = Knapsack::getMax(trucks);
-        auto d = knapsack.optimal_cost(orders, f.first, f.second);
+        auto items = knapsack.knapsack_hirschberg(orders, f.first, f.second, max_prof,trucks);
 
-        for (auto truck = trucks.begin(); truck != trucks.end(); truck++) {
-
-            int prof = d[truck->pesoMax][truck->volMax].first - truck->cost;
-            if (prof > max_prof) {
-                max_prof = prof;
-                itTruckChosen = truck;
-
-                auto items = knapsack.knapsack_hirschberg(orders, truck->pesoMax, truck->volMax);
-                vector<Order> truckOrder;
-                truckOrder.reserve(items.size());
-                for (auto c: items)
-                    truckOrder.push_back(orders[c]);
-
-                used_items = truckOrder;
-            }
+        vector<Order> g;
+        for (auto item : items) {
+           g.push_back(orders[item]);
         }
+        used_items = g;
+
+        itTruckChosen = knapsack.itTruck;
 
     FOOTER
 }

@@ -12,7 +12,9 @@ private:
     size_t W{};
     size_t Vo{};
     size_t n;
+
 public:
+    vector<Truck>::iterator itTruck;
     explicit Knapsack(vector<Order> &store, const size_t WeightCapacity, const size_t VolumeCapacity,
                       bool reserveSpace = true) : store(store) {
         this->W = WeightCapacity;
@@ -47,7 +49,7 @@ public:
 
     vector<vector<pair<int, int>>> optimal_cost(vector<Order> const &v, int wCap, int vCap);
 
-    vector<int> knapsack_hirschberg(const vector<Order> &v, int wCap, int vCap, int offset = 0);
+    vector<int> knapsack_hirschberg(const vector<Order> &v, int wCap, int vCap, int &prof,vector<Truck> &trucks,int offset = 0, bool firs = true );
 
     static bool fitsInTruck(const Truck &t, const vector<int> &v, const vector<Order> &o);
 
