@@ -107,19 +107,10 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vec
 
 void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vector<Order> orders) {
 
-    Timer::start();
-
-    vector<int> profit;
-    vector<Order> used_items;
-    Memento memento;
+    HEADER
     Knapsack knapsack1(orders);
-    addDayBefore(orders, memento);
-    unsigned i = orders.size();
-
-    do {
-        int max_prof = 0;
+    DO_HEADER
         Knapsack knapsack(orders);
-        vector<Truck>::iterator itTruckChosen;
         auto f = Knapsack::getMax(trucks);
         auto items = knapsack.knapsack_hirschberg(orders, f.first, f.second, max_prof,trucks);
 
@@ -131,37 +122,7 @@ void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vec
 
         itTruckChosen = knapsack.itTruck;
 
-        if (max_prof <= 0)
-            break;
-
-        profit.push_back(max_prof);
-
-        memento.save({used_items, itTruckChosen->id, max_prof});
-        cout << "Truck_id: " << itTruckChosen->id << endl;
-
-        if (itTruckChosen != trucks.end())
-            trucks.erase(itTruckChosen);
-
-        for (auto e: used_items) {
-            auto it = std::find(orders.begin(), orders.end(), e);
-            if (it != orders.end())
-                orders.erase(it);
-        }
-
-        i -= used_items.size();
-        cout << (int) i << " " << used_items.size() << " " << orders.size() << " " << max_prof << " " << trucks.size()
-             << endl;
-    } while (i > 0 && !trucks.empty());
-
-        memento.save({orders});
-
-        int total_profit = 0;
-        for (auto &pr: profit)
-            total_profit += pr;
-
-        Timer::stop();
-        cout << "Total Profit = " << total_profit << endl;
-        cout << "Time Taken: " << Timer::getTime() << "s\n";
+    FOOTER
 }
 
 
