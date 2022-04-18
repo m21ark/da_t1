@@ -1,5 +1,10 @@
 #include "../include/OptimizeNumberOfDeliveries.h"
 
+void OptimizeNumberOfDeliveries::addDayBefore(vector<Order> &orders, Memento &memento) {
+    State state = memento.loadDayBefore();
+    orders << state.orders;
+}
+
 int OptimizeNumberOfDeliveries::getMaxVolumeTrucks(const vector<Truck> &trucks) {
     auto func = [](const Truck &left, const Truck &right) {
         return left.volMax < right.volMax;
@@ -44,11 +49,10 @@ int OptimizeNumberOfDeliveries::getNumberOfDeliveries(const Truck &truck, vector
     return -1;
 }
 
-void OptimizeNumberOfDeliveries::eraseSavedOrders(const vector<Order *> &usedItems, vector<Order> &ordersV) {
-    for (const Order *order: usedItems) {
-        cout << "\tOrder: " << order->id << "\t\tweight: " << order->weight << "\t\tvolume: " << order->volume
-             << endl;
-        auto it = find(ordersV.begin(), ordersV.end(), *order);
+void OptimizeNumberOfDeliveries::eraseSavedOrders(const vector<Order> &usedItems, vector<Order> &ordersV, bool print) {
+    for (const Order order: usedItems) {
+        if (print) cout << "\tOrder: " << order.id << "\t\tweight: " << order.weight << "\t\tvolume: " << order.volume << endl;
+        auto it = find(ordersV.begin(), ordersV.end(), order);
         if (it != ordersV.end())
             ordersV.erase(it);
     }
@@ -63,6 +67,7 @@ void OptimizeNumberOfDeliveries::printResults(const unsigned &totalDeliveries, c
 // NOLINTNEXTLINE
 void OptimizeNumberOfDeliveries::getAllDeliveriesCombinations(const unsigned &depth, vector<Order> &orders,
                                                               vector<vector<Order *>> &combinations) {
+
     if (depth == 0) {
         combinations = {{},
                         {&(orders[0])}};
@@ -79,7 +84,10 @@ void OptimizeNumberOfDeliveries::getAllDeliveriesCombinations(const unsigned &de
         combinations << combTemp; // append combTemp to combinations
         getAllDeliveriesCombinations(depth + 1, orders, combinations);
     }
+
 }
+
+
 
 
 // MAIN FUNCTIONS
@@ -87,16 +95,23 @@ void OptimizeNumberOfDeliveries::getAllDeliveriesCombinations(const unsigned &de
 void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(vector<Truck> trucksV, vector<Order> ordersV) {
 
     Timer::start();
+
+    Memento memento;
+    addDayBefore(ordersV, memento);
+
     vector<Order *> usedItems;
+    vector<Order> saveUsedItems;
     unsigned totalDeliveries = 0, numberOfTrucks = 0;
 
     Knapsack knapsack(ordersV, getMaxWeightTrucks(trucksV), getMaxVolumeTrucks(trucksV));
 
     do {
         unsigned maxDeliveries = 0;
+        int rewardOrders = 0;
         Truck truckChosen{};
         auto itTruckChosen = trucksV.end();
         bool truckFound = false;
+        saveUsedItems.clear(); usedItems.clear();
         knapsack.knapsack_2d_number_deliveries();
 
         for (auto it = trucksV.begin(); it != trucksV.end(); it++) {
@@ -116,11 +131,18 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(vector<Truck> trucksV, 
         totalDeliveries += maxDeliveries;
         cout << "Truck " << truckChosen.id << ": " << maxDeliveries << " deliveries" << endl;
 
-        eraseSavedOrders(usedItems, ordersV);
+        for (auto order: usedItems) {
+            rewardOrders += order->reward;
+            saveUsedItems.push_back(*order);
+        }
+        memento.save({saveUsedItems, truckChosen.id, rewardOrders - truckChosen.cost});
+        eraseSavedOrders(saveUsedItems, ordersV);
 
         numberOfTrucks++;
 
     } while (knapsack.getStoreSize() > 0 && !trucksV.empty());
+    memento.save({ordersV});
+
     printResults(totalDeliveries, numberOfTrucks);
 }
 
@@ -128,14 +150,19 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(vector<Truck> trucksV, 
 void OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(vector<Truck> trucksV, vector<Order> ordersV) {
 
     Timer::start();
+
+    Memento memento;
+    addDayBefore(ordersV, memento);
     vector<Order *> usedItems;
+    vector<Order> saveUsedItems;
     int totalDeliveries = 0, numberOfTrucks = 0;
 
     do {
-        int maxDeliveries = 0;
+        int maxDeliveries = 0, rewardOrders = 0;
         Truck truckChosen{};
         auto itTruckChosen = trucksV.end();
         bool truckFound = false;
+        saveUsedItems.clear(); usedItems.clear();
 
         vector<vector<Order *>> combinations;
         getAllDeliveriesCombinations(0, ordersV, combinations);
@@ -158,18 +185,29 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(vector<Truck> trucksV
         totalDeliveries += maxDeliveries;
         cout << "Truck " << truckChosen.id << ": " << maxDeliveries << " deliveries" << endl;
 
-        eraseSavedOrders(usedItems, ordersV);
+        for (auto order: usedItems) {
+            rewardOrders += order->reward;
+            saveUsedItems.push_back(*order);
+        }
+        memento.save({saveUsedItems, truckChosen.id, rewardOrders - truckChosen.cost});
+        eraseSavedOrders(saveUsedItems, ordersV);
+
 
         numberOfTrucks++;
 
     } while (!ordersV.empty() && !trucksV.empty());
+    memento.save({ordersV});
     printResults(totalDeliveries, numberOfTrucks);
 }
 
 void OptimizeNumberOfDeliveries::backtracking(const vector<Truck> &trucksV, vector<Order> ordersV) {
 
     Timer::start();
+    Memento memento;
+    addDayBefore(ordersV, memento);
+
     vector<Order *> orders;
+    vector<Order> allOrders, allUsedOrders;
     int totalDeliveries = 0, numberOfTrucks;
     map<Truck, set<Order *>> deliveries;
 
@@ -184,12 +222,21 @@ void OptimizeNumberOfDeliveries::backtracking(const vector<Truck> &trucksV, vect
     numberOfTrucks = backtrackingRec(deliveries, orders, totalDeliveries);
 
     for (const auto &truckDel: deliveries) {
+        int rewardOrders = 0;
+        vector<Order> ordersOfThisTruck;
         cout << "Truck " << truckDel.first.id << ": " << truckDel.second.size() << " deliveries" << endl;
+
         for (const Order *order: truckDel.second) {
             cout << "\tOrder " << order->id << "     weight: " << order->weight << "     volume: " << order->volume
                  << endl;
+            rewardOrders += order->reward;
+            ordersOfThisTruck.push_back(*order);
+            allUsedOrders.push_back(*order);
         }
+        memento.save({ordersOfThisTruck, truckDel.first.id, rewardOrders - truckDel.first.cost});
     }
+    eraseSavedOrders(allUsedOrders, ordersV, false);
+    memento.save({ordersV});
     printResults(totalDeliveries, numberOfTrucks);
 }
 

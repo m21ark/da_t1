@@ -6,12 +6,16 @@
 #include <map>
 #include <set>
 #include "Objects.h"
+#include "Memento.h"
 #include "knapsack.h"
 #include "timer.h"
 
 using namespace std;
 
 class OptimizeNumberOfDeliveries {
+
+    static void addDayBefore(vector<Order> &orders, Memento &memento);
+
     static int getMaxVolumeTrucks(const vector<Truck> &trucks);
 
     static int getMaxWeightTrucks(const vector<Truck> &trucks);
@@ -30,7 +34,7 @@ class OptimizeNumberOfDeliveries {
 
     static void printResults(const unsigned &totalDeliveries, const unsigned &numberOfTrucks);
 
-    static void eraseSavedOrders(const vector<Order *> &usedItems, vector<Order> &ordersV);
+    static void eraseSavedOrders(const vector<Order> &usedItems, vector<Order> &ordersV, bool print = true);
 
 
 public:
