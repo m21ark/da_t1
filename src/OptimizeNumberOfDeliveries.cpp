@@ -84,8 +84,8 @@ void OptimizeNumberOfDeliveries::getAllDeliveriesCombinations(const unsigned &de
 }
 
 bool OptimizeNumberOfDeliveries::compareByWeightAndVolume(const Order &o1, const Order &o2) {
-    int avg1 = o1.weight + o1.volume;
-    int avg2 = o2.weight + o2.volume;
+    int avg1 = o1.weight * (double) o1.volume;
+    int avg2 = o2.weight * (double) o2.volume;
     return avg1 < avg2;
 }
 
