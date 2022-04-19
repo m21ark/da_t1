@@ -86,6 +86,9 @@ class OptimizeNumberOfDeliveries {
      */
     static void eraseSavedOrders(const vector<Order> &usedItems, vector<Order> &ordersV, bool print = true);
 
+    static bool compareByWeightAndVolume(const Order& o1, const Order& o2);
+
+    static unsigned getGreedyNumberOfOrdersOfTruck(Truck &truck, vector<Order>& orders, vector<Order *>& usedItems);
 
 public:
 
@@ -96,6 +99,8 @@ public:
      * @param ordersV
      */
     static void greedyTrucksAndKnapsack(vector<Truck> trucksV, vector<Order> ordersV);
+
+    static void greedyTrucksAndGreedyOrders(vector<Truck> trucksV, vector<Order> ordersV);
 
     static void greedyTrucksAndBruteForce(vector<Truck> trucksV, vector<Order> ordersV);
 
