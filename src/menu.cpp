@@ -182,16 +182,19 @@ void Menu::scenario2(const pair<string, string> &files) {
 
 void Menu::scenario3(const string &file) {
 
-    vector<Order> orders = read_orders(file);
+    vector <Order> orders = read_orders(file);
 
-    cout << "\n1) Rapid: Optimal Task Sorting\n";
-    cout << "2) Slow:  Task Brute Force\n\n";
+    cout << "\n1) Rapid: Optimal Task Sorting (N*Log N)\n";
+    cout << "1) Slow: Optimal Task Sorting (N^2)\n";
+    cout << "2) Slower:  Task Brute Force\n\n";
 
     char c = askChar();
 
     if (c == '1')
         express_scheduling(orders);
     else if (c == '2')
+        express_scheduling_bubble(orders);
+    else if (c == '3')
         express_scheduling_brute(orders);
     else {
         cout << "\nThat is not a valid option!\n";

@@ -14,8 +14,6 @@ using namespace std;
 
 class OptimizeNumberOfDeliveries {
 
-    static void addDayBefore(vector<Order> &orders, Memento &memento);
-
     static int getMaxVolumeTrucks(const vector<Truck> &trucks);
 
     static int getMaxWeightTrucks(const vector<Truck> &trucks);

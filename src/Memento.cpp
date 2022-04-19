@@ -1,10 +1,17 @@
 #include "../include/Memento.h"
 
+void Memento::saveExpress(const vector<Order> &orders) {
+    filesystem::create_directory(dir_path);
+    ofstream fs(dir_path + "/TomorrowOrders.txt", ios::out | ios::trunc);
+    for (const Order &e: orders)
+        fs << e << endl;
+}
+
 void Memento::save(const State &state) {
 
     if (state.truck == NOT_PROVIDED && state.max_prof == NOT_PROVIDED) {
         ofstream fs(dir_path + "/TomorrowOrders.txt", ios::out | ios::trunc);
-        for (auto e: state.orders)
+        for (const Order &e: state.orders)
             fs << e << endl;
         return;
     }
@@ -56,3 +63,9 @@ State Memento::loadDayBefore() {
 
     return state;
 }
+
+void addDayBefore(vector<Order> &orders, Memento &memento) {
+    State state = memento.loadDayBefore();
+    orders << state.orders;
+}
+

@@ -1,10 +1,5 @@
 #include "../include/OptimizeNumberOfDeliveries.h"
 
-void OptimizeNumberOfDeliveries::addDayBefore(vector<Order> &orders, Memento &memento) {
-    State state = memento.loadDayBefore();
-    orders << state.orders;
-}
-
 int OptimizeNumberOfDeliveries::getMaxVolumeTrucks(const vector<Truck> &trucks) {
     auto func = [](const Truck &left, const Truck &right) {
         return left.volMax < right.volMax;
@@ -51,7 +46,8 @@ int OptimizeNumberOfDeliveries::getNumberOfDeliveries(const Truck &truck, vector
 
 void OptimizeNumberOfDeliveries::eraseSavedOrders(const vector<Order> &usedItems, vector<Order> &ordersV, bool print) {
     for (const Order order: usedItems) {
-        if (print) cout << "\tOrder: " << order.id << "\t\tweight: " << order.weight << "\t\tvolume: " << order.volume << endl;
+        if (print)
+            cout << "\tOrder: " << order.id << "\t\tweight: " << order.weight << "\t\tvolume: " << order.volume << endl;
         auto it = find(ordersV.begin(), ordersV.end(), order);
         if (it != ordersV.end())
             ordersV.erase(it);
@@ -111,7 +107,8 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(vector<Truck> trucksV, 
         Truck truckChosen{};
         auto itTruckChosen = trucksV.end();
         bool truckFound = false;
-        saveUsedItems.clear(); usedItems.clear();
+        saveUsedItems.clear();
+        usedItems.clear();
         knapsack.knapsack_2d_number_deliveries();
 
         for (auto it = trucksV.begin(); it != trucksV.end(); it++) {
@@ -162,7 +159,8 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(vector<Truck> trucksV
         Truck truckChosen{};
         auto itTruckChosen = trucksV.end();
         bool truckFound = false;
-        saveUsedItems.clear(); usedItems.clear();
+        saveUsedItems.clear();
+        usedItems.clear();
 
         vector<vector<Order *>> combinations;
         getAllDeliveriesCombinations(0, ordersV, combinations);
@@ -196,7 +194,9 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(vector<Truck> trucksV
         numberOfTrucks++;
 
     } while (!ordersV.empty() && !trucksV.empty());
-    memento.save({ordersV});
+
+    memento.saveExpress({ordersV});
+
     printResults(totalDeliveries, numberOfTrucks);
 }
 

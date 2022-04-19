@@ -54,8 +54,13 @@ public:
 
     void save(const State &state);
 
+    void saveExpress(const vector<Order> &orders);
+
     State loadDayBefore();
+
 };
+
+void addDayBefore(vector<Order> &orders, Memento &memento);
 
 
 #endif //DA_T1_MEMENTO_H

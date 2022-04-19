@@ -1,8 +1,12 @@
 #include "../include/express_deliveries.h"
 
+
 void express_scheduling(vector<Order> orders) {
 
     Timer::start();
+
+    Memento memento;
+    addDayBefore(orders, memento);
 
     auto sorter = [](const Order &a, const Order &b) {
         return a.duration < b.duration;
@@ -11,8 +15,23 @@ void express_scheduling(vector<Order> orders) {
     sort(orders.begin(), orders.end(), sorter); // O(n) = N * log N
 
     express_scheduling_print(orders, orders.size()); // O(n) = N
+
+    memento.saveExpress(orders); // TODO antes de guardar remover as que foram entregues
 }
 
+
+void express_scheduling_bubble(vector<Order> orders) {
+
+    Timer::start();
+    Memento memento;
+    addDayBefore(orders, memento);
+
+    bubbleSort(orders); // O(n) = N^2
+
+    express_scheduling_print(orders, orders.size()); // O(n) = N
+
+    memento.saveExpress(orders); // TODO antes de guardar remover as que foram entregues
+}
 
 void express_scheduling_brute(vector<Order> orders) {
 
@@ -51,6 +70,7 @@ void express_scheduling_brute(vector<Order> orders) {
             }
 
     } while (std::next_permutation(orders.begin(), orders.end()));
+    // O(n) = N! --> Test all vector permutations
 
     express_scheduling_print(best, best_num_deliveries);
 }
@@ -73,5 +93,29 @@ void express_scheduling_print(const vector<Order> &orders, unsigned qnt) {
            total_time, total_time / i, total_profit, i, (int) orders.size(), success_per);
 
     cout << "Time taken: " << Timer::getCurrentTime() << "s\n";
+}
+
+
+template<class Sortable>
+void bubbleSort(vector<Sortable> &v) {
+
+    auto swap = [](Sortable *xp, Sortable *yp) {
+        Sortable temp = *xp;
+        *xp = *yp;
+        *yp = temp;
+        return true;
+    };
+
+    int i, j;
+    bool swapped;
+    for (i = 0; i < v.size() - 1; i++) {
+        swapped = false;
+        for (j = 0; j < v.size() - i - 1; j++)
+            if (v[j + 1] < v[j])
+                swapped = swap(&v[j], &v[j + 1]);
+
+        if (!swapped)
+            break;
+    }
 }
 
