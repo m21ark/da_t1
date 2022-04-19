@@ -1,0 +1,49 @@
+\hypertarget{menu_8h_source}{}\doxysection{menu.\+h}
+\label{menu_8h_source}\index{include/menu.h@{include/menu.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef DA\_T1\_MENU\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define DA\_T1\_MENU\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <chrono>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <algorithm>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}OptimizeProfit.h"{}}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}read\_files.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}express\_deliveries.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}OptimizeNumberOfDeliveries.h"{}}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#ifdef \_WIN32}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#define CLEAR "{}cls"{}}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#else }\textcolor{comment}{//In any other OS}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#define CLEAR "{}clear"{}}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{27 \textcolor{keywordtype}{string} trimStr(\textcolor{keywordtype}{string} str);}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{34 \textcolor{keywordtype}{bool} emptyStream(istream \&ios);}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{40 \textcolor{keywordtype}{char} askChar();}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{46 \textcolor{keyword}{class }\mbox{\hyperlink{class_menu}{Menu}} \{}
+\DoxyCodeLine{47 \textcolor{keyword}{public}:}
+\DoxyCodeLine{51     \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_af926949d10332a96b26733c1feda298f}{start}}();}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{keyword}{private}:}
+\DoxyCodeLine{59     \textcolor{keyword}{static} pair<string, string> askFiles(\textcolor{keywordtype}{bool} scene3 = \textcolor{keyword}{false});}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{65     \textcolor{keyword}{static} \textcolor{keywordtype}{void} scenario1(\textcolor{keyword}{const} pair<string, string> \&files);}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{71     \textcolor{keyword}{static} \textcolor{keywordtype}{void} scenario2(\textcolor{keyword}{const} pair<string, string> \&files);}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{77     \textcolor{keyword}{static} \textcolor{keywordtype}{void} scenario3(\textcolor{keyword}{const} \textcolor{keywordtype}{string} \&file);}
+\DoxyCodeLine{78 \};}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//DA\_T1\_MENU\_H}}
+
+\end{DoxyCode}

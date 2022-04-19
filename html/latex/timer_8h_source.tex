@@ -1,0 +1,31 @@
+\hypertarget{timer_8h_source}{}\doxysection{timer.\+h}
+\label{timer_8h_source}\index{include/timer.h@{include/timer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef DA\_T1\_TIMER\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define DA\_T1\_TIMER\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <chrono>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{keyword}{using namespace }std::chrono;}
+\DoxyCodeLine{7 \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{typedef} high\_resolution\_clock::time\_point time\_point\_t;}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{15 \textcolor{keyword}{class }\mbox{\hyperlink{class_timer}{Timer}} \{}
+\DoxyCodeLine{16 \textcolor{keyword}{private}:}
+\DoxyCodeLine{20     \textcolor{keyword}{static} time\_point\_t start\_time, stop\_time;}
+\DoxyCodeLine{21 \textcolor{keyword}{public}:}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{26     \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_timer_a2830b17e5e89164d28eb73458753b64b}{start}}();}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{31     \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_timer_aac15e75f611256c2b6503c07e4606396}{stop}}();}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{38     \textcolor{keyword}{static} \textcolor{keywordtype}{float} \mbox{\hyperlink{class_timer_a343466ffc155509a0342d40fe308061e}{getCurrentTime}}();}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{44     \textcolor{keyword}{static} \textcolor{keywordtype}{float} \mbox{\hyperlink{class_timer_a934a5a082a5e8a94de48684aa376572d}{getTime}}();}
+\DoxyCodeLine{45 \};}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//DA\_T1\_TIMER\_H}}
+
+\end{DoxyCode}

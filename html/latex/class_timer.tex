@@ -1,0 +1,58 @@
+\hypertarget{class_timer}{}\doxysection{Timer Class Reference}
+\label{class_timer}\index{Timer@{Timer}}
+
+
+{\ttfamily \#include $<$timer.\+h$>$}
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_timer_a2830b17e5e89164d28eb73458753b64b}{start}} ()
+\item 
+static void \mbox{\hyperlink{class_timer_aac15e75f611256c2b6503c07e4606396}{stop}} ()
+\item 
+static float \mbox{\hyperlink{class_timer_a343466ffc155509a0342d40fe308061e}{get\+Current\+Time}} ()
+\item 
+static float \mbox{\hyperlink{class_timer_a934a5a082a5e8a94de48684aa376572d}{get\+Time}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_timer}{Timer}} class that stores current time at command. Useful for measuring time deltas in code 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_timer_a343466ffc155509a0342d40fe308061e}\label{class_timer_a343466ffc155509a0342d40fe308061e}} 
+\index{Timer@{Timer}!getCurrentTime@{getCurrentTime}}
+\index{getCurrentTime@{getCurrentTime}!Timer@{Timer}}
+\doxysubsubsection{\texorpdfstring{getCurrentTime()}{getCurrentTime()}}
+{\footnotesize\ttfamily static float Timer\+::get\+Current\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Returns the current time delta between the calling moment and the time saved at start\+\_\+time var \begin{DoxyReturn}{Returns}
+time since last \mbox{\hyperlink{class_timer_a2830b17e5e89164d28eb73458753b64b}{start()}} call\+: current\+\_\+time -\/ start\+\_\+time 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_timer_a934a5a082a5e8a94de48684aa376572d}\label{class_timer_a934a5a082a5e8a94de48684aa376572d}} 
+\index{Timer@{Timer}!getTime@{getTime}}
+\index{getTime@{getTime}!Timer@{Timer}}
+\doxysubsubsection{\texorpdfstring{getTime()}{getTime()}}
+{\footnotesize\ttfamily static float Timer\+::get\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Returns the time delta between the calling of \mbox{\hyperlink{class_timer_a2830b17e5e89164d28eb73458753b64b}{start()}} and \mbox{\hyperlink{class_timer_aac15e75f611256c2b6503c07e4606396}{stop()}} \begin{DoxyReturn}{Returns}
+time delta\+: stop\+\_\+time -\/ start\+\_\+time 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_timer_a2830b17e5e89164d28eb73458753b64b}\label{class_timer_a2830b17e5e89164d28eb73458753b64b}} 
+\index{Timer@{Timer}!start@{start}}
+\index{start@{start}!Timer@{Timer}}
+\doxysubsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily static void Timer\+::start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Sets start\+\_\+time static var to the current time at the calling moment \mbox{\Hypertarget{class_timer_aac15e75f611256c2b6503c07e4606396}\label{class_timer_aac15e75f611256c2b6503c07e4606396}} 
+\index{Timer@{Timer}!stop@{stop}}
+\index{stop@{stop}!Timer@{Timer}}
+\doxysubsubsection{\texorpdfstring{stop()}{stop()}}
+{\footnotesize\ttfamily static void Timer\+::stop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Sets stop\+\_\+time static var to the current time at the calling moment 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/timer.\+h\end{DoxyCompactItemize}
