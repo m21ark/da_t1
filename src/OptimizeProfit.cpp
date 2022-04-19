@@ -94,7 +94,7 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vec
 
         for (auto truck = trucks.begin(); truck != trucks.end(); truck++) {
             vector<Order> uI;
-            int prof = ((int) knapsack1.fractionalKnapsack(uI, truck->pesoMax, truck->volMax) - truck->cost);
+            int prof = ((int) knapsack1.pseudoFractionalKnapsack(uI, truck->pesoMax, truck->volMax) - truck->cost);
             if (prof > max_prof) {
                 max_prof = prof;
                 itTruckChosen = truck;

@@ -26,6 +26,11 @@ class Memento {
     struct tm now = {};
     string dir_path;
 
+    /**
+     * returns the day after x days or before
+     * @param date input and output date
+     * @param days the days to increment/decrement
+     */
     static void datePlusDays(struct tm *date, int days) {
         const time_t ONE_DAY = 24 * 60 * 60;
 
@@ -35,6 +40,7 @@ class Memento {
     }
 
 public:
+
     Memento() {
         time_t time = std::time(nullptr);   // get time now
         now = *localtime(&time);
@@ -52,8 +58,16 @@ public:
         }
     }
 
+    /**
+     * saves the State to a file
+     * @param state
+     */
     void save(const State &state);
 
+    /**
+     * loads the orders from the day before
+     * @return
+     */
     State loadDayBefore();
 };
 
