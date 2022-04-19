@@ -43,7 +43,8 @@ class OptimizeNumberOfDeliveries {
      * @param orders
      * @param combinations
      */
-    static void getAllDeliveriesCombinations(const unsigned &depth, vector<Order> &orders, vector<vector<Order *>> &combinations);
+    static void
+    getAllDeliveriesCombinations(const unsigned &depth, vector<Order> &orders, vector<vector<Order *>> &combinations);
 
     /**
      * Counts the number of trucks used (those that have at least one order)
@@ -68,7 +69,8 @@ class OptimizeNumberOfDeliveries {
      * @param numberOfOrders
      * @return number of trucks used
      */
-    static int backtrackingRec(map<Truck, set<Order *>> &deliveries, vector<Order *> unselectedOrders, int &numberOfOrders);
+    static int
+    backtrackingRec(map<Truck, set<Order *>> &deliveries, vector<Order *> unselectedOrders, int &numberOfOrders);
 
     /**
      * Prints the results
