@@ -65,12 +65,12 @@ int OptimizeProfit::chooseTruckProfit(int &max_prof, vector<int> &profit, vector
 }
 
 
-// TODO BUG: The 3 functions do not print anything useful for the smaller cases (5, 10 trucks and orders)
 // TODO FEATURE: Add the % of orders delivered and that were postponed (in the 3 funcs)
 void OptimizeProfit::greedyTrucksAndLinearKnapsack(vector<Truck> trucks, vector<Order> orders) {
 
     HEADER
     Knapsack knapsack(orders, 400, 400); //TODO why fixed value? ... Ricardo: It's not suppose to be
+    int orders_size = orders.size();
     DO_HEADER
 
         knapsack.knapsack_2d();
@@ -86,12 +86,15 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(vector<Truck> trucks, vector<
         }
 
     FOOTER
+
+    cout << "% of deliveries made: " << (float)orders.size() / (float)orders_size * 100 << endl;
 }
 
 void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vector<Order> orders) {
 
     HEADER
     Knapsack knapsack1(orders);
+    int orders_size = orders.size();
     DO_HEADER
 
         for (auto truck = trucks.begin(); truck != trucks.end(); truck++) {
@@ -105,14 +108,16 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vec
         }
 
     FOOTER
+    cout << "% of deliveries made: " << (float)orders.size() / (float)orders_size * 100 << endl;
+
 }
 
 void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vector<Order> orders) {
 
     HEADER
-    Knapsack knapsack1(orders);
+    Knapsack knapsack(orders);
+    int orders_size = orders.size();
     DO_HEADER
-        Knapsack knapsack(orders);
         auto f = Knapsack::getMax(trucks);
         auto items = knapsack.knapsack_hirschberg(orders, f.first, f.second, max_prof,trucks);
 
@@ -125,6 +130,8 @@ void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vec
         itTruckChosen = knapsack.itTruck;
 
     FOOTER
+    cout << "% of deliveries made: " << (float)orders.size() / (float)orders_size * 100 << endl;
+
 }
 
 
