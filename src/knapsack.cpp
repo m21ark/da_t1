@@ -141,6 +141,7 @@ int closest(std::vector<int> const &vec, int value) {
     return *it;
 }
 
+
 //adaptado de https://stackoverflow.com/questions/36834028/reconstructing-the-list-of-items-from-a-space-optimized-0-1-knapsack-implementat
 vector<int>
 Knapsack::knapsack_hirschberg(const vector<Order> &v, int wCap, int vCap, int &mProf, vector<Truck> &trucks, int offset,

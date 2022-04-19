@@ -32,11 +32,11 @@ void OptimizeProfit::printProfits(const vector<int> &profits) {
     cout << "Time Taken: " << Timer::getCurrentTime() << "s\n";
 }
 
-int OptimizeProfit::chooseTruckProfit(int &max_prof, vector<int> &profit, vector<Order> &orders, Memento &memento,
-                                      vector<Truck> &trucks, vector<Truck>::iterator &itTruckChosen,
-                                      vector<Order> &used_items, unsigned &i) {
+bool OptimizeProfit::chooseTruckProfit(int &max_prof, vector<int> &profit, vector<Order> &orders, Memento &memento,
+                                       vector<Truck> &trucks, vector<Truck>::iterator &itTruckChosen,
+                                       vector<Order> &used_items, unsigned &i) {
     if (max_prof <= 0)
-        return 0;
+        return false;
     profit.push_back(max_prof);
 
     memento.save({used_items, itTruckChosen->id, max_prof});
@@ -59,7 +59,7 @@ int OptimizeProfit::chooseTruckProfit(int &max_prof, vector<int> &profit, vector
          << "\tMax profit: " << setw(6) << max_prof << "\tTrucks size: " << setw(6) << trucks.size() << endl;
 
 
-    return 1; // TODO why return 1, 0? shouldn't be returned boolean instead?
+    return true;
 }
 
 
@@ -112,11 +112,11 @@ void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vec
     DO_HEADER
         Knapsack knapsack(orders);
         auto f = Knapsack::getMax(trucks);
-        auto items = knapsack.knapsack_hirschberg(orders, f.first, f.second, max_prof,trucks);
+        auto items = knapsack.knapsack_hirschberg(orders, f.first, f.second, max_prof, trucks);
 
         vector<Order> g;
-        for (auto item : items) {
-           g.push_back(orders[item]);
+        for (auto item: items) {
+            g.push_back(orders[item]);
         }
         used_items = g;
 
