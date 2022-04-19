@@ -83,39 +83,26 @@ pair<string, string> Menu::askFiles(bool scene3) {
 
     pair<string, string> file_paths;
 
-    cout << endl;
-    auto invalid = [](const string &msg) {
+    int day;
+    cout << "\nInput day (1-30) >> ";
+    if (!(cin >> day)) {
         cin.clear();
         cin.ignore(1000, '\n');
-        cout << msg << "\n";
-        getchar();
-    };
-
-    int num, id;
-    if (!scene3) {
-        cout << "Trucks file (num id) >> ";
-        if (!(cin >> num >> id)) {
-            invalid("Invalid input!");
-            return {};
-        }
-        file_paths.first = "../data/c_" + to_string(num) + "/c_" + to_string(id) + ".txt";
-
-        if (!file_exists(file_paths.first)) {
-            invalid("Truck file not found!");
-            return {};
-        }
-    }
-
-    cout << "Orders file (num id) >> ";
-    if (!(cin >> num >> id)) {
-        invalid("Invalid input!");
         return {};
     }
-    file_paths.second = "../data/e_" + to_string(num) + "/e_" + to_string(id) + ".txt";
 
-    if (!file_exists(file_paths.second)) {
-        invalid("Order file not found!");
+    if (day < 1 || day > 30) {
+        cin.clear();
+        cin.ignore(1000, '\n');
         return {};
+    }
+
+    if (day < 10) {
+        file_paths.first = "../data/dates/2022040" + to_string(day) + "/c.txt";
+        file_paths.second = "../data/dates/2022040" + to_string(day) + "/e.txt";
+    } else {
+        file_paths.first = "../data/dates/202204" + to_string(day) + "/c.txt";
+        file_paths.second = "../data/dates/202204" + to_string(day) + "/e.txt";
     }
 
     cin.clear();
@@ -182,7 +169,7 @@ void Menu::scenario2(const pair<string, string> &files) {
 
 void Menu::scenario3(const string &file) {
 
-    vector <Order> orders = read_orders(file);
+    vector<Order> orders = read_orders(file);
 
     cout << "\n1) Rapid: Optimal Task Sorting (N*Log N)\n";
     cout << "2) Slow: Optimal Task Sorting (N^2)\n";
