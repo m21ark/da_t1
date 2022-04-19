@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['print_5fknapsack_0',['print_knapsack',['../class_knapsack.html#a28d1bc6f19356de34d44af4f06c48a61',1,'Knapsack']]],
-  ['pseudofractionalknapsack_1',['pseudoFractionalKnapsack',['../class_knapsack.html#a32ca5f5c866aefa6e024a1e55805f3c8',1,'Knapsack']]]
+  ['optimal_5fcost_0',['optimal_cost',['../class_knapsack.html#ac7d506ee5b49272a9efd8282953c4887',1,'Knapsack']]]
 ];

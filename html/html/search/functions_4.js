@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['optimal_5fcost_0',['optimal_cost',['../class_knapsack.html#ac7d506ee5b49272a9efd8282953c4887',1,'Knapsack']]]
+  ['loaddaybefore_0',['loadDayBefore',['../class_memento.html#a2fbf7198834fb1472dcaebc0225a9539',1,'Memento']]]
 ];

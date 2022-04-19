@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['memento_0',['Memento',['../class_memento.html',1,'']]],
-  ['menu_1',['Menu',['../class_menu.html',1,'']]]
+  ['loaddaybefore_0',['loadDayBefore',['../class_memento.html#a2fbf7198834fb1472dcaebc0225a9539',1,'Memento']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fitsintruck_0',['fitsInTruck',['../class_knapsack.html#ae0b33a1540eacf544c8163775fa833e2',1,'Knapsack']]]
+  ['backtracking_0',['backtracking',['../class_optimize_number_of_deliveries.html#a58494d83cabe1e7e9b90ca3f71086c8f',1,'OptimizeNumberOfDeliveries']]]
 ];

@@ -65,11 +65,20 @@ public:
     void save(const State &state);
 
     /**
+     * saving the express orders
+     * @param orders
+     */
+    void saveExpress(const vector<Order> &orders);
+
+    /**
      * loads the orders from the day before
      * @return
      */
     State loadDayBefore();
+
 };
+
+void addDayBefore(vector<Order> &orders, Memento &memento);
 
 
 #endif //DA_T1_MEMENTO_H
