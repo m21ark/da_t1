@@ -118,16 +118,19 @@ void Menu::scenario1(const pair<string, string> &files) {
 
     cout << "\nOptimizing number of trucks used:\n\n";
     cout << "1) Rapid Knapsack:\tGreedy choice of best Trucks and Knapsack for order's combinations per truck\n";
-    cout << "2) Slow Brute Force:\tGreedy choice of best Trucks and brute force order's combinations per truck\n";
-    cout << "3) Slow Backtracking:\tCalculates the best scenario possible using backtracking (very slow)\n";
+    cout << "2) Rapid Greedy:\tGreedy choice of best Trucks and also for order's combinations per truck\n";
+    cout << "3) Slow Brute Force:\tGreedy choice of best Trucks and brute force order's combinations per truck\n";
+    cout << "4) Slow Backtracking:\tCalculates the best scenario possible using backtracking (very slow)\n";
 
     char c = askChar();
 
     if (c == '1')
         OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(trucks, orders);
     else if (c == '2')
-        OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(trucks, orders);
+        OptimizeNumberOfDeliveries::greedyTrucksAndGreedyOrders(trucks, orders);
     else if (c == '3')
+        OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(trucks, orders);
+    else if (c == '4')
         OptimizeNumberOfDeliveries::backtracking(trucks, orders);
     else {
         cout << endl << "That is not a valid option!" << endl;

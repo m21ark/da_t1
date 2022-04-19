@@ -88,17 +88,54 @@ class OptimizeNumberOfDeliveries {
      */
     static void eraseSavedOrders(const vector<Order> &usedItems, vector<Order> &ordersV, bool print = true);
 
+    /**
+     * Comparison function used to sort orders to be used in greedy
+     * Takes into consideration both weight and volume
+     * @param o1
+     * @param o2
+     * @return true if o1 < o2
+     */
+    static bool compareByWeightAndVolume(const Order& o1, const Order& o2);
+
+    /**
+     * Chooses the best orders for a certain truck in a greedy way
+     * It also passes by reference the orders chosen in usedItems
+     * @param truck
+     * @param orders
+     * @param usedItems
+     * @return number of orders that the truck can carry
+     */
+    static unsigned getGreedyNumberOfOrdersOfTruck(Truck &truck, vector<Order>& orders, vector<Order *>& usedItems);
 
 public:
 
     /**
      * One of the main functions of scenario 1
-     * It calculates the distribution of deliveries in the trucks, with the objective of maximizing
+     * It calculates the distribution of deliveries in the trucks, by choosing the truck with the most amount of deliveries calculated using knapsack
+     * Then it keeps chosing the truck with the most number of deliveries for the remaining orders (greedy)
+     * until either there are no more orders or all trucks are full
      * @param trucksV
      * @param ordersV
      */
     static void greedyTrucksAndKnapsack(vector<Truck> trucksV, vector<Order> ordersV);
 
+    /**
+     * One of the main functions of scenario 1
+     * It calculates the distribution of deliveries in the trucks, by choosing the truck with the most amount of deliveries calculated using a greedy algorithm
+     * Then it keeps choosing the truck with the most number of deliveries for the remaining orders (greedy)
+     * until either there are no more orders or all trucks are full
+     * @param trucksV
+     * @param ordersV
+     */
+    static void greedyTrucksAndGreedyOrders(vector<Truck> trucksV, vector<Order> ordersV);
+
+    /**
+     * One of the main functions of scenario 1
+     * It calculates the distribution of deliveries in the trucks, by choosing the truck with the most amount of deliveries calculated using a brute force
+     * 
+     * @param trucksV
+     * @param ordersV
+     */
     static void greedyTrucksAndBruteForce(vector<Truck> trucksV, vector<Order> ordersV);
 
     static void backtracking(const vector<Truck> &trucksV, vector<Order> ordersV);

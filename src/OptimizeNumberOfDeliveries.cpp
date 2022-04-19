@@ -83,6 +83,29 @@ void OptimizeNumberOfDeliveries::getAllDeliveriesCombinations(const unsigned &de
 
 }
 
+bool OptimizeNumberOfDeliveries::compareByWeightAndVolume(const Order &o1, const Order &o2) {
+    int avg1 = o1.weight * (double) o1.volume;
+    int avg2 = o2.weight * (double) o2.volume;
+    return avg1 < avg2;
+}
+
+unsigned OptimizeNumberOfDeliveries::getGreedyNumberOfOrdersOfTruck(Truck &truck, vector<Order> &orders, vector<Order *>& usedItems) {
+    unsigned int numOrders = 0;
+    int weightUsed = 0, volumeUsed = 0;
+    for (Order &order : orders) {
+        if ((weightUsed + order.weight <= truck.pesoMax)   &&   (volumeUsed + order.volume <= truck.volMax)) {
+            usedItems.push_back(&order);
+            weightUsed += order.weight;
+            volumeUsed += order.volume;
+            numOrders++;
+        }
+    }
+    return numOrders;
+}
+
+
+
+
 
 
 
@@ -143,6 +166,57 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(vector<Truck> trucksV, 
     printResults(totalDeliveries, numberOfTrucks);
 }
 
+void OptimizeNumberOfDeliveries::greedyTrucksAndGreedyOrders(vector<Truck> trucksV, vector<Order> ordersV) {
+    Timer::start();
+
+    Memento memento;
+    addDayBefore(ordersV, memento);
+
+    vector<Order *> usedItems, tempUsedItems;
+    vector<Order> saveUsedItems;
+    unsigned totalDeliveries = 0, numberOfTrucks = 0;
+
+    do {
+        Truck truckChosen{};
+        auto itTruckChosen = trucksV.end();
+
+        unsigned maxDeliveries = 0;
+        int rewardOrders = 0;
+        bool truckFound = false;
+        saveUsedItems.clear(); tempUsedItems.clear();
+
+        sort(ordersV.begin(), ordersV.end(), compareByWeightAndVolume);
+        for (auto it = trucksV.begin(); it != trucksV.end(); it++) {
+            unsigned numDeliveries = getGreedyNumberOfOrdersOfTruck(*it, ordersV, tempUsedItems);
+            if (numDeliveries > maxDeliveries) {
+                maxDeliveries = numDeliveries;
+                truckChosen = *it;
+                itTruckChosen = it;
+                truckFound = true;
+                usedItems = tempUsedItems;
+            }
+        }
+
+        if (truckFound)
+            trucksV.erase(itTruckChosen);
+
+        totalDeliveries += maxDeliveries;
+        cout << "Truck " << truckChosen.id << ": " << maxDeliveries << " deliveries" << endl;
+
+        for (auto order: usedItems) {
+            rewardOrders += order->reward;
+            saveUsedItems.push_back(*order);
+        }
+        memento.save({saveUsedItems, truckChosen.id, rewardOrders - truckChosen.cost});
+        eraseSavedOrders(saveUsedItems, ordersV);
+
+        numberOfTrucks++;
+
+    } while (!ordersV.empty() && !trucksV.empty());
+
+    memento.save({ordersV});
+    printResults(totalDeliveries, numberOfTrucks);
+}
 
 void OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(vector<Truck> trucksV, vector<Order> ordersV) {
 
@@ -278,4 +352,8 @@ int OptimizeNumberOfDeliveries::backtrackingRec(map<Truck, set<Order *>> &delive
     deliveries = minDeliveries;
     return minTrucksUsed;
 }
+
+
+
+
 
