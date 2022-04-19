@@ -41,7 +41,8 @@ void express_scheduling_brute(vector<Order> orders);
 void express_scheduling_print(vector<Order> &orders, unsigned qnt);
 
 /**
- * Basic implementation of Bubble Sort algorithm for vector
+ * Basic implementation of Bubble Sort algorithm for Order vector
+ * Orders are sorted based on their duration
  * @param v vector to be sorted (modified)
  */
 void bubbleSort(vector<Order> &v);
