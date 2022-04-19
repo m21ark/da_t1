@@ -29,6 +29,8 @@ void OptimizeProfit::printProfits(const vector<int> &profits) {
 
     int total_profit = accumulate(profits.begin(), profits.end(), 0);
     cout << "\nTotal Profit = " << total_profit << "€\n";
+    if (total_profit == 0)
+        cout << "It's possible that there is not a profitable option for today's deliveries.\n";
     cout << "Time Taken: " << Timer::getCurrentTime() << "s\n";
 }
 
