@@ -1,0 +1,33 @@
+\hypertarget{read__files_8h_source}{}\doxysection{read\+\_\+files.\+h}
+\label{read__files_8h_source}\index{include/read\_files.h@{include/read\_files.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef DA\_T1\_READ\_FILES\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define DA\_T1\_READ\_FILES\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <sstream>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}Objects.h"{}}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{17 \textcolor{keywordtype}{bool} file\_exists(\textcolor{keyword}{const} \textcolor{keywordtype}{string} \&path);}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{24 vector<Truck> read\_trucks(\textcolor{keyword}{const} \textcolor{keywordtype}{string} \&path);}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{31 vector<Order> read\_orders(\textcolor{keyword}{const} \textcolor{keywordtype}{string} \&path);}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{39 ostream \&operator<<(ostream \&os, \textcolor{keyword}{const} \mbox{\hyperlink{struct_truck}{Truck}} \&l);}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{47 ostream \&operator<<(ostream \&os, \textcolor{keyword}{const} \mbox{\hyperlink{struct_order}{Order}} \&l);}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{56 istream \&operator>>(istream \&is, \mbox{\hyperlink{struct_truck}{Truck}} \&l);}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{65 istream \&operator>>(istream \&is, \mbox{\hyperlink{struct_order}{Order}} \&l);}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//DA\_T1\_READ\_FILES\_H}}
+
+\end{DoxyCode}

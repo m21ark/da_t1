@@ -29,6 +29,8 @@ void OptimizeProfit::printProfits(const vector<int> &profits) {
 
     int total_profit = accumulate(profits.begin(), profits.end(), 0);
     cout << "\nTotal Profit = " << total_profit << "€\n";
+    if (total_profit == 0)
+        cout << "It's possible that there is not a profitable option for today's deliveries.\n";
     cout << "Time Taken: " << Timer::getCurrentTime() << "s\n";
 }
 
@@ -63,12 +65,12 @@ bool OptimizeProfit::chooseTruckProfit(int &max_prof, vector<int> &profit, vecto
 }
 
 
-// TODO BUG: The 3 functions do not print anything useful for the smaller cases (5, 10 trucks and orders)
-// TODO FEATURE: Add the % of orders delivered and that were postponed (in the 3 funcs)
 void OptimizeProfit::greedyTrucksAndLinearKnapsack(vector<Truck> trucks, vector<Order> orders) {
 
     HEADER
-    Knapsack knapsack(orders, 400, 400); //TODO why fixed value? ... Ricardo: It's not suppose to be
+    auto p = Knapsack::getMax(trucks);
+    Knapsack knapsack(orders, p.first, p.second);
+    int orders_size = orders.size();
     DO_HEADER
 
         knapsack.knapsack_2d();
@@ -84,17 +86,20 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(vector<Truck> trucks, vector<
         }
 
     FOOTER
+
+    cout << "% of deliveries made: " << (float)orders.size() / (float)orders_size * 100 << endl;
 }
 
 void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vector<Order> orders) {
 
     HEADER
     Knapsack knapsack1(orders);
+    int orders_size = orders.size();
     DO_HEADER
 
         for (auto truck = trucks.begin(); truck != trucks.end(); truck++) {
             vector<Order> uI;
-            int prof = ((int) knapsack1.fractionalKnapsack(uI, truck->pesoMax, truck->volMax) - truck->cost);
+            int prof = ((int) knapsack1.pseudoFractionalKnapsack(uI, truck->pesoMax, truck->volMax) - truck->cost);
             if (prof > max_prof) {
                 max_prof = prof;
                 itTruckChosen = truck;
@@ -103,14 +108,16 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vec
         }
 
     FOOTER
+    cout << "% of deliveries made: " << (float)orders.size() / (float)orders_size * 100 << endl;
+
 }
 
 void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vector<Order> orders) {
 
     HEADER
-    Knapsack knapsack1(orders);
+    Knapsack knapsack(orders);
+    int orders_size = orders.size();
     DO_HEADER
-        Knapsack knapsack(orders);
         auto f = Knapsack::getMax(trucks);
         auto items = knapsack.knapsack_hirschberg(orders, f.first, f.second, max_prof, trucks);
 
@@ -123,6 +130,8 @@ void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vec
         itTruckChosen = knapsack.itTruck;
 
     FOOTER
+    cout << "% of deliveries made: " << (float)orders.size() / (float)orders_size * 100 << endl;
+
 }
 
 

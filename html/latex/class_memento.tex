@@ -1,0 +1,50 @@
+\hypertarget{class_memento}{}\doxysection{Memento Class Reference}
+\label{class_memento}\index{Memento@{Memento}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_memento_addb40f2866491ae2ffbfc631fcb84c27}{save}} (const \mbox{\hyperlink{struct_state}{State}} \&state)
+\item 
+void \mbox{\hyperlink{class_memento_a9d8ece0a5063d7db7a0623b0f9e4c29e}{save\+Express}} (const vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ \&orders)
+\item 
+\mbox{\hyperlink{struct_state}{State}} \mbox{\hyperlink{class_memento_a2fbf7198834fb1472dcaebc0225a9539}{load\+Day\+Before}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_memento_a2fbf7198834fb1472dcaebc0225a9539}\label{class_memento_a2fbf7198834fb1472dcaebc0225a9539}} 
+\index{Memento@{Memento}!loadDayBefore@{loadDayBefore}}
+\index{loadDayBefore@{loadDayBefore}!Memento@{Memento}}
+\doxysubsubsection{\texorpdfstring{loadDayBefore()}{loadDayBefore()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_state}{State}} Memento\+::load\+Day\+Before (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+loads the orders from the day before \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_memento_addb40f2866491ae2ffbfc631fcb84c27}\label{class_memento_addb40f2866491ae2ffbfc631fcb84c27}} 
+\index{Memento@{Memento}!save@{save}}
+\index{save@{save}!Memento@{Memento}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily void Memento\+::save (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_state}{State}} \&}]{state }\end{DoxyParamCaption})}
+
+saves the \mbox{\hyperlink{struct_state}{State}} to a file 
+\begin{DoxyParams}{Parameters}
+{\em state} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_memento_a9d8ece0a5063d7db7a0623b0f9e4c29e}\label{class_memento_a9d8ece0a5063d7db7a0623b0f9e4c29e}} 
+\index{Memento@{Memento}!saveExpress@{saveExpress}}
+\index{saveExpress@{saveExpress}!Memento@{Memento}}
+\doxysubsubsection{\texorpdfstring{saveExpress()}{saveExpress()}}
+{\footnotesize\ttfamily void Memento\+::save\+Express (\begin{DoxyParamCaption}\item[{const vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ \&}]{orders }\end{DoxyParamCaption})}
+
+saving the express orders 
+\begin{DoxyParams}{Parameters}
+{\em orders} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/Memento.\+h\end{DoxyCompactItemize}

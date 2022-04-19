@@ -1,0 +1,73 @@
+\hypertarget{class_optimize_number_of_deliveries}{}\doxysection{Optimize\+Number\+Of\+Deliveries Class Reference}
+\label{class_optimize_number_of_deliveries}\index{OptimizeNumberOfDeliveries@{OptimizeNumberOfDeliveries}}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_optimize_number_of_deliveries_aa9f9e8295037aff24cebc6c48daed940}{greedy\+Trucks\+And\+Knapsack}} (vector$<$ \mbox{\hyperlink{struct_truck}{Truck}} $>$ trucksV, vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ ordersV)
+\item 
+static void \mbox{\hyperlink{class_optimize_number_of_deliveries_a0e005fe2ab9443243ca286cc2148d31f}{greedy\+Trucks\+And\+Greedy\+Orders}} (vector$<$ \mbox{\hyperlink{struct_truck}{Truck}} $>$ trucksV, vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ ordersV)
+\item 
+static void \mbox{\hyperlink{class_optimize_number_of_deliveries_a999bf16550782b02bc278124294e8673}{greedy\+Trucks\+And\+Brute\+Force}} (vector$<$ \mbox{\hyperlink{struct_truck}{Truck}} $>$ trucksV, vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ ordersV)
+\item 
+static void \mbox{\hyperlink{class_optimize_number_of_deliveries_a58494d83cabe1e7e9b90ca3f71086c8f}{backtracking}} (const vector$<$ \mbox{\hyperlink{struct_truck}{Truck}} $>$ \&trucksV, vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ ordersV)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_optimize_number_of_deliveries_a58494d83cabe1e7e9b90ca3f71086c8f}\label{class_optimize_number_of_deliveries_a58494d83cabe1e7e9b90ca3f71086c8f}} 
+\index{OptimizeNumberOfDeliveries@{OptimizeNumberOfDeliveries}!backtracking@{backtracking}}
+\index{backtracking@{backtracking}!OptimizeNumberOfDeliveries@{OptimizeNumberOfDeliveries}}
+\doxysubsubsection{\texorpdfstring{backtracking()}{backtracking()}}
+{\footnotesize\ttfamily static void Optimize\+Number\+Of\+Deliveries\+::backtracking (\begin{DoxyParamCaption}\item[{const vector$<$ \mbox{\hyperlink{struct_truck}{Truck}} $>$ \&}]{trucksV,  }\item[{vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$}]{ordersV }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+One of the main functions of scenario 1 It calculates all of the possibilities using backtracking. It gives the best possible solution, but it takes way too long to calculate It might even crash with some amount of data 
+\begin{DoxyParams}{Parameters}
+{\em trucksV} & \\
+\hline
+{\em ordersV} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_optimize_number_of_deliveries_a999bf16550782b02bc278124294e8673}\label{class_optimize_number_of_deliveries_a999bf16550782b02bc278124294e8673}} 
+\index{OptimizeNumberOfDeliveries@{OptimizeNumberOfDeliveries}!greedyTrucksAndBruteForce@{greedyTrucksAndBruteForce}}
+\index{greedyTrucksAndBruteForce@{greedyTrucksAndBruteForce}!OptimizeNumberOfDeliveries@{OptimizeNumberOfDeliveries}}
+\doxysubsubsection{\texorpdfstring{greedyTrucksAndBruteForce()}{greedyTrucksAndBruteForce()}}
+{\footnotesize\ttfamily static void Optimize\+Number\+Of\+Deliveries\+::greedy\+Trucks\+And\+Brute\+Force (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_truck}{Truck}} $>$}]{trucksV,  }\item[{vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$}]{ordersV }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+One of the main functions of scenario 1 It calculates the distribution of deliveries in the trucks, by choosing the truck with the most amount of deliveries calculated using a brute force Then it keeps choosing the truck with the most number of deliveries for the remaining orders (greedy) until either there are no more orders or all trucks are full 
+\begin{DoxyParams}{Parameters}
+{\em trucksV} & \\
+\hline
+{\em ordersV} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_optimize_number_of_deliveries_a0e005fe2ab9443243ca286cc2148d31f}\label{class_optimize_number_of_deliveries_a0e005fe2ab9443243ca286cc2148d31f}} 
+\index{OptimizeNumberOfDeliveries@{OptimizeNumberOfDeliveries}!greedyTrucksAndGreedyOrders@{greedyTrucksAndGreedyOrders}}
+\index{greedyTrucksAndGreedyOrders@{greedyTrucksAndGreedyOrders}!OptimizeNumberOfDeliveries@{OptimizeNumberOfDeliveries}}
+\doxysubsubsection{\texorpdfstring{greedyTrucksAndGreedyOrders()}{greedyTrucksAndGreedyOrders()}}
+{\footnotesize\ttfamily static void Optimize\+Number\+Of\+Deliveries\+::greedy\+Trucks\+And\+Greedy\+Orders (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_truck}{Truck}} $>$}]{trucksV,  }\item[{vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$}]{ordersV }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+One of the main functions of scenario 1 It calculates the distribution of deliveries in the trucks, by choosing the truck with the most amount of deliveries calculated using a greedy algorithm Then it keeps choosing the truck with the most number of deliveries for the remaining orders (greedy) until either there are no more orders or all trucks are full 
+\begin{DoxyParams}{Parameters}
+{\em trucksV} & \\
+\hline
+{\em ordersV} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_optimize_number_of_deliveries_aa9f9e8295037aff24cebc6c48daed940}\label{class_optimize_number_of_deliveries_aa9f9e8295037aff24cebc6c48daed940}} 
+\index{OptimizeNumberOfDeliveries@{OptimizeNumberOfDeliveries}!greedyTrucksAndKnapsack@{greedyTrucksAndKnapsack}}
+\index{greedyTrucksAndKnapsack@{greedyTrucksAndKnapsack}!OptimizeNumberOfDeliveries@{OptimizeNumberOfDeliveries}}
+\doxysubsubsection{\texorpdfstring{greedyTrucksAndKnapsack()}{greedyTrucksAndKnapsack()}}
+{\footnotesize\ttfamily static void Optimize\+Number\+Of\+Deliveries\+::greedy\+Trucks\+And\+Knapsack (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_truck}{Truck}} $>$}]{trucksV,  }\item[{vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$}]{ordersV }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+One of the main functions of scenario 1 It calculates the distribution of deliveries in the trucks, by choosing the truck with the most amount of deliveries calculated using knapsack Then it keeps chosing the truck with the most number of deliveries for the remaining orders (greedy) until either there are no more orders or all trucks are full 
+\begin{DoxyParams}{Parameters}
+{\em trucksV} & \\
+\hline
+{\em ordersV} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/Optimize\+Number\+Of\+Deliveries.\+h\end{DoxyCompactItemize}

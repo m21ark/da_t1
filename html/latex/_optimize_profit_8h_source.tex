@@ -1,0 +1,37 @@
+\hypertarget{_optimize_profit_8h_source}{}\doxysection{Optimize\+Profit.\+h}
+\label{_optimize_profit_8h_source}\index{include/OptimizeProfit.h@{include/OptimizeProfit.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef DA\_T1\_OPTIMIZE\_PROFIT\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define DA\_T1\_OPTIMIZE\_PROFIT\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <numeric>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}knapsack.h"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}Memento.h"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}timer.h"{}}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{class }\mbox{\hyperlink{class_optimize_profit}{OptimizeProfit}} \{}
+\DoxyCodeLine{12 \textcolor{keyword}{private}:}
+\DoxyCodeLine{13     \textcolor{keyword}{static} \textcolor{keywordtype}{void} addDayBefore(vector<Order> \&v, \mbox{\hyperlink{class_memento}{Memento}} \&memento);}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{public}:}
+\DoxyCodeLine{19     \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_optimize_profit_a54dae73cad18609746cf2836e6379548}{greedyTrucksAndLinearKnapsack}}(vector<Truck> trucks, vector<Order> orders);}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     \textcolor{keyword}{static} \textcolor{keywordtype}{void} greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vector<Order> orders);}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23     \textcolor{keyword}{static} \textcolor{keywordtype}{void} greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vector<Order> order);}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25     \textcolor{keyword}{static} \textcolor{keywordtype}{void} printProfits(\textcolor{keyword}{const} vector<int> \&profits);}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27     \textcolor{keyword}{static} \textcolor{keywordtype}{int} chooseTruckProfit(\textcolor{keywordtype}{int} \&max\_prof, vector<int> \&profit, vector<Order> \&orders, \mbox{\hyperlink{class_memento}{Memento}} \&memento,}
+\DoxyCodeLine{28                                  vector<Truck> \&trucks, vector<Truck>::iterator \&itTruckChosen,}
+\DoxyCodeLine{29                                  vector<Order> \&used\_items, \textcolor{keywordtype}{unsigned} \&i);}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//DA\_T1\_OPTIMIZE\_PROFIT\_H}}
+
+\end{DoxyCode}

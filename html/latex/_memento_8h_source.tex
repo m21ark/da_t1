@@ -1,0 +1,73 @@
+\hypertarget{_memento_8h_source}{}\doxysection{Memento.\+h}
+\label{_memento_8h_source}\index{include/Memento.h@{include/Memento.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef DA\_T1\_MEMENTO\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define DA\_T1\_MEMENTO\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <filesystem>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <ostream>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <iomanip>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}Objects.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}read\_files.h"{}}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#define NOT\_PROVIDED -\/1}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{struct }\mbox{\hyperlink{struct_state}{State}} \{}
+\DoxyCodeLine{19     vector<Order> orders;}
+\DoxyCodeLine{20     \textcolor{keywordtype}{int} truck = NOT\_PROVIDED;}
+\DoxyCodeLine{21     \textcolor{keywordtype}{int} max\_prof = NOT\_PROVIDED;}
+\DoxyCodeLine{22 \};}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{keyword}{class }\mbox{\hyperlink{class_memento}{Memento}} \{}
+\DoxyCodeLine{25     \textcolor{keywordtype}{int} year, month, day;}
+\DoxyCodeLine{26     \textcolor{keyword}{struct }tm now = \{\};}
+\DoxyCodeLine{27     \textcolor{keywordtype}{string} dir\_path;}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{34     \textcolor{keyword}{static} \textcolor{keywordtype}{void} datePlusDays(\textcolor{keyword}{struct} tm *date, \textcolor{keywordtype}{int} days) \{}
+\DoxyCodeLine{35         \textcolor{keyword}{const} time\_t ONE\_DAY = 24 * 60 * 60;}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37         time\_t date\_seconds = mktime(date) + (days * ONE\_DAY);}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39         *date = *localtime(\&date\_seconds);}
+\DoxyCodeLine{40     \}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{keyword}{public}:}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44     \mbox{\hyperlink{class_memento}{Memento}}() \{}
+\DoxyCodeLine{45         time\_t time = std::time(\textcolor{keyword}{nullptr});   \textcolor{comment}{// get time now}}
+\DoxyCodeLine{46         now = *localtime(\&time);}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48         year = now.tm\_year + 1900;}
+\DoxyCodeLine{49         month = now.tm\_mon + 1;}
+\DoxyCodeLine{50         day = now.tm\_mday;}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52         dir\_path = \textcolor{stringliteral}{"{}../report/"{}} + to\_string(year)}
+\DoxyCodeLine{53                    + to\_string(month) + to\_string(day);}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55         error\_code errorCode;}
+\DoxyCodeLine{56         \textcolor{keywordflow}{if} (!filesystem::remove\_all(dir\_path, errorCode)) \{}
+\DoxyCodeLine{57             cout << errorCode.message() << endl;}
+\DoxyCodeLine{58         \}}
+\DoxyCodeLine{59     \}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{65     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_memento_addb40f2866491ae2ffbfc631fcb84c27}{save}}(\textcolor{keyword}{const} \mbox{\hyperlink{struct_state}{State}} \&state);}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{71     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_memento_a9d8ece0a5063d7db7a0623b0f9e4c29e}{saveExpress}}(\textcolor{keyword}{const} vector<Order> \&orders);}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{77     \mbox{\hyperlink{struct_state}{State}} \mbox{\hyperlink{class_memento_a2fbf7198834fb1472dcaebc0225a9539}{loadDayBefore}}();}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79 \};}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 \textcolor{keywordtype}{void} addDayBefore(vector<Order> \&orders, \mbox{\hyperlink{class_memento}{Memento}} \&memento);}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//DA\_T1\_MEMENTO\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,61 @@
+\hypertarget{_optimize_number_of_deliveries_8h_source}{}\doxysection{Optimize\+Number\+Of\+Deliveries.\+h}
+\label{_optimize_number_of_deliveries_8h_source}\index{include/OptimizeNumberOfDeliveries.h@{include/OptimizeNumberOfDeliveries.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef DA\_T1\_OPTIMIZE\_NUMBER\_OF\_DELIVERIES\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define DA\_T1\_OPTIMIZE\_NUMBER\_OF\_DELIVERIES\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <set>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}Objects.h"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}Memento.h"{}}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}knapsack.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}timer.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{class }\mbox{\hyperlink{class_optimize_number_of_deliveries}{OptimizeNumberOfDeliveries}} \{}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{22     \textcolor{keyword}{static} \textcolor{keywordtype}{int} getMaxVolumeTrucks(\textcolor{keyword}{const} vector<Truck> \&trucks);}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{29     \textcolor{keyword}{static} \textcolor{keywordtype}{int} getMaxWeightTrucks(\textcolor{keyword}{const} vector<Truck> \&trucks);}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 }
+\DoxyCodeLine{38     \textcolor{keyword}{static} \textcolor{keywordtype}{int} getNumberOfDeliveries(\textcolor{keyword}{const} \mbox{\hyperlink{struct_truck}{Truck}} \&truck, vector<Order *> \&combination);}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{46     \textcolor{keyword}{static} \textcolor{keywordtype}{void}}
+\DoxyCodeLine{47     getAllDeliveriesCombinations(\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \&depth, vector<Order> \&orders, vector<vector<Order *>> \&combinations);}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{54     \textcolor{keyword}{static} \textcolor{keywordtype}{int} countTrucksUsedBackTracking(\textcolor{keyword}{const} map<\mbox{\hyperlink{struct_truck}{Truck}}, set<Order *>> \&deliveries);}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{63     \textcolor{keyword}{static} \textcolor{keywordtype}{bool} truckCanStillCarry(\textcolor{keyword}{const} \mbox{\hyperlink{struct_truck}{Truck}} \&truck, \textcolor{keyword}{const} set<Order *> \&orders, \textcolor{keyword}{const} \mbox{\hyperlink{struct_order}{Order}} *newOrder);}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{72     \textcolor{keyword}{static} \textcolor{keywordtype}{int}}
+\DoxyCodeLine{73     backtrackingRec(map<\mbox{\hyperlink{struct_truck}{Truck}}, set<Order *>> \&deliveries, vector<Order *> unselectedOrders, \textcolor{keywordtype}{int} \&numberOfOrders);}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{80     \textcolor{keyword}{static} \textcolor{keywordtype}{void} printResults(\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \&totalDeliveries, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \&numberOfTrucks, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} allOrders);}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{89     \textcolor{keyword}{static} \textcolor{keywordtype}{void} eraseSavedOrders(\textcolor{keyword}{const} vector<Order> \&usedItems, vector<Order> \&ordersV, \textcolor{keywordtype}{bool} print = \textcolor{keyword}{true});}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{98     \textcolor{keyword}{static} \textcolor{keywordtype}{bool} compareByWeightAndVolume(\textcolor{keyword}{const} \mbox{\hyperlink{struct_order}{Order}}\& o1, \textcolor{keyword}{const} \mbox{\hyperlink{struct_order}{Order}}\& o2);}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{108     \textcolor{keyword}{static} \textcolor{keywordtype}{unsigned} getGreedyNumberOfOrdersOfTruck(\mbox{\hyperlink{struct_truck}{Truck}} \&truck, vector<Order>\& orders, vector<Order *>\& usedItems);}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110 \textcolor{keyword}{public}:}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{120     \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_optimize_number_of_deliveries_aa9f9e8295037aff24cebc6c48daed940}{greedyTrucksAndKnapsack}}(vector<Truck> trucksV, vector<Order> ordersV);}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{130     \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_optimize_number_of_deliveries_a0e005fe2ab9443243ca286cc2148d31f}{greedyTrucksAndGreedyOrders}}(vector<Truck> trucksV, vector<Order> ordersV);}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{140     \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_optimize_number_of_deliveries_a999bf16550782b02bc278124294e8673}{greedyTrucksAndBruteForce}}(vector<Truck> trucksV, vector<Order> ordersV);}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{149     \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_optimize_number_of_deliveries_a58494d83cabe1e7e9b90ca3f71086c8f}{backtracking}}(\textcolor{keyword}{const} vector<Truck> \&trucksV, vector<Order> ordersV);}
+\DoxyCodeLine{150 }
+\DoxyCodeLine{151 \};}
+\DoxyCodeLine{152 }
+\DoxyCodeLine{153 }
+\DoxyCodeLine{154 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//DA\_T1\_OPTIMIZE\_NUMBER\_OF\_DELIVERIES\_H}}
+
+\end{DoxyCode}
