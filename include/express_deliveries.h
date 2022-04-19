@@ -38,14 +38,12 @@ void express_scheduling_brute(vector<Order> orders);
  * @param orders vector with all orders possible
  * @param qnt number of orders to be delivered
  */
-void express_scheduling_print(const vector<Order> &orders, unsigned qnt);
+void express_scheduling_print(vector<Order> &orders, unsigned qnt);
 
 /**
  * Basic implementation of Bubble Sort algorithm for vector
- * @tparam Sortable any class with operator < implemented
  * @param v vector to be sorted (modified)
  */
-template<class Sortable>
-void bubbleSort(vector<Sortable> &v);
+void bubbleSort(vector<Order> &v);
 
 #endif //DA_T1_EXPRESS_DELIVERIES_H

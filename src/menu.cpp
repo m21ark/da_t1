@@ -185,8 +185,8 @@ void Menu::scenario3(const string &file) {
     vector <Order> orders = read_orders(file);
 
     cout << "\n1) Rapid: Optimal Task Sorting (N*Log N)\n";
-    cout << "1) Slow: Optimal Task Sorting (N^2)\n";
-    cout << "2) Slower:  Task Brute Force\n\n";
+    cout << "2) Slow: Optimal Task Sorting (N^2)\n";
+    cout << "3) Slower:  Task Brute Force\n\n";
 
     char c = askChar();
 
