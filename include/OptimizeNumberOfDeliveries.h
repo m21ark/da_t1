@@ -77,7 +77,7 @@ class OptimizeNumberOfDeliveries {
      * @param totalDeliveries
      * @param numberOfTrucks
      */
-    static void printResults(const unsigned &totalDeliveries, const unsigned &numberOfTrucks);
+    static void printResults(const unsigned &totalDeliveries, const unsigned &numberOfTrucks, const unsigned allOrders);
 
     /**
      * It erases the used items in ordersV

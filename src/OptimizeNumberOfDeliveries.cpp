@@ -54,10 +54,11 @@ void OptimizeNumberOfDeliveries::eraseSavedOrders(const vector<Order> &usedItems
     }
 }
 
-void OptimizeNumberOfDeliveries::printResults(const unsigned &totalDeliveries, const unsigned &numberOfTrucks) {
+void OptimizeNumberOfDeliveries::printResults(const unsigned &totalDeliveries, const unsigned &numberOfTrucks, const unsigned allOrders) {
     cout << "\nTotal deliveries: " << totalDeliveries << endl;
     cout << "Number of Trucks: " << numberOfTrucks << endl;
     cout << "Time taken: " << Timer::getCurrentTime() << "s\n";
+    cout << "Deliveries: "<< totalDeliveries <<" / " << allOrders << " ("<< ((double) totalDeliveries / allOrders) * 100 << "%)" << endl;
 }
 
 // NOLINTNEXTLINE
@@ -120,7 +121,7 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(vector<Truck> trucksV, 
 
     vector<Order *> usedItems;
     vector<Order> saveUsedItems;
-    unsigned totalDeliveries = 0, numberOfTrucks = 0;
+    unsigned totalDeliveries = 0, numberOfTrucks = 0, allOrders = ordersV.size();
 
     Knapsack knapsack(ordersV, getMaxWeightTrucks(trucksV), getMaxVolumeTrucks(trucksV));
 
@@ -163,7 +164,7 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(vector<Truck> trucksV, 
     } while (knapsack.getStoreSize() > 0 && !trucksV.empty());
     memento.save({ordersV});
 
-    printResults(totalDeliveries, numberOfTrucks);
+    printResults(totalDeliveries, numberOfTrucks, allOrders);
 }
 
 void OptimizeNumberOfDeliveries::greedyTrucksAndGreedyOrders(vector<Truck> trucksV, vector<Order> ordersV) {
@@ -174,7 +175,7 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndGreedyOrders(vector<Truck> truck
 
     vector<Order *> usedItems, tempUsedItems;
     vector<Order> saveUsedItems;
-    unsigned totalDeliveries = 0, numberOfTrucks = 0;
+    unsigned totalDeliveries = 0, numberOfTrucks = 0, allOrders = ordersV.size();
 
     do {
         Truck truckChosen{};
@@ -215,7 +216,7 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndGreedyOrders(vector<Truck> truck
     } while (!ordersV.empty() && !trucksV.empty());
 
     memento.save({ordersV});
-    printResults(totalDeliveries, numberOfTrucks);
+    printResults(totalDeliveries, numberOfTrucks, allOrders);
 }
 
 void OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(vector<Truck> trucksV, vector<Order> ordersV) {
@@ -226,7 +227,7 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(vector<Truck> trucksV
     addDayBefore(ordersV, memento);
     vector<Order *> usedItems;
     vector<Order> saveUsedItems;
-    int totalDeliveries = 0, numberOfTrucks = 0;
+    int totalDeliveries = 0, numberOfTrucks = 0, allOrders = ordersV.size();
 
     do {
         int maxDeliveries = 0, rewardOrders = 0;
@@ -271,7 +272,7 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(vector<Truck> trucksV
 
     memento.saveExpress({ordersV});
 
-    printResults(totalDeliveries, numberOfTrucks);
+    printResults(totalDeliveries, numberOfTrucks, allOrders);
 }
 
 void OptimizeNumberOfDeliveries::backtracking(const vector<Truck> &trucksV, vector<Order> ordersV) {
@@ -281,8 +282,8 @@ void OptimizeNumberOfDeliveries::backtracking(const vector<Truck> &trucksV, vect
     addDayBefore(ordersV, memento);
 
     vector<Order *> orders;
-    vector<Order> allOrders, allUsedOrders;
-    int totalDeliveries = 0, numberOfTrucks;
+    vector<Order> allUsedOrders;
+    int totalDeliveries = 0, numAllOrders , numberOfTrucks;
     map<Truck, set<Order *>> deliveries;
 
     for (const Truck &truck: trucksV)
@@ -311,7 +312,7 @@ void OptimizeNumberOfDeliveries::backtracking(const vector<Truck> &trucksV, vect
     }
     eraseSavedOrders(allUsedOrders, ordersV, false);
     memento.save({ordersV});
-    printResults(totalDeliveries, numberOfTrucks);
+    printResults(totalDeliveries, numberOfTrucks, numAllOrders);
 }
 
 // NOLINTNEXTLINE

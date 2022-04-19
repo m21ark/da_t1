@@ -49,7 +49,7 @@ void testing() {
 
 
 int main() {
-    testing();
-    //Menu::start();
+    //testing();
+    Menu::start();
     return 0;
 }
