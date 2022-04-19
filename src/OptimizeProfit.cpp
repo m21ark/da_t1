@@ -65,11 +65,11 @@ int OptimizeProfit::chooseTruckProfit(int &max_prof, vector<int> &profit, vector
 }
 
 
-// TODO FEATURE: Add the % of orders delivered and that were postponed (in the 3 funcs)
 void OptimizeProfit::greedyTrucksAndLinearKnapsack(vector<Truck> trucks, vector<Order> orders) {
 
     HEADER
-    Knapsack knapsack(orders, 400, 400); //TODO why fixed value? ... Ricardo: It's not suppose to be
+    auto p = Knapsack::getMax(trucks);
+    Knapsack knapsack(orders, p.first, p.second);
     int orders_size = orders.size();
     DO_HEADER
 
