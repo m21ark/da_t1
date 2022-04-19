@@ -130,12 +130,20 @@ public:
     /**
      * One of the main functions of scenario 1
      * It calculates the distribution of deliveries in the trucks, by choosing the truck with the most amount of deliveries calculated using a brute force
-     * 
+     * Then it keeps choosing the truck with the most number of deliveries for the remaining orders (greedy)
+     * until either there are no more orders or all trucks are full
      * @param trucksV
      * @param ordersV
      */
     static void greedyTrucksAndBruteForce(vector<Truck> trucksV, vector<Order> ordersV);
 
+    /**
+     * One of the main functions of scenario 1
+     * It calculates all of the possibilities using backtracking. It gives the best possible solution, but it takes way too long to calculate
+     * It might even crash with some amount of data
+     * @param trucksV
+     * @param ordersV
+     */
     static void backtracking(const vector<Truck> &trucksV, vector<Order> ordersV);
 
 };
