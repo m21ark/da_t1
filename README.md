@@ -39,3 +39,9 @@ O trabalho encontra-se divido em 3 cenários:
 - Marco André Rocha - up202004891
 - Ricardo de Matos - up202007962
 
+## Tabela Tempos Algoritmos
+
+>
+> https://docs.google.com/spreadsheets/d/1grAwCQUWOP5RiLvV50HRBSo_Yy3XrwvnA9YKeICbnxw/edit?usp=sharing
+>
+

@@ -147,8 +147,8 @@ void Menu::scenario2(const pair<string, string> &files) {
 
     cout << "\nTrucks are chosen in a greedy way\n";
     cout << "File reports will be created\n\n";
-    cout << "1) Rapid & Sub-Optimal: Greedy Trucks Fractional Knapsack\n\n";
-    cout << "2) Slow & Optimal (more space): Greedy Trucks Linear Knapsack\n\n";
+    cout << "1) Rapid & Sub-Optimal: Greedy Trucks Fractional Knapsack\n";
+    cout << "2) Slow & Optimal (more space): Greedy Trucks Linear Knapsack\n";
     cout << "3) Slower & Optimal (less space): Greedy Trucks Linear Knapsack (divide & conquer)\n\n";
 
     char c = askChar();
