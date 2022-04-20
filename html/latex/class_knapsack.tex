@@ -1,0 +1,270 @@
+\hypertarget{class_knapsack}{}\doxysection{Knapsack Class Reference}
+\label{class_knapsack}\index{Knapsack@{Knapsack}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_knapsack_a27ee2dacfc1155dba7880ee2e64ba1bb}{Knapsack}} (vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ \&store, const size\+\_\+t Weight\+Capacity, const size\+\_\+t Volume\+Capacity)
+\item 
+\mbox{\hyperlink{class_knapsack_a90ff94d20ac7bdeba3ea0d7ad5f576f4}{Knapsack}} (vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ \&store)
+\item 
+size\+\_\+t \mbox{\hyperlink{class_knapsack_a8f54b8cb3602af134c4457c67e908a37}{knapsack\+\_\+2d}} ()
+\item 
+void \mbox{\hyperlink{class_knapsack_a08d29a871e1b41a3d2efbc2aa3f25160}{knapsack\+\_\+calc}} (size\+\_\+t i, size\+\_\+t j, size\+\_\+t k, int increment)
+\item 
+size\+\_\+t \mbox{\hyperlink{class_knapsack_a232eac20737745741172c3a4f03e1958}{get\+\_\+best\+\_\+value}} (const size\+\_\+t \&Weight\+Capacity, const size\+\_\+t \&Volume\+Capacity)
+\item 
+vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ \mbox{\hyperlink{class_knapsack_ae10cd47696fdb1cc7986b8f1886b4d64}{get\+\_\+used\+\_\+items}} (size\+\_\+t weight, size\+\_\+t volume)
+\item 
+double \mbox{\hyperlink{class_knapsack_a32ca5f5c866aefa6e024a1e55805f3c8}{pseudo\+Fractional\+Knapsack}} (vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ \&used\+Items, size\+\_\+t wight, size\+\_\+t weight)
+\item 
+void \mbox{\hyperlink{class_knapsack_a28d1bc6f19356de34d44af4f06c48a61}{print\+\_\+knapsack}} ()
+\item 
+void \mbox{\hyperlink{class_knapsack_a4e6ebfb8c6257e446066e4393fc1c813}{knapsack\+\_\+2d\+\_\+number\+\_\+deliveries}} ()
+\item 
+vector$<$ \mbox{\hyperlink{struct_order}{Order}} $\ast$ $>$ \mbox{\hyperlink{class_knapsack_a09374596ae1346459ac98a9c2dc5c0f0}{get\+\_\+used\+\_\+items\+\_\+number\+\_\+deliveries}} (size\+\_\+t weight, size\+\_\+t volume)
+\item 
+size\+\_\+t \mbox{\hyperlink{class_knapsack_a680df0057b1d1c40024e69eee99b5c09}{get\+Store\+Size}} ()
+\item 
+vector$<$ vector$<$ pair$<$ int, int $>$ $>$ $>$ \mbox{\hyperlink{class_knapsack_ac7d506ee5b49272a9efd8282953c4887}{optimal\+\_\+cost}} (vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ const \&v, int w\+Cap, int v\+Cap)
+\item 
+vector$<$ int $>$ \mbox{\hyperlink{class_knapsack_a1cad6ed7f3dc5c3c044c27e2bf852921}{knapsack\+\_\+hirschberg}} (const vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ \&v, int w\+Cap, int v\+Cap, int \&prof, vector$<$ \mbox{\hyperlink{struct_truck}{Truck}} $>$ \&trucks, int offset=0, bool firs=true)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{class_knapsack_ae0b33a1540eacf544c8163775fa833e2}{fits\+In\+Truck}} (const \mbox{\hyperlink{struct_truck}{Truck}} \&t, const vector$<$ int $>$ \&v, const vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ \&o)
+\item 
+static pair$<$ int, int $>$ \mbox{\hyperlink{class_knapsack_af1a45d782ec9ceca92408ce76e076976}{get\+Max}} (const vector$<$ \mbox{\hyperlink{struct_truck}{Truck}} $>$ \&trucks)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_knapsack_a6a340a9de084b229d800c62f2fce7b72}\label{class_knapsack_a6a340a9de084b229d800c62f2fce7b72}} 
+vector$<$ \mbox{\hyperlink{struct_truck}{Truck}} $>$\+::iterator {\bfseries it\+Truck}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_knapsack_a27ee2dacfc1155dba7880ee2e64ba1bb}\label{class_knapsack_a27ee2dacfc1155dba7880ee2e64ba1bb}} 
+\index{Knapsack@{Knapsack}!Knapsack@{Knapsack}}
+\index{Knapsack@{Knapsack}!Knapsack@{Knapsack}}
+\doxysubsubsection{\texorpdfstring{Knapsack()}{Knapsack()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Knapsack\+::\+Knapsack (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ \&}]{store,  }\item[{const size\+\_\+t}]{Weight\+Capacity,  }\item[{const size\+\_\+t}]{Volume\+Capacity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+Creates a knapsack with all the needed information 
+\begin{DoxyParams}{Parameters}
+{\em store} & orders to be consider \\
+\hline
+{\em Weight\+Capacity} & max weight of the knapsack \\
+\hline
+{\em Volume\+Capacity} & max volume of the knapsack \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_knapsack_a90ff94d20ac7bdeba3ea0d7ad5f576f4}\label{class_knapsack_a90ff94d20ac7bdeba3ea0d7ad5f576f4}} 
+\index{Knapsack@{Knapsack}!Knapsack@{Knapsack}}
+\index{Knapsack@{Knapsack}!Knapsack@{Knapsack}}
+\doxysubsubsection{\texorpdfstring{Knapsack()}{Knapsack()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Knapsack\+::\+Knapsack (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ \&}]{store }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+Creates a knapsack with all the needed information 
+\begin{DoxyParams}{Parameters}
+{\em store} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_knapsack_ae0b33a1540eacf544c8163775fa833e2}\label{class_knapsack_ae0b33a1540eacf544c8163775fa833e2}} 
+\index{Knapsack@{Knapsack}!fitsInTruck@{fitsInTruck}}
+\index{fitsInTruck@{fitsInTruck}!Knapsack@{Knapsack}}
+\doxysubsubsection{\texorpdfstring{fitsInTruck()}{fitsInTruck()}}
+{\footnotesize\ttfamily static bool Knapsack\+::fits\+In\+Truck (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_truck}{Truck}} \&}]{t,  }\item[{const vector$<$ int $>$ \&}]{v,  }\item[{const vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ \&}]{o }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Checks if orders fits in trucks 
+\begin{DoxyParams}{Parameters}
+{\em t} & vector of trucks \\
+\hline
+{\em v} & vector of orders id \\
+\hline
+{\em o} & vector of orders \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if it fits false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_knapsack_a232eac20737745741172c3a4f03e1958}\label{class_knapsack_a232eac20737745741172c3a4f03e1958}} 
+\index{Knapsack@{Knapsack}!get\_best\_value@{get\_best\_value}}
+\index{get\_best\_value@{get\_best\_value}!Knapsack@{Knapsack}}
+\doxysubsubsection{\texorpdfstring{get\_best\_value()}{get\_best\_value()}}
+{\footnotesize\ttfamily size\+\_\+t Knapsack\+::get\+\_\+best\+\_\+value (\begin{DoxyParamCaption}\item[{const size\+\_\+t \&}]{Weight\+Capacity,  }\item[{const size\+\_\+t \&}]{Volume\+Capacity }\end{DoxyParamCaption})}
+
+The best result to a max Weight and volume 
+\begin{DoxyParams}{Parameters}
+{\em Weight\+Capacity} & \\
+\hline
+{\em Volume\+Capacity} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the best reward 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_knapsack_ae10cd47696fdb1cc7986b8f1886b4d64}\label{class_knapsack_ae10cd47696fdb1cc7986b8f1886b4d64}} 
+\index{Knapsack@{Knapsack}!get\_used\_items@{get\_used\_items}}
+\index{get\_used\_items@{get\_used\_items}!Knapsack@{Knapsack}}
+\doxysubsubsection{\texorpdfstring{get\_used\_items()}{get\_used\_items()}}
+{\footnotesize\ttfamily vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ Knapsack\+::get\+\_\+used\+\_\+items (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{weight,  }\item[{size\+\_\+t}]{volume }\end{DoxyParamCaption})}
+
+Gets the items that maximize the knapsack 
+\begin{DoxyParams}{Parameters}
+{\em weight} & \\
+\hline
+{\em volume} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+used items 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_knapsack_a09374596ae1346459ac98a9c2dc5c0f0}\label{class_knapsack_a09374596ae1346459ac98a9c2dc5c0f0}} 
+\index{Knapsack@{Knapsack}!get\_used\_items\_number\_deliveries@{get\_used\_items\_number\_deliveries}}
+\index{get\_used\_items\_number\_deliveries@{get\_used\_items\_number\_deliveries}!Knapsack@{Knapsack}}
+\doxysubsubsection{\texorpdfstring{get\_used\_items\_number\_deliveries()}{get\_used\_items\_number\_deliveries()}}
+{\footnotesize\ttfamily vector$<$ \mbox{\hyperlink{struct_order}{Order}} $\ast$ $>$ Knapsack\+::get\+\_\+used\+\_\+items\+\_\+number\+\_\+deliveries (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{weight,  }\item[{size\+\_\+t}]{volume }\end{DoxyParamCaption})}
+
+Used items that maximizes the number of deliveries 
+\begin{DoxyParams}{Parameters}
+{\em weight} & \\
+\hline
+{\em volume} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_knapsack_af1a45d782ec9ceca92408ce76e076976}\label{class_knapsack_af1a45d782ec9ceca92408ce76e076976}} 
+\index{Knapsack@{Knapsack}!getMax@{getMax}}
+\index{getMax@{getMax}!Knapsack@{Knapsack}}
+\doxysubsubsection{\texorpdfstring{getMax()}{getMax()}}
+{\footnotesize\ttfamily static pair$<$ int, int $>$ Knapsack\+::get\+Max (\begin{DoxyParamCaption}\item[{const vector$<$ \mbox{\hyperlink{struct_truck}{Truck}} $>$ \&}]{trucks }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+gets the max Weight and Volume of trucks 
+\begin{DoxyParams}{Parameters}
+{\em trucks} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pair with max Weight , max volume 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_knapsack_a680df0057b1d1c40024e69eee99b5c09}\label{class_knapsack_a680df0057b1d1c40024e69eee99b5c09}} 
+\index{Knapsack@{Knapsack}!getStoreSize@{getStoreSize}}
+\index{getStoreSize@{getStoreSize}!Knapsack@{Knapsack}}
+\doxysubsubsection{\texorpdfstring{getStoreSize()}{getStoreSize()}}
+{\footnotesize\ttfamily size\+\_\+t Knapsack\+::get\+Store\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+number of orders 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_knapsack_a8f54b8cb3602af134c4457c67e908a37}\label{class_knapsack_a8f54b8cb3602af134c4457c67e908a37}} 
+\index{Knapsack@{Knapsack}!knapsack\_2d@{knapsack\_2d}}
+\index{knapsack\_2d@{knapsack\_2d}!Knapsack@{Knapsack}}
+\doxysubsubsection{\texorpdfstring{knapsack\_2d()}{knapsack\_2d()}}
+{\footnotesize\ttfamily size\+\_\+t Knapsack\+::knapsack\+\_\+2d (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Executes a 2d knapsack considering the max volume and weight \begin{DoxyReturn}{Returns}
+the best knapsack value 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_knapsack_a4e6ebfb8c6257e446066e4393fc1c813}\label{class_knapsack_a4e6ebfb8c6257e446066e4393fc1c813}} 
+\index{Knapsack@{Knapsack}!knapsack\_2d\_number\_deliveries@{knapsack\_2d\_number\_deliveries}}
+\index{knapsack\_2d\_number\_deliveries@{knapsack\_2d\_number\_deliveries}!Knapsack@{Knapsack}}
+\doxysubsubsection{\texorpdfstring{knapsack\_2d\_number\_deliveries()}{knapsack\_2d\_number\_deliveries()}}
+{\footnotesize\ttfamily void Knapsack\+::knapsack\+\_\+2d\+\_\+number\+\_\+deliveries (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+calculates the knapsack that maximizes the number of deliveries \mbox{\Hypertarget{class_knapsack_a08d29a871e1b41a3d2efbc2aa3f25160}\label{class_knapsack_a08d29a871e1b41a3d2efbc2aa3f25160}} 
+\index{Knapsack@{Knapsack}!knapsack\_calc@{knapsack\_calc}}
+\index{knapsack\_calc@{knapsack\_calc}!Knapsack@{Knapsack}}
+\doxysubsubsection{\texorpdfstring{knapsack\_calc()}{knapsack\_calc()}}
+{\footnotesize\ttfamily void Knapsack\+::knapsack\+\_\+calc (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{i,  }\item[{size\+\_\+t}]{j,  }\item[{size\+\_\+t}]{k,  }\item[{int}]{increment }\end{DoxyParamCaption})}
+
+Calculates an iteration on the knapsack problem 
+\begin{DoxyParams}{Parameters}
+{\em i} & the stage (order in which we check the 1-\/0) \\
+\hline
+{\em j} & the weight \\
+\hline
+{\em k} & the volume \\
+\hline
+{\em increment} & the increment that should be added if the order is set \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_knapsack_a1cad6ed7f3dc5c3c044c27e2bf852921}\label{class_knapsack_a1cad6ed7f3dc5c3c044c27e2bf852921}} 
+\index{Knapsack@{Knapsack}!knapsack\_hirschberg@{knapsack\_hirschberg}}
+\index{knapsack\_hirschberg@{knapsack\_hirschberg}!Knapsack@{Knapsack}}
+\doxysubsubsection{\texorpdfstring{knapsack\_hirschberg()}{knapsack\_hirschberg()}}
+{\footnotesize\ttfamily vector$<$ int $>$ Knapsack\+::knapsack\+\_\+hirschberg (\begin{DoxyParamCaption}\item[{const vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ \&}]{v,  }\item[{int}]{w\+Cap,  }\item[{int}]{v\+Cap,  }\item[{int \&}]{prof,  }\item[{vector$<$ \mbox{\hyperlink{struct_truck}{Truck}} $>$ \&}]{trucks,  }\item[{int}]{offset = {\ttfamily 0},  }\item[{bool}]{firs = {\ttfamily true} }\end{DoxyParamCaption})}
+
+Calculates the best knapsack using a divide an conquer algorithm 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector with the orders \\
+\hline
+{\em w\+Cap} & Weight capacity \\
+\hline
+{\em v\+Cap} & volume capacity \\
+\hline
+{\em prof} & max profit -\/ out values \\
+\hline
+{\em trucks} & the trucks responsible for the deliveries \\
+\hline
+{\em offset} & the offset of the vector \\
+\hline
+{\em firs} & indicates if this is the first call to the function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_knapsack_ac7d506ee5b49272a9efd8282953c4887}\label{class_knapsack_ac7d506ee5b49272a9efd8282953c4887}} 
+\index{Knapsack@{Knapsack}!optimal\_cost@{optimal\_cost}}
+\index{optimal\_cost@{optimal\_cost}!Knapsack@{Knapsack}}
+\doxysubsubsection{\texorpdfstring{optimal\_cost()}{optimal\_cost()}}
+{\footnotesize\ttfamily vector$<$ vector$<$ pair$<$ int, int $>$ $>$ $>$ Knapsack\+::optimal\+\_\+cost (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ const \&}]{v,  }\item[{int}]{w\+Cap,  }\item[{int}]{v\+Cap }\end{DoxyParamCaption})}
+
+Calculates the best reward for the range 0 to w\+Cap and 0 to v\+Cap 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector with the orders \\
+\hline
+{\em w\+Cap} & weight capacity \\
+\hline
+{\em v\+Cap} & volume capacity \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+optimal cost/reward for each pair of volume, weight 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_knapsack_a28d1bc6f19356de34d44af4f06c48a61}\label{class_knapsack_a28d1bc6f19356de34d44af4f06c48a61}} 
+\index{Knapsack@{Knapsack}!print\_knapsack@{print\_knapsack}}
+\index{print\_knapsack@{print\_knapsack}!Knapsack@{Knapsack}}
+\doxysubsubsection{\texorpdfstring{print\_knapsack()}{print\_knapsack()}}
+{\footnotesize\ttfamily void Knapsack\+::print\+\_\+knapsack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+prints the knapsack \mbox{\Hypertarget{class_knapsack_a32ca5f5c866aefa6e024a1e55805f3c8}\label{class_knapsack_a32ca5f5c866aefa6e024a1e55805f3c8}} 
+\index{Knapsack@{Knapsack}!pseudoFractionalKnapsack@{pseudoFractionalKnapsack}}
+\index{pseudoFractionalKnapsack@{pseudoFractionalKnapsack}!Knapsack@{Knapsack}}
+\doxysubsubsection{\texorpdfstring{pseudoFractionalKnapsack()}{pseudoFractionalKnapsack()}}
+{\footnotesize\ttfamily double Knapsack\+::pseudo\+Fractional\+Knapsack (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_order}{Order}} $>$ \&}]{used\+Items,  }\item[{size\+\_\+t}]{wight,  }\item[{size\+\_\+t}]{weight }\end{DoxyParamCaption})}
+
+A pseudo-\/fractional knapsack 
+\begin{DoxyParams}{Parameters}
+{\em used\+Items} & a return value ... items used are returned here \\
+\hline
+{\em wight} & \\
+\hline
+{\em weight} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the best reward 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/knapsack.\+h\end{DoxyCompactItemize}

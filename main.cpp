@@ -17,19 +17,18 @@ void testing() {
         string trucks_f = "../data/c_" + to_string(num_trucks) + "/c_" + to_string(i % truck_ids + 1) + ".txt";
         string orders_f = "../data/e_" + to_string(num_orders) + "/e_" + to_string(i) + ".txt";
 
+        cout << trucks_f << " " << orders_f << endl;
+
         vector<Truck> trucks = read_trucks(trucks_f);
         vector<Order> orders = read_orders(orders_f);
 
         Timer::start();
-
-        OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(trucks, orders);
-
+        OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(trucks, orders);
         times.push_back(Timer::getCurrentTime());
 
         if (i == 1) getchar();
         system(CLEAR);
     }
-
 
     /*  PRINTING RESULTS  */
 

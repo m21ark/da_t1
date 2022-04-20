@@ -72,7 +72,7 @@ vector<Order> Knapsack::get_used_items(size_t weight, size_t volume) {
 }
 
 
-double Knapsack::fractionalKnapsack(vector<Order> &usedItems, size_t wight, size_t weight) {
+double Knapsack::pseudoFractionalKnapsack(vector<Order> &usedItems, size_t wight, size_t weight) {
 
     auto sorter = [](const Order &l, const Order &r) {
         return (double) l.reward / (double) (l.weight + l.volume) > (double) r.reward / (double) (r.weight + r.volume);
@@ -140,6 +140,7 @@ int closest(std::vector<int> const &vec, int value) {
 
     return *it;
 }
+
 
 //adaptado de https://stackoverflow.com/questions/36834028/reconstructing-the-list-of-items-from-a-space-optimized-0-1-knapsack-implementat
 vector<int>

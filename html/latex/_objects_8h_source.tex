@@ -1,0 +1,46 @@
+\hypertarget{_objects_8h_source}{}\doxysection{Objects.\+h}
+\label{_objects_8h_source}\index{include/Objects.h@{include/Objects.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef DA\_T1\_OBJECTS\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define DA\_T1\_OBJECTS\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{12 \textcolor{keyword}{struct }\mbox{\hyperlink{struct_truck}{Truck}} \{}
+\DoxyCodeLine{13     \textcolor{keywordtype}{int} id, volMax, pesoMax, cost;}
+\DoxyCodeLine{14 \};}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{19 \textcolor{keyword}{struct }\mbox{\hyperlink{struct_order}{Order}} \{}
+\DoxyCodeLine{20     \textcolor{keywordtype}{int} id, volume, weight, reward, duration;}
+\DoxyCodeLine{21 \};}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{29 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} operator==(\textcolor{keyword}{const} \mbox{\hyperlink{struct_order}{Order}} \&l, \textcolor{keyword}{const} \mbox{\hyperlink{struct_order}{Order}} \&r) \{}
+\DoxyCodeLine{30     \textcolor{keywordflow}{return} l.id == r.id;}
+\DoxyCodeLine{31 \}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{39 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} operator==(\textcolor{keyword}{const} \mbox{\hyperlink{struct_truck}{Truck}} \&l, \textcolor{keyword}{const} \mbox{\hyperlink{struct_truck}{Truck}} \&r) \{}
+\DoxyCodeLine{40     \textcolor{keywordflow}{return} l.id == r.id;}
+\DoxyCodeLine{41 \}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{49 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} operator<(\textcolor{keyword}{const} \mbox{\hyperlink{struct_order}{Order}} \&l, \textcolor{keyword}{const} \mbox{\hyperlink{struct_order}{Order}} \&r) \{}
+\DoxyCodeLine{50     \textcolor{keywordflow}{return} l.id < r.id;}
+\DoxyCodeLine{51 \}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{59 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} operator<(\textcolor{keyword}{const} \mbox{\hyperlink{struct_truck}{Truck}} \&l, \textcolor{keyword}{const} \mbox{\hyperlink{struct_truck}{Truck}} \&r) \{}
+\DoxyCodeLine{60     \textcolor{keywordflow}{return} l.id < r.id;}
+\DoxyCodeLine{61 \}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{71 \textcolor{keyword}{template}<\textcolor{keyword}{class} iterable>}
+\DoxyCodeLine{72 vector<iterable> \&operator<<(vector<iterable> \&left, \textcolor{keyword}{const} vector<iterable> \&right) \{}
+\DoxyCodeLine{73     left.reserve(right.size());}
+\DoxyCodeLine{74     left.insert(left.end(), right.begin(), right.end());}
+\DoxyCodeLine{75     \textcolor{keywordflow}{return} left;}
+\DoxyCodeLine{76 \}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//DA\_T1\_OBJECTS\_H}}
+
+\end{DoxyCode}

@@ -13,6 +13,7 @@ private:
     static void addDayBefore(vector<Order> &v, Memento &memento);
 
 public:
+
     /**
      * TODO: PASS BY REFERENCE
      */
@@ -24,9 +25,9 @@ public:
 
     static void printProfits(const vector<int> &profits);
 
-    static int chooseTruckProfit(int &max_prof, vector<int> &profit, vector<Order> &orders, Memento &memento,
-                                 vector<Truck> &trucks, vector<Truck>::iterator &itTruckChosen,
-                                 vector<Order> &used_items, unsigned &i);
+    static bool chooseTruckProfit(int &max_prof, vector<int> &profit, vector<Order> &orders, Memento &memento,
+                                  vector<Truck> &trucks, vector<Truck>::iterator &itTruckChosen,
+                                  vector<Order> &used_items, unsigned &i);
 
 };
 

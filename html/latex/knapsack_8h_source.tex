@@ -1,0 +1,66 @@
+\hypertarget{knapsack_8h_source}{}\doxysection{knapsack.\+h}
+\label{knapsack_8h_source}\index{include/knapsack.h@{include/knapsack.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef DA\_T1\_KNAPSACK\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define DA\_T1\_KNAPSACK\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <algorithm>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}read\_files.h"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{class }\mbox{\hyperlink{class_knapsack}{Knapsack}} \{}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{private}:}
+\DoxyCodeLine{11     vector<Order> \&store;}
+\DoxyCodeLine{12     vector<vector<vector<size\_t>>> T;}
+\DoxyCodeLine{13     \textcolor{keywordtype}{size\_t} W\{\};}
+\DoxyCodeLine{14     \textcolor{keywordtype}{size\_t} Vo\{\};}
+\DoxyCodeLine{15     \textcolor{keywordtype}{size\_t} n;}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{public}:}
+\DoxyCodeLine{18     vector<Truck>::iterator itTruck;}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{26     \textcolor{keyword}{explicit} \mbox{\hyperlink{class_knapsack_a27ee2dacfc1155dba7880ee2e64ba1bb}{Knapsack}}(vector<Order> \&store, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} WeightCapacity, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} VolumeCapacity) : store(store) \{}
+\DoxyCodeLine{27         this-\/>W = WeightCapacity;}
+\DoxyCodeLine{28         this-\/>Vo = VolumeCapacity;}
+\DoxyCodeLine{29         n = store.size();}
+\DoxyCodeLine{30         T = vector<vector<vector<size\_t>>>(n + 1, vector<vector<size\_t>>(W + 1, vector<size\_t>(Vo + 1)));}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32     \}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{38     \textcolor{keyword}{explicit} \mbox{\hyperlink{class_knapsack_a90ff94d20ac7bdeba3ea0d7ad5f576f4}{Knapsack}}(vector<Order> \&store) : store(store) \{}
+\DoxyCodeLine{39         n = store.size();}
+\DoxyCodeLine{40     \}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{46     \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{class_knapsack_a8f54b8cb3602af134c4457c67e908a37}{knapsack\_2d}}();}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{55     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_knapsack_a08d29a871e1b41a3d2efbc2aa3f25160}{knapsack\_calc}}(\textcolor{keywordtype}{size\_t} i, \textcolor{keywordtype}{size\_t} j, \textcolor{keywordtype}{size\_t} k, \textcolor{keywordtype}{int} increment);}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{63     \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{class_knapsack_a232eac20737745741172c3a4f03e1958}{get\_best\_value}}(\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} \&WeightCapacity, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} \&VolumeCapacity);}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{71     vector<Order> \mbox{\hyperlink{class_knapsack_ae10cd47696fdb1cc7986b8f1886b4d64}{get\_used\_items}}(\textcolor{keywordtype}{size\_t} weight, \textcolor{keywordtype}{size\_t} volume);}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{80     \textcolor{keywordtype}{double} \mbox{\hyperlink{class_knapsack_a32ca5f5c866aefa6e024a1e55805f3c8}{pseudoFractionalKnapsack}}(vector<Order> \&usedItems, \textcolor{keywordtype}{size\_t} wight, \textcolor{keywordtype}{size\_t} weight);}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{85     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_knapsack_a28d1bc6f19356de34d44af4f06c48a61}{print\_knapsack}}();}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{90     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_knapsack_a4e6ebfb8c6257e446066e4393fc1c813}{knapsack\_2d\_number\_deliveries}}();}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{98     vector<Order *> \mbox{\hyperlink{class_knapsack_a09374596ae1346459ac98a9c2dc5c0f0}{get\_used\_items\_number\_deliveries}}(\textcolor{keywordtype}{size\_t} weight, \textcolor{keywordtype}{size\_t} volume);}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{104     \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{class_knapsack_a680df0057b1d1c40024e69eee99b5c09}{getStoreSize}}() \{ \textcolor{keywordflow}{return} store.size(); \}}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{113     vector<vector<pair<int, int>>> \mbox{\hyperlink{class_knapsack_ac7d506ee5b49272a9efd8282953c4887}{optimal\_cost}}(vector<Order> \textcolor{keyword}{const} \&v, \textcolor{keywordtype}{int} wCap, \textcolor{keywordtype}{int} vCap);}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{126     vector<int> \mbox{\hyperlink{class_knapsack_a1cad6ed7f3dc5c3c044c27e2bf852921}{knapsack\_hirschberg}}(\textcolor{keyword}{const} vector<Order> \&v, \textcolor{keywordtype}{int} wCap, \textcolor{keywordtype}{int} vCap, \textcolor{keywordtype}{int} \&prof,vector<Truck> \&trucks,\textcolor{keywordtype}{int} offset = 0, \textcolor{keywordtype}{bool} firs = \textcolor{keyword}{true} );}
+\DoxyCodeLine{127 }
+\DoxyCodeLine{135     \textcolor{keyword}{static} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_knapsack_ae0b33a1540eacf544c8163775fa833e2}{fitsInTruck}}(\textcolor{keyword}{const} \mbox{\hyperlink{struct_truck}{Truck}} \&t, \textcolor{keyword}{const} vector<int> \&v, \textcolor{keyword}{const} vector<Order> \&o);}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{142     \textcolor{keyword}{static} pair<int, int> \mbox{\hyperlink{class_knapsack_af1a45d782ec9ceca92408ce76e076976}{getMax}}(\textcolor{keyword}{const} vector<Truck> \&trucks);}
+\DoxyCodeLine{143 \};}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145 }
+\DoxyCodeLine{146 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//DA\_T1\_KNAPSACK\_H}}
+
+\end{DoxyCode}

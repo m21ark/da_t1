@@ -112,7 +112,6 @@ unsigned OptimizeNumberOfDeliveries::getGreedyNumberOfOrdersOfTruck(Truck &truck
 
 
 // MAIN FUNCTIONS
-
 void OptimizeNumberOfDeliveries::greedyTrucksAndKnapsack(vector<Truck> trucksV, vector<Order> ordersV) {
 
     Timer::start();
