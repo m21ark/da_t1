@@ -77,7 +77,7 @@ class OptimizeNumberOfDeliveries {
      * @param totalDeliveries
      * @param numberOfTrucks
      */
-    static void printResults(const unsigned &totalDeliveries, const unsigned &numberOfTrucks, const unsigned allOrders);
+    static void printResults(const unsigned &totalDeliveries, const unsigned &numberOfTrucks, unsigned allOrders);
 
     /**
      * It erases the used items in ordersV
@@ -95,7 +95,7 @@ class OptimizeNumberOfDeliveries {
      * @param o2
      * @return true if o1 < o2
      */
-    static bool compareByWeightAndVolume(const Order& o1, const Order& o2);
+    static bool compareByWeightAndVolume(const Order &o1, const Order &o2);
 
     /**
      * Chooses the best orders for a certain truck in a greedy way
@@ -105,7 +105,7 @@ class OptimizeNumberOfDeliveries {
      * @param usedItems
      * @return number of orders that the truck can carry
      */
-    static unsigned getGreedyNumberOfOrdersOfTruck(Truck &truck, vector<Order>& orders, vector<Order *>& usedItems);
+    static unsigned getGreedyNumberOfOrdersOfTruck(Truck &truck, vector<Order> &orders, vector<Order *> &usedItems);
 
 public:
 

@@ -80,11 +80,6 @@ public:
     double pseudoFractionalKnapsack(vector<Order> &usedItems, size_t wight, size_t weight);
 
     /**
-     * prints the knapsack
-     */
-    void print_knapsack();
-
-    /**
      * calculates the knapsack that maximizes the number of deliveries
      */
     void knapsack_2d_number_deliveries();
@@ -110,7 +105,7 @@ public:
      * @param vCap volume capacity
      * @return optimal cost/reward for each pair of volume, weight
      */
-    vector<vector<pair<int, int>>> optimal_cost(vector<Order> const &v, int wCap, int vCap);
+    static vector<vector<pair<int, int>>> optimal_cost(vector<Order> const &v, int wCap, int vCap);
 
     /**
      * Calculates the best knapsack using a divide an conquer algorithm
@@ -123,16 +118,9 @@ public:
      * @param firs indicates if this is the first call to the function
      * @return
      */
-    vector<int> knapsack_hirschberg(const vector<Order> &v, int wCap, int vCap, int &prof,vector<Truck> &trucks,int offset = 0, bool firs = true );
-
-    /**
-     * Checks if orders fits in trucks
-     * @param t vector of trucks
-     * @param v vector of orders id
-     * @param o vector of orders
-     * @return true if it fits false otherwise
-     */
-    static bool fitsInTruck(const Truck &t, const vector<int> &v, const vector<Order> &o);
+    vector<int>
+    knapsack_hirschberg(const vector<Order> &v, int wCap, int vCap, int &prof, vector<Truck> &trucks, int offset = 0,
+                        bool firs = true);
 
     /**
      * gets the max Weight and Volume of trucks

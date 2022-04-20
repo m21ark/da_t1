@@ -27,24 +27,6 @@ void Knapsack::knapsack_2d_number_deliveries() {
                 knapsack_calc(i, j, k, 1);
 }
 
-void Knapsack::print_knapsack() {
-
-    size_t w = W, v = Vo, size = store.size();
-    size_t res = T[size][W][Vo];
-
-    for (size_t i = size; i > 0 && res > 0; i--) {
-
-        if (res == T[i - 1][w][v])
-            continue;
-        else {
-            cout << store[i - 1].id << endl;
-            res = res - store[i - 1].reward;
-            w = w - store[i - 1].weight;
-            v = v - store[i - 1].volume;
-        }
-    }
-
-}
 
 size_t Knapsack::get_best_value(const size_t &WeightCapacity, const size_t &VolumeCapacity) {
     return T[store.size()][WeightCapacity][VolumeCapacity];
@@ -134,17 +116,9 @@ vector<vector<pair<int, int>>> Knapsack::optimal_cost(const vector<Order> &v, in
     return dp;
 }
 
-int closest(std::vector<int> const &vec, int value) {
-    auto const it = std::lower_bound(vec.begin(), vec.end(), value);
-    if (it == vec.end()) { return -1; }
-
-    return *it;
-}
-
-
 //adaptado de https://stackoverflow.com/questions/36834028/reconstructing-the-list-of-items-from-a-space-optimized-0-1-knapsack-implementat
-vector<int>
-Knapsack::knapsack_hirschberg(const vector<Order> &v, int wCap, int vCap, int &mProf, vector<Truck> &trucks, int offset,
+// NOLINTNEXTLINE
+vector<int> Knapsack::knapsack_hirschberg(const vector<Order> &v, int wCap, int vCap, int &mProf, vector<Truck> &trucks, int offset,
                               bool firs) {
     if (empty(v))
         return {};
@@ -172,7 +146,7 @@ Knapsack::knapsack_hirschberg(const vector<Order> &v, int wCap, int vCap, int &m
         return knapsack_hirschberg(v, wCap, vCap, mProf, trucks, 0, false);
     }
 
-    int mid = size(v) / 2;
+    int mid = (int) size(v) / 2;
     auto subSol1 = optimal_cost(vector<Order>(begin(v), begin(v) + mid), wCap, vCap);
     auto subSol2 = optimal_cost(vector<Order>(begin(v) + mid, end(v)), wCap, vCap);
 
@@ -208,17 +182,6 @@ Knapsack::knapsack_hirschberg(const vector<Order> &v, int wCap, int vCap, int &m
     return solution;
 }
 
-bool Knapsack::fitsInTruck(const Truck &t, const vector<int> &v, const vector<Order> &o) {
-    int wCap = t.pesoMax, vCap = t.volMax;
-
-    for (auto i: v) {
-        wCap -= o[i].weight;
-        vCap -= o[i].volume;
-        if (wCap < 0 || vCap < 0)
-            return false;
-    }
-    return true;
-}
 
 pair<int, int> Knapsack::getMax(const vector<Truck> &trucks) {
     int mW = INT32_MIN, mV = INT32_MIN;

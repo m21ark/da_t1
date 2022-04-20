@@ -1,2 +1,0 @@
-id volMax pesoMax custo
-2 255 275 13025

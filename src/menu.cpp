@@ -62,7 +62,7 @@ void Menu::start() {
                     if (!files.second.empty()) scenario2(files);
                     break;
                 case '3':
-                    files = askFiles(true);
+                    files = askFiles();
                     if (!files.second.empty()) scenario3(files.second);
                     break;
                 default:
@@ -79,7 +79,7 @@ void Menu::start() {
     }
 }
 
-pair<string, string> Menu::askFiles(bool scene3) {
+pair<string, string> Menu::askFiles() {
 
     pair<string, string> file_paths;
 

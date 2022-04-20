@@ -10,13 +10,6 @@
 using namespace std;
 
 /**
- * Checks whether a file exists at a given filepath
- * @param path path where to look for file existence
- * @return boolean if file was found
- */
-bool file_exists(const string &path);
-
-/**
  * Reads a given file content and assembles a vector of Trucks
  * @param path file of Trucks to be read and converted into vector
  * @return produced vector of Trucks stored at file

@@ -1,11 +1,6 @@
 #include "../include/read_files.h"
 
 
-bool file_exists(const string &path) {
-    fstream file(path, ios::in);
-    return !(!file);
-}
-
 vector<Truck> read_trucks(const string &path) {
 
     vector<Truck> rows;

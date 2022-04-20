@@ -95,7 +95,8 @@ void express_scheduling_print(vector<Order> &orders, unsigned qnt) {
            total_time, total_time / i, total_profit, i, (int) orders.size(), success_per);
 
     orders.erase(orders.begin(), it);
-    cout << "Time taken: " << Timer::getCurrentTime() << "s\n";
+    Timer::stop();
+    cout << "Time taken: " << Timer::getTime() << "s\n";
 }
 
 

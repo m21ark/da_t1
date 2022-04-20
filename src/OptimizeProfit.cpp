@@ -15,11 +15,6 @@ memento.save({orders}); \
 printProfits(profit);                  \
 
 
-#define DO_HEADER     do { \
-auto itTruckChosen = trucks.end(); \
-int max_prof = INT32_MIN; \
-
-
 void OptimizeProfit::addDayBefore(vector<Order> &v, Memento &memento) {
     State state = memento.loadDayBefore();
     v << state.orders;
@@ -28,10 +23,12 @@ void OptimizeProfit::addDayBefore(vector<Order> &v, Memento &memento) {
 void OptimizeProfit::printProfits(const vector<int> &profits) {
 
     int total_profit = accumulate(profits.begin(), profits.end(), 0);
-    cout << "\nTotal Profit = " << total_profit << "€\n";
     if (total_profit == 0)
         cout << "It's possible that there is not a profitable option for today's deliveries.\n";
-    cout << "Time Taken: " << Timer::getCurrentTime() << "s\n";
+    else {
+        cout << "\nTotal Profit = " << total_profit << "€\n";
+        cout << "Time Taken: " << Timer::getCurrentTime() << "s\n";
+    }
 }
 
 bool OptimizeProfit::chooseTruckProfit(int &max_prof, vector<int> &profit, vector<Order> &orders, Memento &memento,
@@ -70,8 +67,10 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(vector<Truck> trucks, vector<
     HEADER
     auto p = Knapsack::getMax(trucks);
     Knapsack knapsack(orders, p.first, p.second);
-    int orders_size = orders.size();
-    DO_HEADER
+    int orders_size = (int) orders.size();
+    do {
+        auto itTruckChosen = trucks.end();
+        int max_prof = (-2147483647 - 1);
 
         knapsack.knapsack_2d();
 
@@ -86,16 +85,18 @@ void OptimizeProfit::greedyTrucksAndLinearKnapsack(vector<Truck> trucks, vector<
         }
 
     FOOTER
-
-    cout << "% of deliveries made: " << (float)orders.size() / (float)orders_size * 100 << endl;
+    cout << "Deliveries: " << orders.size() << " / " << orders_size << " ("
+         << (float) orders.size() / (float) orders_size * 100 << "%)" << endl;
 }
 
 void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vector<Order> orders) {
 
     HEADER
     Knapsack knapsack1(orders);
-    int orders_size = orders.size();
-    DO_HEADER
+    int orders_size = (int) orders.size();
+    do {
+        auto itTruckChosen = trucks.end();
+        int max_prof = (-2147483647 - 1);
 
         for (auto truck = trucks.begin(); truck != trucks.end(); truck++) {
             vector<Order> uI;
@@ -108,7 +109,8 @@ void OptimizeProfit::greedyTrucksAndFractionalKnapsack(vector<Truck> trucks, vec
         }
 
     FOOTER
-    cout << "% of deliveries made: " << (float)orders.size() / (float)orders_size * 100 << endl;
+    cout << "Deliveries: " << orders.size() << " / " << orders_size << " ("
+         << (float) orders.size() / (float) orders_size * 100 << "%)" << endl;
 
 }
 
@@ -116,12 +118,16 @@ void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vec
 
     HEADER
     Knapsack knapsack(orders);
-    int orders_size = orders.size();
-    DO_HEADER
+    int orders_size = (int) orders.size();
+    do {
+        auto itTruckChosen = trucks.end();
+        int max_prof = (-2147483647 - 1);
+
         auto f = Knapsack::getMax(trucks);
         auto items = knapsack.knapsack_hirschberg(orders, f.first, f.second, max_prof, trucks);
 
         vector<Order> g;
+        g.reserve(items.size());
         for (auto item: items) {
             g.push_back(orders[item]);
         }
@@ -130,7 +136,8 @@ void OptimizeProfit::greedyTrucksAndOptimizedSpaceOfLK(vector<Truck> trucks, vec
         itTruckChosen = knapsack.itTruck;
 
     FOOTER
-    cout << "% of deliveries made: " << (float)orders.size() / (float)orders_size * 100 << endl;
+    cout << "Deliveries: " << orders.size() << " / " << orders_size << " ("
+         << (float) orders.size() / (float) orders_size * 100 << "%)" << endl;
 
 }
 

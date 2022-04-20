@@ -54,11 +54,13 @@ void OptimizeNumberOfDeliveries::eraseSavedOrders(const vector<Order> &usedItems
     }
 }
 
-void OptimizeNumberOfDeliveries::printResults(const unsigned &totalDeliveries, const unsigned &numberOfTrucks, const unsigned allOrders) {
+void OptimizeNumberOfDeliveries::printResults(const unsigned &totalDeliveries, const unsigned &numberOfTrucks,
+                                              const unsigned allOrders) {
     cout << "\nTotal deliveries: " << totalDeliveries << endl;
     cout << "Number of Trucks: " << numberOfTrucks << endl;
     cout << "Time taken: " << Timer::getCurrentTime() << "s\n";
-    cout << "Deliveries: "<< totalDeliveries <<" / " << allOrders << " ("<< ((double) totalDeliveries / allOrders) * 100 << "%)" << endl;
+    cout << "Deliveries: " << totalDeliveries << " / " << allOrders << " ("
+         << ((double) totalDeliveries / allOrders) * 100 << "%)" << endl;
 }
 
 // NOLINTNEXTLINE
@@ -85,16 +87,17 @@ void OptimizeNumberOfDeliveries::getAllDeliveriesCombinations(const unsigned &de
 }
 
 bool OptimizeNumberOfDeliveries::compareByWeightAndVolume(const Order &o1, const Order &o2) {
-    int avg1 = o1.weight * (double) o1.volume;
-    int avg2 = o2.weight * (double) o2.volume;
+    double avg1 = o1.weight * (double) o1.volume;
+    double avg2 = o2.weight * (double) o2.volume;
     return avg1 < avg2;
 }
 
-unsigned OptimizeNumberOfDeliveries::getGreedyNumberOfOrdersOfTruck(Truck &truck, vector<Order> &orders, vector<Order *>& usedItems) {
+unsigned OptimizeNumberOfDeliveries::getGreedyNumberOfOrdersOfTruck(Truck &truck, vector<Order> &orders,
+                                                                    vector<Order *> &usedItems) {
     unsigned int numOrders = 0;
     int weightUsed = 0, volumeUsed = 0;
-    for (Order &order : orders) {
-        if ((weightUsed + order.weight <= truck.pesoMax)   &&   (volumeUsed + order.volume <= truck.volMax)) {
+    for (Order &order: orders) {
+        if ((weightUsed + order.weight <= truck.pesoMax) && (volumeUsed + order.volume <= truck.volMax)) {
             usedItems.push_back(&order);
             weightUsed += order.weight;
             volumeUsed += order.volume;
@@ -103,11 +106,6 @@ unsigned OptimizeNumberOfDeliveries::getGreedyNumberOfOrdersOfTruck(Truck &truck
     }
     return numOrders;
 }
-
-
-
-
-
 
 
 // MAIN FUNCTIONS
@@ -183,7 +181,8 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndGreedyOrders(vector<Truck> truck
         unsigned maxDeliveries = 0;
         int rewardOrders = 0;
         bool truckFound = false;
-        saveUsedItems.clear(); tempUsedItems.clear();
+        saveUsedItems.clear();
+        tempUsedItems.clear();
 
         sort(ordersV.begin(), ordersV.end(), compareByWeightAndVolume);
         for (auto it = trucksV.begin(); it != trucksV.end(); it++) {
@@ -226,7 +225,8 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(vector<Truck> trucksV
     addDayBefore(ordersV, memento);
     vector<Order *> usedItems;
     vector<Order> saveUsedItems;
-    int totalDeliveries = 0, numberOfTrucks = 0, allOrders = ordersV.size();
+    int totalDeliveries = 0, numberOfTrucks = 0;
+    unsigned numAllOrders = ordersV.size();
 
     do {
         int maxDeliveries = 0, rewardOrders = 0;
@@ -271,7 +271,7 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndBruteForce(vector<Truck> trucksV
 
     memento.saveExpress({ordersV});
 
-    printResults(totalDeliveries, numberOfTrucks, allOrders);
+    printResults(totalDeliveries, numberOfTrucks, numAllOrders);
 }
 
 void OptimizeNumberOfDeliveries::backtracking(const vector<Truck> &trucksV, vector<Order> ordersV) {
@@ -282,7 +282,9 @@ void OptimizeNumberOfDeliveries::backtracking(const vector<Truck> &trucksV, vect
 
     vector<Order *> orders;
     vector<Order> allUsedOrders;
-    int totalDeliveries = 0, numAllOrders , numberOfTrucks;
+    int totalDeliveries = 0, numberOfTrucks;
+    unsigned numAllOrders = ordersV.size();
+
     map<Truck, set<Order *>> deliveries;
 
     for (const Truck &truck: trucksV)

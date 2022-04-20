@@ -53,10 +53,9 @@ public:
 private:
     /**
      * Asks user for the Truck and Order files used as input for the scenarios
-     * @param scene3 boolean if scenario 3 was chosen
      * @return string pair for the user provided file paths
      */
-    static pair<string, string> askFiles(bool scene3 = false);
+    static pair<string, string> askFiles();
 
     /**
      * Invokes scenario 1 algorithms menu
