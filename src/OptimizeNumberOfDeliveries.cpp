@@ -46,11 +46,12 @@ int OptimizeNumberOfDeliveries::getNumberOfDeliveries(const Truck &truck, vector
 
 void OptimizeNumberOfDeliveries::eraseSavedOrders(const vector<Order> &usedItems, vector<Order> &ordersV, bool print) {
     for (const Order order: usedItems) {
-        if (print)
-            cout << "\tOrder: " << order.id << "\t\tweight: " << order.weight << "\t\tvolume: " << order.volume << endl;
         auto it = find(ordersV.begin(), ordersV.end(), order);
-        if (it != ordersV.end())
+        if (it != ordersV.end()) {
+            if (print) cout << "\tOrder: " << order.id << "\t\tweight: " << order.weight << "\t\tvolume: " << order.volume << endl;
             ordersV.erase(it);
+        }
+
     }
 }
 
@@ -184,7 +185,7 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndGreedyOrders(vector<Truck> truck
         unsigned maxDeliveries = 0;
         int rewardOrders = 0;
         bool truckFound = false;
-        saveUsedItems.clear(); tempUsedItems.clear();
+        saveUsedItems.clear(); tempUsedItems.clear(); usedItems.clear();
 
         sort(ordersV.begin(), ordersV.end(), compareByWeightAndVolume);
         for (auto it = trucksV.begin(); it != trucksV.end(); it++) {
@@ -195,6 +196,7 @@ void OptimizeNumberOfDeliveries::greedyTrucksAndGreedyOrders(vector<Truck> truck
                 itTruckChosen = it;
                 truckFound = true;
                 usedItems = tempUsedItems;
+                tempUsedItems.clear();
             }
         }
 
