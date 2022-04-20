@@ -98,11 +98,11 @@ pair<string, string> Menu::askFiles() {
     }
 
     if (day < 10) {
-        file_paths.first = "../data/dates/2022040" + to_string(day) + "/c.txt";
-        file_paths.second = "../data/dates/2022040" + to_string(day) + "/e.txt";
+        file_paths.first = "../../input/2022040" + to_string(day) + "/c.txt";
+        file_paths.second = "../../input/2022040" + to_string(day) + "/e.txt";
     } else {
-        file_paths.first = "../data/dates/202204" + to_string(day) + "/c.txt";
-        file_paths.second = "../data/dates/202204" + to_string(day) + "/e.txt";
+        file_paths.first = "../../input/202204" + to_string(day) + "/c.txt";
+        file_paths.second = "../../input/202204" + to_string(day) + "/e.txt";
     }
 
     cin.clear();

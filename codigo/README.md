@@ -2,9 +2,9 @@
 
 ## Logística Urbana para Entrega de Mercadorias
 O trabalho encontra-se divido em 3 cenários:
-- otimizar nº de encomendas
-- otimizar lucro
-- otimizar tempo de entregas expresso
+- otimizar nº de encomendas e estafetas
+- otimizar lucro da empresa
+- otimizar tempo médio de entregas expresso
 
 ### Como compilar e executar
 > Abrir pasta que contem o código em CLion
