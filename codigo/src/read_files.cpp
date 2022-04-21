@@ -1,6 +1,5 @@
 #include "../include/read_files.h"
 
-
 vector<Truck> read_trucks(const string &path) {
 
     vector<Truck> rows;
